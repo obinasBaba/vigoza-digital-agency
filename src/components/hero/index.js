@@ -33,7 +33,7 @@ const HeroTextWrapper = styled( Grid )`
         transform: translateY(-35%);
         /*display: none;*/
       }
-  ` }
+  ` } 
   & > :nth-child(1) {
     font-size: clamp(4rem, 9vw, 8rem);
     letter-spacing: clamp(20px, 5vw, 74px);
@@ -89,7 +89,7 @@ function Hero() {
 
                     <Typography variant='h1'>Vigoza</Typography>
                     <Typography variant='body1'>Powered By Vigoza Studio</Typography>
-                    <Typography variant='body1'>ReadMore</Typography>
+                    <Typography >ReadMore</Typography>
 
                 </HeroTextWrapper>
 
