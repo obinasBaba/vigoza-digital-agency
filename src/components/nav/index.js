@@ -38,22 +38,20 @@ const StyledActiveDot = styled( 'div' )`
   flex-flow: wrap column;
   justify-content: start;
   gap: 30px;
-  
-  & > :nth-child(3){
-    margin-left: calc(0.9375rem / 2 - 3px);
+
+  & > :nth-child(2n+1) {
+    transform: translateX(calc(0.9375rem / 2)) translateX(-50%);
   }
-  
-  & > :first-child{
-    transform: translateX(-40%);
+
+  & > :first-child {
     margin-right: auto;
     font-size: 3rem;
   }
-  
+
 `;
 
 // noinspection JSUnresolvedFunction
 const Stick = styled.span`
-  //border-left: 3px solid white;
   width: 3px;
   height: 100px;
   background-color: white;
@@ -70,11 +68,11 @@ const ActiveDot = ({index, text}) => {
     return (
         <StyledActiveDot>
 
-            <Typography variant='h1' >0{ index + 1 }</Typography>
+            <Typography variant='h1'>0{ index + 1 }</Typography>
 
             <DotWrapper>
                 <Dot active/>
-                <Typography  >{ text }</Typography>
+                <Typography>{ text }</Typography>
             </DotWrapper>
 
             <Stick/>
@@ -93,17 +91,18 @@ const Pagination = () => {
 
     return (
         <Wrapper>
-
-
             {
                 ['welcome', 'about', 'service',
                     'portfolio', 'blog', 'contact']
 
                     .map( (i, index) =>
-                        active === index ? <ActiveDot key={ index }
-                                                      text={ i }
-                                                      index={ index }/> : <Dot onClick={ evt => handleClick( index ) }
-                                                                               key={ index }/> )
+                        active === index ?
+                            <ActiveDot key={ index }
+                                       text={ i }
+                                       index={ index }/>
+
+                            : <Dot onClick={ evt => handleClick( index ) }
+                                   key={ index }/> )
             }
         </Wrapper>
     );
