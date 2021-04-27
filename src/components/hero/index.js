@@ -1,15 +1,14 @@
 // noinspection CssUnknownTarget
 
 import React from 'react';
-import {Box, Grid, IconButton, Typography} from "@material-ui/core";
+import {Grid, IconButton, Typography} from "@material-ui/core";
 import {Facebook, Instagram, Pinterest, Twitter} from "@material-ui/icons";
-import { ScrollDown} from './style'
+import {ScrollDown} from './style'
 import styled from "styled-components";
-import { compose, spacing, palette } from '@material-ui/system';
 import {grey} from "@material-ui/core/colors";
 
 
-const GridContainer = styled(Grid)`
+const GridContainer = styled( Grid )`
   height: 100vh;
   width: 100vw;
   overflow: hidden;
@@ -18,6 +17,7 @@ const GridContainer = styled(Grid)`
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  z-index: 0;
 
 `
 
@@ -26,63 +26,64 @@ const HeroTextWrapper = styled( Grid )`
   display: flex;
   flex-flow: column;
   transform: translateY(-70%);
-  
-  //width: auto;
+  margin-left: 1vw;
 
   ${ ({theme}) => `
-      ${ theme.breakpoints.up( 'sm' ) } {
+      ${ theme.breakpoints.up( 'lg' ) } {
         transform: translateY(-35%);
         /*display: none;*/
       }
-  `}
-  
-  //margin-bottom: 8rem;
-  
-  
-  & > :nth-child(1){
-    font-size: clamp(4rem, 8vw, 10rem);
+  ` }
+  & > :nth-child(1) {
+    font-size: clamp(4rem, 9vw, 8rem);
     letter-spacing: clamp(20px, 5vw, 74px);
-    //font-weight: bolder;
   }
-  
-  & > :nth-child(2){
+
+  & > :nth-child(2) {
     display: inline-block;
-    letter-spacing: calc(.12em + .2vw );
+    letter-spacing: calc(.12em + .2vw);
     text-transform: uppercase;
     font-weight: lighter;
     margin-right: auto;
-    color: ${props => props.theme.palette.primary.light};
+    color: ${ props => props.theme.palette.primary.light };
     //padding-bottom: 1rem;
-    
-    &::after{
+
+    &::after {
       content: '';
       display: block;
       height: 2px;
       margin-top: .5rem;
       width: 73%;
-      background-color: ${props => props.theme.palette.secondary.dark};
+      background-color: ${ props => props.theme.palette.secondary.main };
     }
-    
+
   }
 `
 
-const Icon = styled(IconButton)` 
-  
-  
-    &.MuiIconButton-edgeStart{
-      
-    }
+const EffectTypo = styled.h1`
+  position: absolute;
+  font-family: Poppins, sans-serif;
+  font-weight: bolder;
+  text-transform: uppercase;
+  letter-spacing: clamp(20px, 4vw ,60px);
+  line-height: 0;
+  bottom:-6%;
+  left: 0;
+  transform: translateX(-63%);
+  font-size: 15rem;
+  z-index: -1;
+  opacity: .08;
 `
-
 
 function Hero() {
 
     return (
         <GridContainer container>
 
-            <Grid item xs={1} md={2}/>
+            <Grid item xs={ 1 } md={ 2 }/>
 
-            <Grid item container xs={ 10 } md={7} alignItems='center' justify='center'>
+            <Grid item container xs={ 10 } md={ 7 }
+                  alignItems='center' justify='center'>
 
                 <HeroTextWrapper item>
 
@@ -93,31 +94,35 @@ function Hero() {
                 </HeroTextWrapper>
 
                 <ScrollDown>
-                    <Typography variant='body1' >
+                    <Typography variant='body1'>
                         Scroll Down
                     </Typography>
                 </ScrollDown>
 
             </Grid>
 
-            <Grid item md={2} />
+            <Grid item md={ 2 }/>
 
             <Grid item container xs={ 1 } direction='column'
-                  alignItems='center' justify='center' >
+                  alignItems='center' justify='center'>
 
-                <Icon edge='start' fontSize='large'  >
-                    <Facebook style={{ color: grey[300] }}  />
-                </Icon>
-                <IconButton edge='start'  >
-                    <Instagram  style={{ color: grey[300] }}  />
+                <IconButton edge='start'>
+                    <Facebook style={ {color: grey[300]} } fontSize='large'/>
                 </IconButton>
                 <IconButton edge='start'>
-                    <Twitter style={{ color: grey[300] }} fontSize='large'/>
+                    <Instagram style={ {color: grey[300]} } fontSize='large'/>
                 </IconButton>
                 <IconButton edge='start'>
-                    <Pinterest style={{ color: grey[300] }} fontSize='large' />
+                    <Twitter style={ {color: grey[300]} } fontSize='large'/>
+                </IconButton>
+                <IconButton edge='start'>
+                    <Pinterest style={ {color: grey[300]} } fontSize='large'/>
                 </IconButton>
             </Grid>
+
+            <EffectTypo>
+                Vigoza
+            </EffectTypo>
 
         </GridContainer>
     );

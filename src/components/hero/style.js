@@ -19,15 +19,13 @@ export const ScrollDown = styled.div`
   border-bottom: 3px solid ${({theme}) => theme.palette.primary.dark};
   transform: rotate(90deg);
   transform-origin: left;
-  padding-bottom: 10px;
+  padding-bottom: 0px;
   text-indent: 30px;
   position: absolute;
-  left: 26%;
+  left: 30%;
   right: 0;
-  width: 500px;
-  bottom: 200px;
-  
-  
+  width: 400px;
+  bottom: 220px;
 
   &::after, &::before {
     content: '';
@@ -47,7 +45,7 @@ export const ScrollDown = styled.div`
   }
 
   &::after {
-    top: 102%;
+    top: 103%;
     border-radius: 100px;
     width: 10px;
     height: 5px;
@@ -55,4 +53,12 @@ export const ScrollDown = styled.div`
     animation: ${scrollAnim} 1s linear infinite alternate both;
   }
 
+  
+  & > :first-child{
+    text-transform: uppercase;
+    font-weight: lighter;
+    //color: ${ props => props.theme.palette.primary.light };
+    letter-spacing: 3px;
+  }
+  
 `;
