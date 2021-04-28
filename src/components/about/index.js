@@ -7,13 +7,15 @@ import styled from "styled-components";
 
 const AboutContainer = styled( Grid )`
   min-height: 100vh;
+  position: relative;
+  overflow: hidden;
 `
 
 const ContentWrapper = styled( 'div' )`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: .4fr .5fr .25fr .25fr .4fr .5fr;
+  grid-template-rows: .4fr .5fr .25fr .25fr .4fr .4fr;
 `
 
 const SvgWrapper = styled( 'div' )`
@@ -83,7 +85,6 @@ const TypoWrapper = styled( 'div' )`
 `
 
 const AboutText = styled( Typography )`
-
   grid-column: 1 / 13;
   grid-row: 5 / 6;
   align-self: start  ;
@@ -91,6 +92,19 @@ const AboutText = styled( Typography )`
   padding-top: 2em;
   max-width: 60ch;
   position: relative;
+  
+  &::before{
+    content: '';
+    position: absolute;
+    background-color: ${ props => props.theme.palette.secondary.main };
+    left: 13%;
+    top: 10%;
+    width: 3px;
+    height: 50px;
+    transform: translateY(-100%);
+  }
+  
+  
   
   ${ ({theme}) => `
 
@@ -103,15 +117,51 @@ const AboutText = styled( Typography )`
         grid-row: 4 / 6;
         align-self: center;
         justify-self: start; 
+        
+        &::before{
+            left: 0;
+            top: 30%;
+            width: 50px;
+            height: 3px;
+            transform: translateX(-120%);
+        }
       }
 ` }
 `
 
+const A = styled( 'h1' )`
+  position: absolute;
+  font-size: 30rem;
+  font-family: Poppins, sans-serif;
+  font-weight: bolder;
+  text-transform: uppercase;
+  line-height: 0;
+  opacity: .06;
+  right: -2%;
+  bottom: -19%;
+`
+const AboutEffect = styled('h1')`
+  position: absolute;
+  font-family: Poppins, sans-serif;
+  font-weight: bolder;
+  font-size: 20rem;
+  right: 0;
+  top: -15%;
+  z-index: -999;
+  line-height: 0;
+  opacity: .03;
+  letter-spacing: 15px;
+`;
 
 const About = () => {
 
+
+
     return (
         <AboutContainer xs item container>
+
+            <A>A</A>
+            <AboutEffect>about</AboutEffect>
 
             <Grid item xs={ 1 } md={1}/>
 
