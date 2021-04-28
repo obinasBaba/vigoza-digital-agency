@@ -25,6 +25,7 @@ type DotProps = {
     active: boolean;
 }
 
+
 const Dot = styled<DotProps>( 'div' )`
   width: 0.9375rem;
   height: 0.9375rem;

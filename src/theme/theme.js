@@ -21,7 +21,7 @@ let theme = createMuiTheme({
             main: deepOrange["A400"]
         },
         text: {
-            primary: '#ffffff'
+            // primary: '#ffffff'
         }
     },
     typography: {
