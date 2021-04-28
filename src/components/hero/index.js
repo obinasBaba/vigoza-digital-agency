@@ -10,7 +10,6 @@ import {grey} from "@material-ui/core/colors";
 
 const GridContainer = styled( Grid )`
   height: 100vh;
-  width: 100vw;
   overflow: hidden;
   position: relative;
   background-image: url("img/hero.jpg");
