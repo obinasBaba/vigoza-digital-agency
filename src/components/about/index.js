@@ -184,7 +184,8 @@ const About = () => {
                         similique temporibus. Assumenda esse excepturi
                         labore quaerat, quia unde velit veniam voluptates?
 
-                        <Typography component='span' style={{marginTop: '2rem', display: "block", textAlign: 'left'}}>
+                        <Typography component='span'
+                                    style={{marginTop: '2rem', display: "block"}}>
                             incidunt inventore
                         </Typography>
 
