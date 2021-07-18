@@ -1,10 +1,11 @@
 // @flow
 
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Typography} from "@material-ui/core";
 import styled, {css} from 'styled-components'
 import {heightWidth, smallUp, spacing, text} from "../../styles/mixins";
 import {AnimatePresence, AnimateSharedLayout, motion} from "framer-motion";
+import {AppStateContext} from "../../contexts/AppStateContext";
 
 const Wrapper = styled(motion.div)`
   position: fixed;
@@ -103,7 +104,9 @@ const ActiveDot = ({index, text}) => {
                          exit='exit'
         >
 
-            <Typography variant='h1'>0{index + 1}</Typography>
+            <Typography variant='h1' style={{
+                color: `${ index === 0 ? '#ffffff' : '#000000' }`
+            }} >0{index + 1}</Typography>
 
             <DotWrapper>
                 <Dot active/>
@@ -119,13 +122,12 @@ const ActiveDot = ({index, text}) => {
 
 
 const Pagination = () => {
-
-    const [active, setActive] = useState(0);
+    const {dotIndex, setDotIndex} = useContext(AppStateContext);
     const anchors = ['welcome', 'about', 'service',
         'portfolio', 'blog', 'contact'];
 
     const handleClick = (index) => {
-        setActive(index)
+        setDotIndex(index)
     }
 
     return (
@@ -133,12 +135,12 @@ const Pagination = () => {
             <Wrapper>
                 {
                     anchors.map((i, index) =>
-                        active === index ?
+                        dotIndex === index ?
                             <ActiveDot key={index}
                                        text={i}
                                        index={index}/>
 
-                            : <Dot onClick={evt => handleClick(index)}
+                            : <Dot onClick={ () => handleClick(index)}
                                    key={index}/>)
                 }
             </Wrapper>

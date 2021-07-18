@@ -1,11 +1,13 @@
 
-import React from 'react';
+import React, {useContext, useEffect, useRef} from 'react';
 import {Grid, Typography} from "@material-ui/core";
 import {ScrollDown} from './components'
 import styled, {css} from "styled-components";
 import {largeUp} from "../../styles/mixins";
 import MotionBtn from "../MotionBtn";
 import Social from "./Social";
+import {useIntersection} from "react-use";
+import {AppStateContext} from "../../contexts/AppStateContext";
 
 
 const GridContainer = styled( Grid )`
@@ -21,7 +23,7 @@ const GridContainer = styled( Grid )`
 `
 
 const HeroTextWrapper = styled( Grid )`
-  gap: 1em;
+  gap: .3em;
   display: flex;
   flex-flow: column;
   transform: translateY(-70%);
@@ -38,9 +40,11 @@ const HeroTextWrapper = styled( Grid )`
 
   .powered {
     display: inline-block;
-    letter-spacing: calc(.12em + .2vw);
+    //letter-spacing: calc(.12em + .2vw);
+    letter-spacing: 3px;
+    font-family: var(--abyss);
     text-transform: uppercase;
-    font-weight: lighter;
+    font-weight: bolder;
     margin-right: auto;
     color: ${ props => props.theme.palette.primary.light };
     //padding-bottom: 1rem;
@@ -48,10 +52,10 @@ const HeroTextWrapper = styled( Grid )`
     &::after {
       content: '';
       display: block;
-      height: 2px;
+      height: 1px;
       margin-top: .5rem;
-      width: 73%;
-      background-color: ${ props => props.theme.palette.secondary.main };
+      width: 123%;
+      background-color: orangered;
     }
 
   }
@@ -62,10 +66,10 @@ const EffectTypo = styled.h1`
   font-family: Poppins, sans-serif;
   font-weight: bolder;
   text-transform: uppercase;
-  letter-spacing: clamp(20px, 4vw ,60px);
+  letter-spacing: clamp(20px, 3vw ,40px);
   line-height: 0;
-  bottom:-6%;
-  left: 0;
+  bottom:-16%;
+  left: -3%;
   transform: translateX(-63%);
   font-size: 15rem;
   z-index: -1;
@@ -73,9 +77,27 @@ const EffectTypo = styled.h1`
 `
 
 function Hero() {
+    const containerRef = useRef(null);
+    const {dotIndex, setDotIndex} = useContext(AppStateContext);
+
+
+    const intersection = useIntersection(containerRef, {
+        root: null,
+        rootMargin: `0px 0px 0px 0px`,
+        threshold: .6,
+    })
+
+    useEffect(() => {
+        if(intersection && intersection.isIntersecting) {
+            setDotIndex(0)
+        }
+
+
+    }, [intersection])
+
 
     return (
-        <GridContainer container>
+        <GridContainer container ref={containerRef} >
 
             <Grid item xs={ 1 } md={ 2 }/>
 

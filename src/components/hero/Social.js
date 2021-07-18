@@ -5,6 +5,7 @@ import {grey} from "@material-ui/core/colors";
 import styled from "styled-components";
 
 const SocialContainer = styled(Grid)`
+  //margin-left: 10px;
 
   & > *:hover {
     & *{

@@ -16,6 +16,8 @@ export const responsiveVar = css`
     --poppins: 'Poppins Black', sans-serif;
     --border: thin solid crimson;
     --raisonne: 'raisonne-light';
+    --raisonne-b: 'raisonne-bold';
+    --raisonne-br: 'raisonne-bolder';
     
 
 
