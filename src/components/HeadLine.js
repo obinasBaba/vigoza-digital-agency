@@ -44,11 +44,11 @@ const Effect = styled.h1`
   ${text(7)}
 `
 
-const HeadLine = () => {
+const HeadLine = ({text='SERVICES', effect},) => {
     return (
         <HeadLineContainer>
-            <Effect>SERVICE</Effect>
-            <Typography className='title' variant='h1' >SERVICES</Typography>
+            <Effect>{ effect && effect}</Effect>
+            <Typography className='title' variant='h1' >{text}</Typography>
         </HeadLineContainer>
     );
 };

@@ -61,7 +61,7 @@ const Services = () => {
 
         <ServicesContainer  ref={containerRef}>
 
-            <HeadLine/>
+            <HeadLine text='Services' effect='SERVICES' />
 
             <ServiceList/>
 

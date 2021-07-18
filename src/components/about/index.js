@@ -170,7 +170,7 @@ const AboutEffect = styled('h1')`
 
 const About = () => {
     const containerRef = useRef(null);
-    const {dotIndex, setDotIndex} = useContext(AppStateContext);
+    const { setDotIndex} = useContext(AppStateContext);
 
     const [inView, setInView] = useState(false);
 
