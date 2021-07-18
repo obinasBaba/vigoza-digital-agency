@@ -1,11 +1,11 @@
-// noinspection CssUnknownTarget
 
 import React from 'react';
-import {Grid, IconButton, Typography} from "@material-ui/core";
-import {Facebook, Instagram, Pinterest, Twitter} from "@material-ui/icons";
-import {ScrollDown} from './style'
-import styled from "styled-components";
-import {grey} from "@material-ui/core/colors";
+import {Grid, Typography} from "@material-ui/core";
+import {ScrollDown} from './components'
+import styled, {css} from "styled-components";
+import {largeUp} from "../../styles/mixins";
+import MotionBtn from "../MotionBtn";
+import Social from "./Social";
 
 
 const GridContainer = styled( Grid )`
@@ -17,7 +17,7 @@ const GridContainer = styled( Grid )`
   background-size: cover;
   background-repeat: no-repeat;
   z-index: 0;
-
+  color: white;
 `
 
 const HeroTextWrapper = styled( Grid )`
@@ -26,19 +26,17 @@ const HeroTextWrapper = styled( Grid )`
   flex-flow: column;
   transform: translateY(-70%);
   margin-left: 1vw;
-
-  ${ ({theme}) => `
-      ${ theme.breakpoints.up( 'lg' ) } {
-        transform: translateY(-35%);
-        /*display: none;*/
-      }
-  ` } 
+  
+  ${ largeUp( css`
+    transform: translateY(-27%);
+  ` ) };
+  
   & > :nth-child(1) {
     font-size: clamp(4rem, 9vw, 8rem);
     letter-spacing: clamp(20px, 5vw, 74px);
   }
 
-  & > :nth-child(2) {
+  .powered {
     display: inline-block;
     letter-spacing: calc(.12em + .2vw);
     text-transform: uppercase;
@@ -87,13 +85,15 @@ function Hero() {
                 <HeroTextWrapper item>
 
                     <Typography variant='h1'>Vigoza</Typography>
-                    <Typography variant='body1'>Powered By Vigoza Studio</Typography>
-                    <Typography >ReadMore</Typography>
+                    <Typography className='powered' variant='subtitle2'>
+                        Powered By Vigoza Studio
+                    </Typography>
+                    <MotionBtn txt={'Read More'} />
 
                 </HeroTextWrapper>
 
                 <ScrollDown>
-                    <Typography variant='body1'>
+                    <Typography variant='body2'>
                         Scroll Down
                     </Typography>
                 </ScrollDown>
@@ -102,22 +102,7 @@ function Hero() {
 
             <Grid item md={ 2 }/>
 
-            <Grid item container xs={ 1 } direction='column'
-                  alignItems='center' justify='center'>
-
-                <IconButton edge='start'>
-                    <Facebook style={ {color: grey[300]} } fontSize='large'/>
-                </IconButton>
-                <IconButton edge='start'>
-                    <Instagram style={ {color: grey[300]} } fontSize='large'/>
-                </IconButton>
-                <IconButton edge='start'>
-                    <Twitter style={ {color: grey[300]} } fontSize='large'/>
-                </IconButton>
-                <IconButton edge='start'>
-                    <Pinterest style={ {color: grey[300]} } fontSize='large'/>
-                </IconButton>
-            </Grid>
+            <Social/>
 
             <EffectTypo>
                 Vigoza

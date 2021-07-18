@@ -20,16 +20,20 @@ let theme = createMuiTheme({
         secondary: {
             main: deepOrange["A400"]
         },
+
         text: {
-            // primary: '#ffffff'
+            primary: 'var(--p-color)',
+            secondary: 'var(--s-color)',
         }
     },
     typography: {
 
+
+
         fontFamily: [
-            "Inconsolata, monospace",
-            "Poppins, sans-serif"
+            'raisonne-light'
         ].join(','),
+
         h1: {
             fontFamily: 'abyssopelagic',
             textTransform: 'uppercase',
@@ -37,7 +41,7 @@ let theme = createMuiTheme({
         },
 
         body1: {
-            letterSpacing: '2px'
+            // letterSpacing: '1px'
         },
     }
 })

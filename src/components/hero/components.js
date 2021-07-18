@@ -1,6 +1,5 @@
 import styled, {keyframes} from "styled-components";
-import {Grid as MuiGrid} from "@material-ui/core";
-
+import {text} from "../../styles/mixins";
 
 
 const scrollAnim = keyframes`
@@ -16,16 +15,16 @@ const scrollAnim = keyframes`
 
 export const ScrollDown = styled.div`
 
-  border-bottom: 3px solid ${({theme}) => theme.palette.primary.dark};
+  border-bottom: 2px solid ${({theme}) => theme.palette.primary.dark};
   transform: rotate(90deg);
   transform-origin: left;
-  padding-bottom: 0px;
-  text-indent: 30px;
+  padding-bottom: 0;
+  text-indent: 25px;
   position: absolute;
   left: 30%;
   right: 0;
-  width: 400px;
-  bottom: 220px;
+  width: 180px;
+  bottom: 115px;
 
   &::after, &::before {
     content: '';
@@ -41,24 +40,24 @@ export const ScrollDown = styled.div`
     border-radius: 50px;
     width: 40px;
     height: 25px;
-    border: 3px solid ${({theme}) => theme.palette.primary.dark};
+    border: 2px solid ${({theme}) => theme.palette.primary.dark};
   }
 
   &::after {
-    top: 103%;
+    top: 105%;
     border-radius: 100px;
     width: 10px;
     height: 5px;
     background-color: ${({theme}) => theme.palette.secondary.main};
     animation: ${scrollAnim} 1s linear infinite alternate both;
   }
-
   
-  & > :first-child{
+  p{
+    ${text(.5)}
     text-transform: uppercase;
     font-weight: lighter;
-    //color: ${ props => props.theme.palette.primary.light };
     letter-spacing: 3px;
+    color: ${ props => props.theme.palette.primary.light };
   }
   
 `;
