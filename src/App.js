@@ -5,6 +5,7 @@ import './App.css';
 import Hero from "./components/hero";
 import Pagination from "./components/nav";
 import About from "./components/about";
+import Services from "./components/services";
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
             <Pagination/>
             <Hero/>
             <About/>
+            <Services />
         </React.Fragment>
     );
 }

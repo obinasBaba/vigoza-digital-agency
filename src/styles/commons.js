@@ -18,12 +18,11 @@ export const responsiveVar = css`
     --raisonne: 'raisonne-light';
     --raisonne-b: 'raisonne-bold';
     --raisonne-br: 'raisonne-bolder';
-    
 
 
     //colors
     --p-color: #ffffff;
-    --s-color: #ffffff;
+    --s-color: rgba(147, 146, 146, 0.88);
     --accent300: #ff8a65;
     --accent400: #ff7043;
     --accent500: #ff5722;

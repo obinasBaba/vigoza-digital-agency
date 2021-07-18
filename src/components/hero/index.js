@@ -78,7 +78,7 @@ const EffectTypo = styled.h1`
 
 function Hero() {
     const containerRef = useRef(null);
-    const {dotIndex, setDotIndex} = useContext(AppStateContext);
+    const {setDotIndex} = useContext(AppStateContext);
 
 
     const intersection = useIntersection(containerRef, {
