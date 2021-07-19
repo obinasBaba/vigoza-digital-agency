@@ -14,7 +14,7 @@ const HeadLineContainer = styled.div`
   ${spacing('mb', 5)}
 
   .title {
-    font-size: 2.3rem;
+    font-size: 2rem;
     letter-spacing: 10px;
     font-weight: 400;
 

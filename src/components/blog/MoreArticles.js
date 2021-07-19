@@ -1,15 +1,23 @@
 import React from 'react';
 import styled, {css} from "styled-components";
-import {gridColWidth, heightWidth, largeUp} from "../../styles/mixins";
+import {gridColWidth, heightWidth, largeUp, mediumUp} from "../../styles/mixins";
 import {Typography} from "@material-ui/core";
 
 const MoreArticlesContainer = styled.aside`
   display: flex;
   flex-flow: column;
   gap: 20px;
+  grid-row: 3;
+  align-self: center;
+  justify-self: center;
   
   ${heightWidth('gap', 3)};
-  ${gridColWidth(41, 57)};
+  ${gridColWidth(20, 40)};
+  
+  ${mediumUp(css`
+    grid-row: 2;
+    ${gridColWidth(40, 57)};
+  `)};
 
 `
 

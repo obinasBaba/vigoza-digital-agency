@@ -10,6 +10,7 @@ import BLogs from "./components/blog";
 import ProgressCircle from "./components/ProgressCircle";
 import styled from "styled-components";
 import Contact from "./components/contact";
+import Portfolio from "./components/portfolio";
 
 const AppContainer = styled.main`
   //position: fixed;
@@ -42,7 +43,7 @@ function App() {
 
     const skewScrolling = () => {
         skewConfigs.current = window.scrollY;
-        skewConfigs.previous += (skewConfigs.current - skewConfigs.previous ) * skewConfigs.ease;
+        skewConfigs.previous += (skewConfigs.current - skewConfigs.previous) * skewConfigs.ease;
         skewConfigs.rounded = Math.round(skewConfigs.previous * 100) / 100;
 
         const diff = skewConfigs.current - skewConfigs.rounded;
@@ -59,13 +60,14 @@ function App() {
     return (
         <AppContainer ref={mainRef}>
             {/*<div className="scroll" ref={scrollRef}>*/}
-                <Pagination/>
-                <ProgressCircle/>
-                <Hero/>
-                <About/>
-                <Services/>
-                <BLogs/>
-                <Contact/>
+            <Pagination/>
+            <ProgressCircle/>
+            <Hero/>
+            <About/>
+            <Services/>
+            <Portfolio/>
+            <BLogs/>
+            <Contact/>
             {/*</div>*/}
         </AppContainer>
     );

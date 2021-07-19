@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import styled, {css} from "styled-components";
-import {gridColWidth, gridify, largeUp, spacing} from "../../styles/mixins";
+import {gridColWidth, gridify, heightWidth, largeUp, spacing} from "../../styles/mixins";
 import HeadLine from "../HeadLine";
 import FeaturedBlog from "./FeaturedBlog";
 import MoreArticles from "./MoreArticles";
@@ -12,7 +12,9 @@ const BlogsContainer = styled.div`
   position: relative;
   overflow: hidden;
   justify-content: center;
-  align-items: center;
+  align-content: center;
+  //align-items: center;
+  grid-row-gap: calc(2.8rem * var(--size));
 
     ${({inView}) => inView && css`
     --p-color: #000000;
@@ -34,7 +36,6 @@ const BlogsContainer = styled.div`
     font-family: var(--poppins);
     z-index: -9999;
     color: rgba(211, 211, 211, 0.13);
-
 
     &.b {
       font-size: 30em;
@@ -61,7 +62,6 @@ const BLogs = () => {
     const [inView, setInView] = useState(false);
     const {setDotIndex} = useContext(AppStateContext);
 
-
     const intersection = useIntersection(containerRef, {
         root: null,
         rootMargin: `0px 0px 0px 0px`,
@@ -80,13 +80,9 @@ const BLogs = () => {
     return (
         <BlogsContainer ref={containerRef} inView={inView}>
 
-            <HeadLine text='Recent Blogs'
-
-            />
-
+            <HeadLine text='Recent Blogs'/>
             <h1 className="blog__effect blog">Blog</h1>
             <h1 className="blog__effect b">B </h1>
-
 
             <FeaturedBlog />
 

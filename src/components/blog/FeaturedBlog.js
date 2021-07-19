@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from "styled-components";
-import {gridColWidth, heightWidth, spacing} from "../../styles/mixins";
+import styled, {css} from "styled-components";
+import {gridColWidth, heightWidth, mediumUp, spacing} from "../../styles/mixins";
 import {Typography} from "@material-ui/core";
 
 const FeaturedBlogContainer = styled.div`
@@ -13,7 +13,7 @@ const FeaturedBlogContainer = styled.div`
   ${gridColWidth(12, 36)};
   
 
-  @media (max-width: 43.5em), (min-width: 54.5em) {
+  ${mediumUp( css`
     flex-flow: row;
 
     .blog_img {
@@ -24,7 +24,7 @@ const FeaturedBlogContainer = styled.div`
     .title_desc {
       align-self: center;
     }
-  }
+  ` )};
 
 
 `
@@ -51,8 +51,9 @@ const TextWrapper = styled.div`
     display: inline-block;
     top: 10px;
     left: -35%;
-    width: 55px;
     height: 3px;
+    
+    ${spacing('width', 5)};
   }
 `
 
