@@ -59,8 +59,8 @@ const StyledActiveDot = styled( motion.div )`
 
 const Stick = styled.span`
   width: 2px;
-  height: 100px;
-  background-color: var(--accent300);
+  height: 60px;
+  background-color: var(--accent400);
   transform: translateX(-50%);
 `
 
@@ -105,7 +105,7 @@ const ActiveDot = ({index, text}) => {
         >
 
             <Typography variant='h1' style={{
-                color: `${ index === 0 ? '#ffffff' : '#000000' }`
+                color: 'var(--accent500)',
             }} >0{index + 1}</Typography>
 
             <DotWrapper>

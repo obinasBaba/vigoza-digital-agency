@@ -27,6 +27,8 @@ const HeadLineContainer = styled.div`
       margin-top: .3em;
     }
   }
+  
+  ${ ({styles}) => styles && styles };
 `
 
 const Effect = styled.h1`
@@ -44,9 +46,9 @@ const Effect = styled.h1`
   ${text(7)}
 `
 
-const HeadLine = ({text='SERVICES', effect},) => {
+const HeadLine = ({text='SERVICES', effect, styles},) => {
     return (
-        <HeadLineContainer>
+        <HeadLineContainer styles={styles} >
             <Effect>{ effect && effect}</Effect>
             <Typography className='title' variant='h1' >{text}</Typography>
         </HeadLineContainer>
