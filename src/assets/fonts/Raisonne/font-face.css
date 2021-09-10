@@ -1,0 +1,55 @@
+
+/*@font-face {
+    font-family: 'raisonne-bold';
+    src: local('raisonne'), local('raisonne'),
+    url('raisonne.eot'),
+    url('raisonne.eot?#iefix') format('embedded-opentype'),
+    url('raisonne.woff2') format('woff2'),
+    url('raisonne.woff') format('woff'),
+    url('raisonne.ttf') format('truetype'),
+    url('raisonne.svg#raisonne') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}*/
+
+@font-face {
+    font-family: 'raisonne-bold';
+    src: url('RaisonnePro-DemiBold.woff2') format('woff2'),
+    url('bold/raisonnePro-semiBold.eot') format('embedded-opentype'),
+    url('bold/raisonnePro-semiBold.woff') format('woff'),
+    url('bold/raisonnePro-semiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'raisonne-bolder';
+    src: url('RaisonnePro-Bold.woff2') format('woff2'),
+    url('bolder/raisonnePro-Bold.eot') format('embedded-opentype'),
+    url('bolder/raisonnePro-Bold.woff') format('woff'),
+    url('bolder/raisonnePro-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'raisonne-light';
+    src: url('light/RaisonnePro-Light.woff2') format('woff2'),
+    url('light/RaisonnePro-Light.eot') format('embedded-opentype'),
+    url('light/RaisonnePro-Light.woff') format('woff'),
+    url('light/RaisonnePro-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Raisonnepro';
+    src: url('https://assets.website-files.com/5e0f6cce946b126508a0d575/5e0f6de22aef553b1b39ea38_RaisonnePro-LightOblique.eot') format('embedded-opentype'), url('https://assets.website-files.com/5e0f6cce946b126508a0d575/5e0f6de22aef55f95039ea37_RaisonnePro-LightOblique.woff') format('woff'), url('https://assets.website-files.com/5e0f6cce946b126508a0d575/5e0f6de24b55b0c9e425dba2_RaisonnePro-LightOblique.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
