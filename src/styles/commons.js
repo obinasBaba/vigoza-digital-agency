@@ -15,6 +15,7 @@ export const responsiveVar = css`
     --abyss: 'abyssopelagic', sans-serif;
     --poppins: 'Poppins Black', sans-serif;
     --border: thin solid crimson;
+    
     --raisonne: 'raisonne-light';
     --raisonne-b: 'raisonne-bold';
     --raisonne-br: 'raisonne-bolder';

@@ -1,5 +1,5 @@
 import {createMuiTheme, responsiveFontSizes} from "@material-ui/core";
-import {deepOrange, grey, orange} from "@material-ui/core/colors";
+import {deepOrange, grey} from "@material-ui/core/colors";
 
 let theme = createMuiTheme({
 

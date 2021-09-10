@@ -1,12 +1,18 @@
 import {createGlobalStyle, css} from "styled-components";
 import {responsiveVar} from "../styles/commons";
 import {smallUp} from "../styles/mixins";
+import '../styles/fontFace.css';
+
 
 export const GlobalStyles = createGlobalStyle`
 
-  ${ responsiveVar }  ;
+  ${ responsiveVar };
   
   body{
+
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     
     * {
       ${smallUp( css`
@@ -31,6 +37,21 @@ export const GlobalStyles = createGlobalStyle`
     border-radius: 100px;
     transition: background-color 1s ease-in-out;
   }
-  
-  
+
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+  }
+
+  .bars{
+    fill: url(#pattern-602e0271028d1);
+  }
+
+  .bars.mobile{
+    z-index: -999;
+  }
+
+  .bars.mobile  image{
+    transform: translateX(23%);
+  }
 `
