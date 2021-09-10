@@ -61,7 +61,7 @@ const Portfolio = () => {
     }, [intersection])
 
     return (
-        <PortfolioContainer ref={containerRef}>
+        <PortfolioContainer ref={containerRef}  data-scroll-section>
             <HeadLine text='portfolio' styles={HeadLineStyle}/>
 
             <ContentWrapper>

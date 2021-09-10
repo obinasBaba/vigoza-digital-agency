@@ -21,6 +21,7 @@ const ServicesContainer = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  margin-bottom: -1px; //hide the smooth scroll pixel stuttering problem
 
   ${gridify()}
   ${spacing('pt', 15)}
@@ -59,7 +60,7 @@ const Services = () => {
 
     return (
 
-        <ServicesContainer  ref={containerRef}>
+        <ServicesContainer  ref={containerRef}  data-scroll-section>
 
             <HeadLine text='Services' effect='SERVICES' />
 

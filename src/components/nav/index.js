@@ -7,7 +7,7 @@ import {heightWidth, smallUp, spacing, text} from "../../styles/mixins";
 import {AnimatePresence, AnimateSharedLayout, motion} from "framer-motion";
 import {AppStateContext} from "../../contexts/AppStateContext";
 
-const Wrapper = styled(motion.div)`
+const PaginationContainer = styled(motion.div)`
   position: fixed;
   z-index: 9999;
   left: 3%;
@@ -132,7 +132,7 @@ const Pagination = () => {
 
     return (
         // <AnimateSharedLayout>
-            <Wrapper>
+            <PaginationContainer>
                 {
                     anchors.map((i, index) =>
                         dotIndex === index ?
@@ -143,7 +143,7 @@ const Pagination = () => {
                             : <Dot onClick={ () => handleClick(index)}
                                    key={index}/>)
                 }
-            </Wrapper>
+            </PaginationContainer>
         // </AnimateSharedLayout>
 
     );

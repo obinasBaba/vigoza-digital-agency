@@ -1,7 +1,7 @@
 import { motion, useTransform, useViewportScroll } from 'framer-motion'
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
-import { heightWidth, spacing} from "../styles/mixins";
+import { heightWidth, spacing} from "../../styles/mixins";
 
 const ProgressContainer = styled(motion.div)`
   z-index: 100;
@@ -46,7 +46,7 @@ const bottomPathVariant = {
   },
 }
 
-const ProgressCircle = () => {
+const ScrollProgressCircle = () => {
 
   const { scrollYProgress } = useViewportScroll()
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 361])
@@ -88,4 +88,4 @@ const ProgressCircle = () => {
   )
 }
 
-export default ProgressCircle
+export default ScrollProgressCircle

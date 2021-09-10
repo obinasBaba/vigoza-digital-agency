@@ -1,16 +1,17 @@
 // noinspection CssUnknownTarget
 
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useLayoutEffect, useRef} from 'react';
 import './App.css';
 import Hero from "./components/hero";
 import Pagination from "./components/nav";
 import About from "./components/about";
 import Services from "./components/services";
 import BLogs from "./components/blog";
-import ProgressCircle from "./components/ProgressCircle";
 import styled from "styled-components";
 import Contact from "./components/contact";
 import Portfolio from "./components/portfolio";
+import ScrollProgressCircle from "./components/ScrollProgressCircle";
+import useLocoScroll from "./hooks/useLocoScroll";
 
 const AppContainer = styled.main`
   //position: fixed;
@@ -24,44 +25,19 @@ const AppContainer = styled.main`
 function App() {
 
     const mainRef = useRef(null);
-    const scrollRef = useRef(null);
 
-    const skewConfigs = {
-        ease: .1,
-        current: 0,
-        previous: 0,
-        rounded: 0
-    };
+    const loco = useLocoScroll(true, )
 
-    useEffect(() => {
-        // document.body.style.height = `${scrollRef.current.getBoundingClientRect().height}px`;
-    })
 
-    useEffect(() => {
-        // skewScrolling();
-    }, []);
+    useLayoutEffect(() => {
 
-    const skewScrolling = () => {
-        skewConfigs.current = window.scrollY;
-        skewConfigs.previous += (skewConfigs.current - skewConfigs.previous) * skewConfigs.ease;
-        skewConfigs.rounded = Math.round(skewConfigs.previous * 100) / 100;
-
-        const diff = skewConfigs.current - skewConfigs.rounded;
-        const acc = diff / window.innerWidth;
-        const velocity = +acc;
-        const skew = velocity * 7.5;
-
-        scrollRef.current.style.transform =
-            `translate3d(0, -${skewConfigs.rounded}px, 0) skewY(${skew}deg);`;
-
-        // requestAnimationFrame( () => skewScrolling());
-    }
+    }, [])
 
     return (
-        <AppContainer ref={mainRef}>
+        <AppContainer ref={mainRef} data-scroll-container >
             {/*<div className="scroll" ref={scrollRef}>*/}
             <Pagination/>
-            <ProgressCircle/>
+            <ScrollProgressCircle/>
             <Hero/>
             <About/>
             <Services/>

@@ -74,15 +74,21 @@ const TypoWrapper = styled('div')`
   align-self: end;
   justify-self: end;
 
-  ${({theme}) => `
+ /* ${({theme}) => `
       ${theme.breakpoints.up('lg')} {
          justify-self: start;
          grid-column: 6 / 13;
       }
-`}
+`}*/
+  
+  ${largeUp( css`
+    justify-self: start;
+    grid-column: 6 / 13;
+  ` )};
+  
   & > :nth-child(n) { //creative studio
     font-family: Poppins, sans-serif;
-    letter-spacing: clamp(5px, 1.2vw, 15px);
+    letter-spacing: clamp(3px, .9vw, 9px);
     text-transform: capitalize;
   }
 
@@ -195,6 +201,7 @@ const About = () => {
     return (
         <AboutContainer xs item container ref={containerRef}
                         inView={inView}
+                        data-scroll-section
         >
 
             <A>A</A>

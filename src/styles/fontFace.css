@@ -14,7 +14,7 @@
 }
 
 @font-face {
-    font-family: 'raisonne';
+    font-family: 'raisonne-bold';
     src: local('raisonne'), local('raisonne'),
     url('../assets/fonts/Raisonne/raisonne.eot'),
     url('../assets/fonts/Raisonne/raisonne.eot?#iefix') format('embedded-opentype'),
@@ -29,7 +29,10 @@
 
 @font-face {
     font-family: 'raisonne-bold';
-    src: url('../assets/fonts/Raisonne/RaisonnePro-DemiBold.woff2') format('woff2'), url('https://assets.website-files.com/5e0f6cce946b126508a0d575/5e0f6de2946b126144a0db47_RaisonnePro-DemiBold.eot') format('embedded-opentype'), url('https://assets.website-files.com/5e0f6cce946b126508a0d575/5e0f6de24b55b0105625dba1_RaisonnePro-DemiBold.woff') format('woff'), url('https://assets.website-files.com/5e0f6cce946b126508a0d575/5e0f6de284880a4b9c55d132_RaisonnePro-DemiBold.ttf') format('truetype');
+    src: url('../assets/fonts/Raisonne/RaisonnePro-DemiBold.woff2') format('woff2'),
+    url('https://assets.website-files.com/5e0f6cce946b126508a0d575/5e0f6de2946b126144a0db47_RaisonnePro-DemiBold.eot') format('embedded-opentype'),
+    url('https://assets.website-files.com/5e0f6cce946b126508a0d575/5e0f6de24b55b0105625dba1_RaisonnePro-DemiBold.woff') format('woff'),
+    url('https://assets.website-files.com/5e0f6cce946b126508a0d575/5e0f6de284880a4b9c55d132_RaisonnePro-DemiBold.ttf') format('truetype');
     font-weight: 600;
     font-style: normal;
     font-display: swap;
@@ -37,7 +40,10 @@
 
 @font-face {
     font-family: 'raisonne-bolder';
-    src: url('../assets/fonts/Raisonne/RaisonnePro-Bold.woff2') format('woff2'), url('https://assets.website-files.com/5e0f6cce946b126508a0d575/5ec99a1dd0fb9b511fa78ec5_RaisonnePro-Bold.eot') format('embedded-opentype'), url('https://assets.website-files.com/5e0f6cce946b126508a0d575/5ec99a1da489f57e2c5fbe8a_RaisonnePro-Bold.woff') format('woff'), url('https://assets.website-files.com/5e0f6cce946b126508a0d575/5ec99a1d9359c2678f3bda0e_RaisonnePro-Bold.ttf') format('truetype');
+    src: url('../assets/fonts/Raisonne/RaisonnePro-Bold.woff2') format('woff2'),
+    url('https://assets.website-files.com/5e0f6cce946b126508a0d575/5ec99a1dd0fb9b511fa78ec5_RaisonnePro-Bold.eot') format('embedded-opentype'),
+    url('https://assets.website-files.com/5e0f6cce946b126508a0d575/5ec99a1da489f57e2c5fbe8a_RaisonnePro-Bold.woff') format('woff'),
+    url('https://assets.website-files.com/5e0f6cce946b126508a0d575/5ec99a1d9359c2678f3bda0e_RaisonnePro-Bold.ttf') format('truetype');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -45,7 +51,10 @@
 
 @font-face {
     font-family: 'raisonne-light';
-    src: url('../assets/fonts/Raisonne/RaisonnePro-Light.woff2') format('woff2'), url('https://assets.website-files.com/5e0f6cce946b126508a0d575/5e0f6de284880ab4e355d131_RaisonnePro-Light.eot') format('embedded-opentype'), url('https://assets.website-files.com/5e0f6cce946b126508a0d575/5e0f6de298f2dc6e93cbd443_RaisonnePro-Light.woff') format('woff'), url('https://assets.website-files.com/5e0f6cce946b126508a0d575/5e0f6de26a42a46d704ab449_RaisonnePro-Light.ttf') format('truetype');
+    src: url('../assets/fonts/Raisonne/RaisonnePro-Light.woff2') format('woff2'),
+    url('https://assets.website-files.com/5e0f6cce946b126508a0d575/5e0f6de284880ab4e355d131_RaisonnePro-Light.eot') format('embedded-opentype'),
+    url('https://assets.website-files.com/5e0f6cce946b126508a0d575/5e0f6de298f2dc6e93cbd443_RaisonnePro-Light.woff') format('woff'),
+    url('https://assets.website-files.com/5e0f6cce946b126508a0d575/5e0f6de26a42a46d704ab449_RaisonnePro-Light.ttf') format('truetype');
     font-weight: 300;
     font-style: normal;
     font-display: swap;
@@ -94,107 +103,6 @@
     font-display: swap;
 }
 
-@font-face {
-    font-family: 'Sofia Pro';
-    src: local('Sofia Pro Bold'), local('SofiaProBold'),
-    url('../assets/fonts/SofiaPro/Sofia-Pro - Bold.woff2') format('woff2'),
-    url('../assets/fonts/SofiaPro/Sofia-Pro - Bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Sofia Pro';
-    src: local('Sofia Pro Semi-Bold'), local('SofiaProSemiBold'),
-    url('../assets/fonts/SofiaPro/Sofia-Pro - SemiBold.woff2') format('woff2'),
-    url('../assets/fonts/SofiaPro/Sofia-Pro - SemiBold.woff') format('woff');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Sofia Pro';
-    src: local('Sofia Pro Regular'), local('SofiaProRegular'),
-    url('../assets/fonts/SofiaPro/Sofia-Pro - Regular.woff2') format('woff2'),
-    url('../assets/fonts/SofiaPro/Sofia-Pro - Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Sofia Pro';
-    src: local('Sofia Pro Light'), local('SofiaProLight'),
-    url('../assets/fonts/SofiaPro/Sofia-Pro - Light.woff2') format('woff2'),
-    url('../assets/fonts/SofiaPro/Sofia-Pro - Light.woff') format('woff');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-}
-
-
-@font-face {
-    font-family: 'Gramatika';
-    src: local('Gramatika Black'), local('Gramatika-Black'),
-    url('../assets/fonts/Gramatika/Gramatika - Black.woff2') format('woff2'),
-    url('../assets/fonts/Gramatika/Gramatika - Black.woff') format('woff');
-    font-weight: 900;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Gramatika';
-    src: local('Gramatika Bold'), local('Gramatika-Bold'),
-    url('../assets/fonts/Gramatika/Gramatika - Bold.woff2') format('woff2'),
-    url('../assets/fonts/Gramatika/Gramatika - Bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Gramatika';
-    src: local('Gramatika Regular'), local('Gramatika-Regular'),
-    url('../assets/fonts/Gramatika/Gramatika - Regular.woff2') format('woff2'),
-    url('../assets/fonts/Gramatika/Gramatika - Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-
-@font-face {
-    font-family: 'Sofia Pro Soft';
-    src: local('Sofia Pro Soft Bold'), local('SofiaProSoftBold'),
-    url('../assets/fonts/SofiaProSoft/Sofia-Pro-Soft - Bold.woff2') format('woff2'),
-    url('../assets/fonts/SofiaProSoft/Sofia-Pro-Soft - Bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Sofia Pro Soft';
-    src: local('Sofia Pro Soft Regular'), local('SofiaProSoftRegular'),
-    url('../assets/fonts/SofiaProSoft/Sofia-Pro-Soft - Regular.woff2') format('woff2'),
-    url('../assets/fonts/SofiaProSoft/Sofia-Pro-Soft - Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Sofia Pro Soft';
-    src: local('Sofia Pro Soft Light'), local('SofiaProSoftLight'),
-    url('../assets/fonts/SofiaProSoft/Sofia-Pro-Soft - Light.woff2') format('woff2'),
-    url('../assets/fonts/SofiaProSoft/Sofia-Pro-Soft - Light.woff') format('woff');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-}
 
 @font-face {
     font-family: 'jaro.io icons';

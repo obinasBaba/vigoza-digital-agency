@@ -12,6 +12,7 @@ const ReadMoreBtn = styled(motion.div)`
   justify-content: center;
   gap: 10px;
   cursor: pointer;
+  
 
 
   //font-size: 0.7rem;
@@ -22,7 +23,6 @@ const ReadMoreBtn = styled(motion.div)`
   letter-spacing: 1px;
   margin-top: calc(20px * var(--indent)) !important;
 
-  //border: thin solid lightblue;
 
 
   ${smallDown(css`
@@ -34,7 +34,8 @@ const ReadMoreBtn = styled(motion.div)`
     margin: 0;
     padding: .7rem 1rem;
     font-weight: lighter;
-    line-height: 1;
+    font-family: raisonne-light,serif;
+    
     color: ${props => props.theme.palette.primary.light};
   }
 
@@ -179,9 +180,9 @@ const MotionBtn = ({slug, txt = 'no-txt'}) => {
             <Background variants={bgVariant} transition={transition}/>
 
             <motion.span variants={txtVariant} transition={transition}>
-                <Typography variant='subtitle2' className='txt'>
+                <p className='txt'>
                     {txt}
-                </Typography>
+                </p>
             </motion.span>
 
 
