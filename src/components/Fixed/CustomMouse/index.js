@@ -1,71 +1,35 @@
 import React, {useEffect} from 'react';
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import {motion, useMotionValue} from "framer-motion";
 import {lerp} from "../../../helpers/utils";
 
-const CustomMouseContainer = styled(motion.div)`
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  pointer-events: none;
-  z-index: 1;
-  border: thick solid black;
-
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  
-  & *{
-    position: absolute;
-    margin: 0;
-    padding: 0;
-  }
-
-  & > :first-child {
-    
-  }
-
-  & > :last-child {
-    
-  }
-
-`
-
-const Outer =  styled( motion.div )`
+const commonMouse = css`
   pointer-events: none;
   position: absolute;
   inset: 0;
-  
+  z-index: 15;
+  border-radius: 50%;
+`
+
+const Outer =  styled( motion.div )`
+  ${commonMouse};
+
   border: 2px solid rgba(255, 69, 0, 0.86);
   height: 50px;
   width: 50px;
-  border-radius: 50%;
-
   top: -25px;
   left: -25px;
 `
 
 const Inner = styled( motion.div )`
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  
-  z-index: 300;
-  
+  ${commonMouse};
+
   background-color: black;
   height: 12px;
   width: 12px;
-  border-radius: 50%;
   background-blend-mode: difference;
-  
-
   top: -6px;
   left: -6px;
-  
 `
 
 

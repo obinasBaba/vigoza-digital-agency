@@ -13,9 +13,6 @@ const FixedContainer = styled.div`
   
   pointer-events: none;
   
-  & > *{
-    pointer-events: auto;
-  }
 `
 
 const Fixed = () => {

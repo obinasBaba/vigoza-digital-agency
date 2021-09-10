@@ -1,6 +1,6 @@
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import {useContext, useEffect, useLayoutEffect, useRef} from 'react'
+import {useContext, useLayoutEffect, useRef} from 'react'
 import LocomotiveScroll from "locomotive-scroll";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import {AppStateContext} from '../contexts/AppStateContext'

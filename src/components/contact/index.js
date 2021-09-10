@@ -44,7 +44,7 @@ const Contact = () => {
     }, [intersection])
 
     return (
-        <ContactContainer ref={containerRef}  data-scroll-section>
+        <ContactContainer ref={containerRef}  data-scroll-section id='contact'>
 
             <ContactSocial/>
             <ContactForm/>

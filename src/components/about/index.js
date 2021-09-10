@@ -202,6 +202,7 @@ const About = () => {
         <AboutContainer xs item container ref={containerRef}
                         inView={inView}
                         data-scroll-section
+                        id='about'
         >
 
             <A>A</A>

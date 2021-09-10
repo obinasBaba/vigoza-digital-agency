@@ -7,7 +7,7 @@ import ThemeWrapper from "./theme/ThemeWrapper";
 
 ReactDOM.render(
     <React.StrictMode>
-        <ThemeWrapper theme={theme}>
+        <ThemeWrapper theme={theme} valueOf={{}}>
             <App />
         </ThemeWrapper>
     </React.StrictMode>,

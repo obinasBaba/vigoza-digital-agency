@@ -1,6 +1,6 @@
 // noinspection CssUnknownTarget
 
-import React, {useEffect, useLayoutEffect, useRef} from 'react';
+import React, {useContext, useEffect, useLayoutEffect, useRef} from 'react';
 import './App.css';
 import Hero from "./components/hero";
 import Pagination from "./components/nav";
@@ -14,6 +14,8 @@ import ScrollProgressCircle from "./components/ScrollProgressCircle";
 import useLocoScroll from "./hooks/useLocoScroll";
 import Footer from "./components/Footer";
 import Fixed from "./components/Fixed";
+import LoadingPage from "./components/LoadingPage";
+import {AppStateContext} from "./contexts/AppStateContext";
 
 const AppContainer = styled.main`
 
@@ -22,20 +24,27 @@ const AppContainer = styled.main`
 function App() {
 
     const mainRef = useRef(null);
+    const { locoRef } = useContext(AppStateContext);
 
-    const loco = useLocoScroll(true,)
-
+    locoRef.set(useLocoScroll(true,));
 
     return (
         <AppContainer ref={mainRef} data-scroll-container>
-            <Fixed/>
-            <Hero/>
-            <About/>
-            <Services/>
-            <Portfolio/>
-            <BLogs/>
-            <Contact/>
-            <Footer/>
+            {
+                false ?
+                    <LoadingPage/>
+                    :
+                    <>
+                        <Fixed/>
+                        <Hero/>
+                        <About/>
+                        <Services/>
+                        <Portfolio/>
+                        <BLogs/>
+                        <Contact/>
+                        <Footer/>
+                    </>
+            }
         </AppContainer>
     );
 }

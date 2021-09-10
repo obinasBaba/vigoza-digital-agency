@@ -95,7 +95,7 @@ function Hero() {
 
 
     return (
-        <GridContainer container ref={containerRef}  data-scroll-section >
+        <GridContainer container ref={containerRef}  data-scroll-section id='welcome' >
 
             <Grid item xs={ 1 } md={ 2 }/>
 

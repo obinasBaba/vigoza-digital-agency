@@ -78,7 +78,7 @@ const BLogs = () => {
     }, [intersection])
 
     return (
-        <BlogsContainer ref={containerRef} inView={inView}  data-scroll-section>
+        <BlogsContainer ref={containerRef} inView={inView}  data-scroll-section id='blog'>
 
             <HeadLine text='Recent Blogs'/>
             <h1 className="blog__effect blog">Blog</h1>

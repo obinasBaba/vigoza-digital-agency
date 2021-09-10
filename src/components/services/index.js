@@ -60,7 +60,9 @@ const Services = () => {
 
     return (
 
-        <ServicesContainer  ref={containerRef}  data-scroll-section>
+        <ServicesContainer  ref={containerRef}  data-scroll-section
+                            id='service'
+        >
 
             <HeadLine text='Services' effect='SERVICES' />
 
