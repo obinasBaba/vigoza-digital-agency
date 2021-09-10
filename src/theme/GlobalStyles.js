@@ -1,9 +1,20 @@
-import {createGlobalStyle} from "styled-components";
+import {createGlobalStyle, css} from "styled-components";
 import {responsiveVar} from "../styles/commons";
+import {smallUp} from "../styles/mixins";
 
 export const GlobalStyles = createGlobalStyle`
 
   ${ responsiveVar }  ;
+  
+  body{
+    
+    * {
+      ${smallUp( css`
+      cursor: none;
+    ` )};
+    }
+    
+  }
   
   * {
     scrollbar-width: none;

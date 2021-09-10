@@ -1,11 +1,12 @@
 import { motion, useTransform, useViewportScroll } from 'framer-motion'
-import React, { useEffect, useRef } from 'react'
+import React, {useContext, useEffect, useRef} from 'react'
 import styled from 'styled-components'
 import { heightWidth, spacing} from "../../styles/mixins";
+import {AppStateContext} from "../../contexts/AppStateContext";
+import {map} from "../../helpers/utils";
 
 const ProgressContainer = styled(motion.div)`
-  z-index: 100;
-  position: fixed;
+  position: absolute;
   top: calc(100vh - calc(var(--size) * 6rem));
   bottom: auto;
   right: 0;
@@ -13,8 +14,8 @@ const ProgressContainer = styled(motion.div)`
   // ${spacing('mb', -6)}
   ${spacing('mr', 6)}
 
-  ${heightWidth('width', 5.1)};
-  ${heightWidth('height', 5.1)};
+  ${heightWidth('width', 4.5)};
+  ${heightWidth('height', 4.5)};
 
   & * {
     position: absolute;
@@ -48,8 +49,14 @@ const bottomPathVariant = {
 
 const ScrollProgressCircle = () => {
 
-  const { scrollYProgress } = useViewportScroll()
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, 361])
+  const {
+    moScroll: {y, limit},
+  } = useContext( AppStateContext )
+
+  const rotate = useTransform(y, latest => {
+    return map(latest, 0, limit.get(), 0, 360)
+  })
+
   const pathLength = useTransform(rotate, [0, 360], [0, 1])
 
 

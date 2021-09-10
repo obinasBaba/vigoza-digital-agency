@@ -8,8 +8,7 @@ import {AnimatePresence, AnimateSharedLayout, motion} from "framer-motion";
 import {AppStateContext} from "../../contexts/AppStateContext";
 
 const PaginationContainer = styled(motion.div)`
-  position: fixed;
-  z-index: 9999;
+  position: absolute;
   left: 3%;
   top: 50%;
   transform: translateY(-50%);

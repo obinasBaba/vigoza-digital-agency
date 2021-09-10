@@ -12,39 +12,30 @@ import Contact from "./components/contact";
 import Portfolio from "./components/portfolio";
 import ScrollProgressCircle from "./components/ScrollProgressCircle";
 import useLocoScroll from "./hooks/useLocoScroll";
+import Footer from "./components/Footer";
+import Fixed from "./components/Fixed";
 
 const AppContainer = styled.main`
-  //position: fixed;
-  //top: 0;
-  //left: 0;
-  //bottom: 0;
-  //right: 0;
-  //overflow: hidden;
+
 `
 
 function App() {
 
     const mainRef = useRef(null);
 
-    const loco = useLocoScroll(true, )
+    const loco = useLocoScroll(true,)
 
-
-    useLayoutEffect(() => {
-
-    }, [])
 
     return (
-        <AppContainer ref={mainRef} data-scroll-container >
-            {/*<div className="scroll" ref={scrollRef}>*/}
-            <Pagination/>
-            <ScrollProgressCircle/>
+        <AppContainer ref={mainRef} data-scroll-container>
+            <Fixed/>
             <Hero/>
             <About/>
             <Services/>
             <Portfolio/>
             <BLogs/>
             <Contact/>
-            {/*</div>*/}
+            <Footer/>
         </AppContainer>
     );
 }

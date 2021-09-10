@@ -18,7 +18,6 @@ const GridContainer = styled( Grid )`
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  z-index: 0;
   color: white;
 `
 
@@ -91,7 +90,6 @@ function Hero() {
         if(intersection && intersection.isIntersecting) {
             setDotIndex(0)
         }
-
 
     }, [intersection])
 

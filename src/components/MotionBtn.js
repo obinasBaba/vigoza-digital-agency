@@ -59,7 +59,7 @@ const Background = styled(motion.div)`
   right: 0;
   left: auto;
 
-  border: 2px solid var(--accent300);
+  border: 2px solid rgba(255, 69, 0, 0.73);
   border-radius: 100px;
 
   //width: 2.5rem;
