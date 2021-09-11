@@ -25,6 +25,7 @@ export default function useLocoScroll(start, elementId = '[data-scroll-container
       smooth: true,
       multiplier: 1,
       lerp: .08,
+      getDirection: true,
     });
 
     // whenever when we scroll loco update scrollTrigger

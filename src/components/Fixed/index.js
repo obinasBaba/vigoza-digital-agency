@@ -3,6 +3,7 @@ import styled from "styled-components";
 import CustomMouse from "./CustomMouse";
 import ScrollProgressCircle from "../ScrollProgressCircle";
 import Pagination from "../nav";
+import AppBar from "./AppBar";
 
 const FixedContainer = styled.div`
   position: fixed;
@@ -21,6 +22,7 @@ const Fixed = () => {
             <CustomMouse/>
             <Pagination/>
             <ScrollProgressCircle/>
+            <AppBar/>
         </FixedContainer>
     );
 };
