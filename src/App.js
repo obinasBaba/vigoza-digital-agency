@@ -26,7 +26,7 @@ function App() {
 
 
     return (
-        <AppContainer ref={mainRef} data-scroll-container>
+        <AppContainer ref={mainRef} data-scroll-container id='main-container'>
             {
                 !fontLoaded ?
                     <LoadingPage/>

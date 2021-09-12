@@ -80,18 +80,21 @@ function Hero() {
     const {setDotIndex} = useContext(AppStateContext);
 
 
-    const intersection = useIntersection(containerRef, {
+    /*const intersection = useIntersection(containerRef, {
         root: null,
         rootMargin: `0px 0px 0px 0px`,
         threshold: .6,
     })
 
     useEffect(() => {
+        return;
+
+
         if(intersection && intersection.isIntersecting) {
             setDotIndex(0)
         }
 
-    }, [intersection])
+    }, [intersection])*/
 
 
     return (

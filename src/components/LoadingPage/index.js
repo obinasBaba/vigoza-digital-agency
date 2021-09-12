@@ -88,7 +88,7 @@ const LoadingPage = () => {
             .set(rightRef.current, {
                 x: 100,
                 y: 100,
-            })
+            });
 
         const timeline = gsap.timeline({
             repeat: -1,
@@ -124,6 +124,11 @@ const LoadingPage = () => {
 
         initPoints();
 
+        return () => {
+            gsap.ticker.remove(updateLine)
+            timeline.clear(true)
+            timeline.kill()
+        }
     })
 
 

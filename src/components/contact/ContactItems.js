@@ -51,14 +51,17 @@ const ContactItems = () => {
         <ContactItemsContainer>
             <ContactItem Icon={<Mail style={{color: 'lightgray'}}/>}
                          title='E-mail'
+                         key={'email'}
                          subTitle='henokgetachew@gmail.com'/>
 
             <ContactItem Icon={<Phone style={{color: 'lightgray'}}/>}
                          title='Phone'
+                         key={'phone'}
                          subTitle='+251 923 3655 39'/>
 
             <ContactItem Icon={<LocationCity style={{color: 'lightgray'}}/>}
                          title='Address'
+                         key={'address'}
                          subTitle={'Vigoza inc., 76 Main Road, Addis Abeba. 6060, Ethiopia.'}
             />
 

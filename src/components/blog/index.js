@@ -62,7 +62,7 @@ const BLogs = () => {
     const [inView, setInView] = useState(false);
     const {setDotIndex} = useContext(AppStateContext);
 
-    const intersection = useIntersection(containerRef, {
+   /* const intersection = useIntersection(containerRef, {
         root: null,
         rootMargin: `0px 0px 0px 0px`,
         threshold: .6,
@@ -75,7 +75,7 @@ const BLogs = () => {
         }
 
 
-    }, [intersection])
+    }, [intersection])*/
 
     return (
         <BlogsContainer ref={containerRef} inView={inView}  data-scroll-section id='blog'>

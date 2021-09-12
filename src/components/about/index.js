@@ -180,7 +180,7 @@ const About = () => {
 
     const [inView, setInView] = useState(false);
 
-    const intersection = useIntersection(containerRef, {
+   /* const intersection = useIntersection(containerRef, {
         root: null,
         rootMargin: `0px 0px -400px 0px`,
         threshold: 0,
@@ -196,7 +196,7 @@ const About = () => {
 
 
     }, [intersection])
-
+*/
 
     return (
         <AboutContainer xs item container ref={containerRef}

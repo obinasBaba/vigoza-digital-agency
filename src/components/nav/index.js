@@ -1,5 +1,3 @@
-// @flow
-
 import React, {useContext, useEffect} from 'react';
 import {Typography} from "@material-ui/core";
 import styled, {css} from 'styled-components'
@@ -130,11 +128,9 @@ const Pagination = () => {
     const {dotIndex, setDotIndex, locoRef} = useContext(AppStateContext);
     const anchors = ['welcome', 'about', 'service', 'portfolio', 'blog', 'contact'];
 
-    useEffect(() => {
-        console.log('locoRef: ', locoRef.get().current.scrollTo)
-    })
 
     const handleClick = (idx) => {
+        if (!locoRef.get().current) return;
 
         locoRef.get().current.scrollTo(`#${anchors[idx]}`, {
             easing: [1, 0.1, 0.23, 0.96],

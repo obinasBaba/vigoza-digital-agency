@@ -9,6 +9,7 @@ import Portfolio from "../../components/portfolio";
 import BLogs from "../../components/blog";
 import Contact from "../../components/contact";
 import Footer from "../../components/Footer";
+import Testimonials from "../../components/Testimonials";
 
 const HomePageContainer = styled(motion.main)`
   max-width: 1600px;
@@ -46,6 +47,7 @@ const HomePage = () => {
             <Fixed/>
             <Hero/>
             <About/>
+            <Testimonials/>
             <Services/>
             <Portfolio/>
             <BLogs/>

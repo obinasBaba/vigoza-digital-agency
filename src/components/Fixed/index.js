@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from "styled-components";
-import CustomMouse from "./CustomMouse";
+import {ArrowCursor, PointerCursor} from "./CustomMouse";
 import ScrollProgressCircle from "../ScrollProgressCircle";
 import Pagination from "../nav";
 import AppBar from "./AppBar";
+
 
 const FixedContainer = styled.div`
   position: fixed;
@@ -19,7 +20,8 @@ const FixedContainer = styled.div`
 const Fixed = () => {
     return (
         <FixedContainer>
-            <CustomMouse/>
+            <PointerCursor/>
+            <ArrowCursor/>
             <Pagination/>
             <ScrollProgressCircle/>
             <AppBar/>
