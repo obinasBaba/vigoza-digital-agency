@@ -34,7 +34,7 @@ const HeroTextWrapper = styled( Grid )`
   
   & > :nth-child(1) {
     font-size: clamp(4rem, 9vw, 8rem);
-    letter-spacing: clamp(20px, 5vw, 74px);
+    letter-spacing: clamp(15px, 4vw, 69px);
   }
 
   .powered {
@@ -103,9 +103,9 @@ function Hero() {
             <Grid item xs={ 1 } md={ 2 }/>
 
             <Grid item container xs={ 10 } md={ 7 }
-                  alignItems='center' justify='center'>
+                  alignItems='center' justify='center' data-scroll data-scroll-speed='-1'>
 
-                <HeroTextWrapper item>
+                <HeroTextWrapper item   >
 
                     <Typography variant='h1'>Vigoza</Typography>
                     <Typography className='powered' variant='subtitle2'>

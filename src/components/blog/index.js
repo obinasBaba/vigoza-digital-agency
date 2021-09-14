@@ -22,6 +22,9 @@ const BlogsContainer = styled.div`
   `};
 
   p, h1, h2, h6 {
+    --p-color: #000000;
+    --s-color: #000000;
+    
     transition: color 3s cubic-bezier(0.6, 0.01, 0, 0.9);
     color: var(--p-color);
   }

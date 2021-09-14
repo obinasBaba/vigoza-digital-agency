@@ -15,6 +15,10 @@ const HomePageContainer = styled(motion.main)`
   max-width: 1600px;
   margin: 0 auto;
   width: 100%;
+  
+  
+  scroll-snap-type: y mandatory;
+  
 `
 
 const containerVariants = {

@@ -24,7 +24,7 @@ const AppStateProvider = ( {children} ) => {
         setDotIndex,
         locoRef,
         moScroll: {
-            x, y, yProgress, xProgress, limit, scrollDirection
+            x, y, limit, scrollDirection
         },
     }} >
 

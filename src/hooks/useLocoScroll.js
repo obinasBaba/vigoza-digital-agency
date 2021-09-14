@@ -38,6 +38,7 @@ export default function useLocoScroll(start, elementId = '[data-scroll-container
       // console.log(arg.scroll)
     });
 
+
     ScrollTrigger.scrollerProxy(scrollEl, {
       getBoundingClientRect(){
         return{

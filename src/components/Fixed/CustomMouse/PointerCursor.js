@@ -38,34 +38,30 @@ const Inner = styled(motion.div)`
 
 
 class PointerCursor extends React.Component {
+
+
     trackMousePos = (ev) => {
-        this.x.set(ev.clientX)
-        this.y.set(ev.clientY)
+        PointerCursor.x.set(ev.clientX)
+        PointerCursor.y.set(ev.clientY)
+        PointerCursor.direction = this.lastY.get() - ev.clientY > 0 ? 'up' : 'down';
     }
 
-    static p
-    lastX;
-    lastY;
-    x;
-    y;
+    static x = new MotionValue(0);
+    static y = new MotionValue(0);
+    static direction = 'up'
+    lastX= new MotionValue(0);
+    lastY= new MotionValue(0);
 
     constructor(props) {
         super(props);
 
-        this.lastX = new MotionValue(0)
-        this.lastY = new MotionValue(0)
-
-        this.x = new MotionValue(100)
-        this.y = new MotionValue(100)
-
         this.pointerRef = React.createRef()
-        PointerCursor.p = this.pointerRef
     }
 
     updateMousePos(){
         const render = () => {
-            this.lastX.set(lerp(this.lastX.get(), this.x.get(), 0.14))
-            this.lastY.set(lerp(this.lastY.get(), this.y.get(), 0.14))
+            this.lastX.set(lerp(this.lastX.get(), PointerCursor.x.get(), 0.18))
+            this.lastY.set(lerp(this.lastY.get(), PointerCursor.y.get(), 0.18))
 
             requestAnimationFrame(() => render())
         }
@@ -86,14 +82,14 @@ class PointerCursor extends React.Component {
     }
 
     static hidePointer(){
-        gsap.to(this.p.current,  {
+        gsap.to('.pointer',  {
             opacity: 0,
             duration: .3
         })
     }
 
     static showPointer(){
-        gsap.to(this.p.current,  {
+        gsap.to('.pointer',  {
             opacity: 1,
             duration: .3,
         })
@@ -102,9 +98,9 @@ class PointerCursor extends React.Component {
     render() {
         return (
             <motion.div>
-                <motion.div ref={this.pointerRef}>
+                <motion.div ref={this.pointerRef} className='pointer'>
                     <Outer style={{x: this.lastX, y: this.lastY}}/>
-                    <Inner style={{x: this.x, y: this.y,}}/>
+                    <Inner style={{x: PointerCursor.x, y: PointerCursor.y,}}/>
                 </motion.div>
 
             </motion.div>

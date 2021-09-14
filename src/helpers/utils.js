@@ -55,3 +55,11 @@ export const randomNumber = (min, max) => Math.floor(Math.random() * (max - min 
 export const map = (value, in_min, in_max, out_min, out_max) => {
   return ((value - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min
 }
+
+export const lineEq =  (y2, y1, x2, x1, currentVal) => {
+  const m = (y2 - y1) / (x2 - x1);
+  const b = y1 - m * x1;
+  return m * currentVal + b;
+};
+
+export const getRandomFloat = (min, max) => (Math.random() * (max - min) + min).toFixed(2)

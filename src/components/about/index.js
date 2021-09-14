@@ -13,6 +13,9 @@ const AboutContainer = styled(Grid)`
   position: relative;
   overflow: hidden;
 
+  --p-color: #000000;
+  --s-color: #000000;
+
   p, h1, h2 {
     transition: color 3s cubic-bezier(0.6, 0.01, 0, 0.9);
     color: var(--p-color);

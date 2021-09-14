@@ -1,11 +1,14 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {AppStateContext} from "../../../contexts/AppStateContext";
 import {debounce, Slide} from "@material-ui/core";
+import {useMotion} from "react-use";
+import {useMotionValue} from "framer-motion";
 
 function HideOnScroll({ children }) {
     const [slide, setSlide] = useState(true)
 
     const {moScroll: {scrollDirection},} = useContext(AppStateContext)
+
 
     useEffect(() => {
 

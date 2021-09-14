@@ -9,7 +9,7 @@ const useLoadingFonts = ( setFontFinish, deps) => {
         let rBold = new FontLoaded('raisonne-bold')
         let rBolder = new FontLoaded('raisonne-bolder')
         let rLight = new FontLoaded('raisonne-light')
-        let poppins = new FontLoaded('Poppins Black')
+        let poppins = new FontLoaded('Poppins')
         let abyssopelagic = new FontLoaded('abyssopelagic')
 
         Promise.all([rBold.load(), poppins.load(),

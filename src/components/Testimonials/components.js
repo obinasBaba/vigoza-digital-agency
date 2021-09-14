@@ -1,10 +1,13 @@
 import styled from "styled-components";
+import {spacing} from "../../styles/mixins";
 
 
 export const TestimonialsContainer = styled.div`
   position: relative;
   min-height: 110vh;
   //background-color: rgba(255, 69, 0, 0.25);
+  
+  ${spacing('mb', 15)};
 `
 
 
