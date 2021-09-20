@@ -1,13 +1,14 @@
 import React from 'react';
 import styled, {css} from "styled-components";
-import {mediumUp, spacing} from "../../../styles/mixins";
+import {heightWidth, largeUp, mediumUp, spacing} from "../../../styles/mixins";
 import HideOnScroll from "./HideOnScroll";
 import {motion} from "framer-motion";
+import {Button, Typography} from "@material-ui/core";
 
 const AppBarContainer = styled.div`
 
   position: absolute;
-  z-index: 20;
+  //z-index: 20;
   top: 0;
   width: 100%;
   padding: 2rem 2rem 1.3rem;
@@ -31,6 +32,11 @@ const AppBarContainer = styled.div`
     opacity: var(--head-opacity);
     transition: all .35s ease-in-out;
   }
+  
+  & > * {
+    pointer-events: initial;
+    cursor: none;
+  }
 
 
   ${mediumUp(css`
@@ -50,7 +56,110 @@ const Logo = styled( motion.div )`
   }
 `
 
-const AppBar = () => {
+const MenuButton = styled.div`
+    position: relative;
+  
+  .menuButton {
+    position: relative;
+    overflow: hidden;
+    outline: none;
+    border: none;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: all 0.3s;
+
+    ${heightWidth('height', 5)};
+    ${heightWidth('width', 5)};
+
+    // fix for safari bug when overflow hidden doesn't work for round corners
+    // https://forum.webflow.com/t/overflow-hidden-round-corners-not-working-on-safari/67805
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+
+    ${largeUp( css`
+      &:hover {
+
+        &:after {
+          transform: translateX(0%);
+        }
+        
+        .menuIcon{
+          background-color: orangered;
+
+          &:before,
+          &:after {
+            background-color: orangered;
+          }
+        }
+      }
+      
+    ` )};
+
+
+    .menuIcon {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      display: block;
+      border-radius: 35px;
+      width: 37%;
+      height: 0.15rem;
+      margin: auto;
+      background-color: gray;
+      transition: all 0.3s;
+
+      &:before,
+      &:after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        display: block;
+        border-radius: 35px;
+        height: 0.15rem;
+        width: 70%;
+        background-color: gray;
+        transition: all 0.3s;
+      }
+
+      &:before {
+        margin-top: -0.5rem;
+      }
+
+      &:after {
+        margin-top: 0.5rem;
+      }
+
+      &[data-status='true'] {
+        background-color: transparent;
+
+        &:before {
+          top: 0.45rem;
+          transform: translateX(-50%) rotate(45deg);
+          width: 100%;
+        }
+
+        &:after {
+          top: -0.55rem;
+          transform: translateX(-50%) rotate(-45deg);
+          width: 100%;
+        }
+      }
+    }
+
+    .hiddenTitle {
+      position: absolute;
+      left: -9999px;
+    }
+  }
+
+`
+
+const AppBar = ({ onClick, status, ...props}) => {
+
+
+
     return (
         <HideOnScroll >
             <AppBarContainer>
@@ -61,6 +170,18 @@ const AppBar = () => {
                     </svg>
                 </Logo>
 
+
+                <MenuButton>
+                    <button
+                        type="button"
+                        className={'menuButton'}
+                        data-pointer={true}
+                        onClick={onClick}
+                    >
+                        <span className={'menuIcon'} data-status={status}/>
+                        <span className={'hiddenTitle'}>Menu</span>
+                    </button>
+                </MenuButton>
 
 
             </AppBarContainer>

@@ -292,7 +292,6 @@ const Portfolio = () => {
 
             </div>
 
-
         </PortfolioContainer>
     );
 };

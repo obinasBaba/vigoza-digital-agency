@@ -174,6 +174,8 @@ const MotionBtn = ({slug, txt = 'no-txt'}) => {
                      initial='initial'
                      animate='animate'
                      whileHover='hover'
+                     data-pointer={true}
+
         >
             <Link to={slug}/>
 

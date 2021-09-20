@@ -54,4 +54,12 @@ export const GlobalStyles = createGlobalStyle`
   .bars.mobile  image{
     transform: translateX(23%);
   }
+  
+  a{
+    text-decoration: none;
+    display: inline-block;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
 `
