@@ -3,6 +3,7 @@ import {getRandomFloat, lerp, lineEq} from "../../helpers/utils";
 import {MotionValue} from "framer-motion";
 import PointerCursor from "../Fixed/CustomMouse/PointerCursor";
 import gsap from "gsap";
+import charming from "charming";
 
 const activeTilt = {
     columns: true,
@@ -19,21 +20,12 @@ export const values = {
 
 class MenuItem {
 
-    static instance = null;
     shuffledLetters = []
     el;
 
-    static getInstance(el) {
-        if (this.instance === null) {
-            this.instance = new MenuItem(el)
-            return this.instance
-        } else return this.instance;
-    }
-
-
     constructor(el) {
         this.el = el
-        Charming(el);
+        // Charming(el);
         this.letters = [...this.el.querySelectorAll('span')]
         this.totRandLetter = 3;
 
@@ -48,8 +40,6 @@ class MenuItem {
         })
 
         this.initEvents()
-        console.log('menuItem = Consactractor')
-
     }
 
     initEvents() {
@@ -69,12 +59,9 @@ class MenuItem {
         this.el.addEventListener('mouseleave', this.mouseleaveFun);
     }
 
-    tilt(ev) {
+    tilt() {
         if (!activeTilt.letters) return;
-
         const bounds = this.el.getBoundingClientRect();
-
-
         // mouse pos relative to the main element (this.el)
         const relMousePos = {
             x: PointerCursor.x.get() - bounds.left,
@@ -145,11 +132,38 @@ export class Menu {
     }
 
     constructor(el) {
-        console.log('menu = Consactractor')
-
         this.DOM = {el}
         this.DOM.items = document.querySelectorAll('.menu > .menu_item')
         this.menuItems = Array.from(this.DOM.items, item => new MenuItem(item))
+
+        this.initEvents()
+    }
+
+    initEvents(){
+        // Clicking a menu item opens up the content item and hides the menu (items)
+        for (let menuItem of this.menuItems) {
+            // menuItem.el.addEventListener('click', () => this.openItem(menuItem));
+        }
+    }
+
+    openItem(menuItem){
+        if (this.isAnimating) return;
+
+        this.isAnimating = true;
+
+        this.currentItem = this.menuItems.indexOf(menuItem);
+
+        // Set the content item to current
+        // const contentItem = contentItems[this.currentItem];
+        // contentItem.setCurrent();
+
+        activeTilt.columns = false;
+        activeTilt.letters = false;
+
+        // const duration = 1.2;
+        // const ease = new Ease(BezierEasing(1, 0, 0.735, 0.775));
+        // const columnsStagger = 0;
+
     }
 }
 
@@ -210,3 +224,40 @@ export class Column {
         requestAnimationFrame(render)
     }
 }
+
+class ContentItem {
+    constructor(el) {
+        this.DOM = {el: el};
+        this.DOM.title = this.DOM.el.querySelector('.item__content-title');
+        // Create spans out of every letter
+        charming(this.DOM.title);
+        this.DOM.titleLetters = [...this.DOM.title.querySelectorAll('span')];
+        this.titleLettersTotal = this.DOM.titleLetters.length;
+
+        this.DOM.backCtrl = this.DOM.el.querySelector('.item__content-back');
+        this.initEvents()
+    }
+    initEvents() {
+        this.DOM.backCtrl.addEventListener('click', (ev) => {
+            ev.preventDefault();
+            // menu.closeItem()
+        });
+    }
+    setCurrent() {
+        this.DOM.el.classList.add('item--current');
+    }
+    resetCurrent() {
+        this.DOM.el.classList.remove('item--current');
+    }
+}
+
+/*const content = {
+    first: document.querySelector('.content--first'),
+    second: document.querySelector('.content--second')
+};
+
+// Content items
+const contentItems =
+    Array.from(content.second.querySelectorAll('.item'),
+            item => new ContentItem(item));*/
+

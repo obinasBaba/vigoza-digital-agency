@@ -15,6 +15,7 @@ const AppStateProvider = ( {children} ) => {
     const limit= useMotionValue(0)
     const scrollDirection = useMotionValue('down')
     const locoRef = useMotionValue(null)
+    const scrollPos = useMotionValue(null)
 
 
 
@@ -24,7 +25,7 @@ const AppStateProvider = ( {children} ) => {
         setDotIndex,
         locoRef,
         moScroll: {
-            x, y, limit, scrollDirection
+            x, y, limit, scrollDirection, scrollPos
         },
     }} >
 
