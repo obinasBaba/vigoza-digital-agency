@@ -3,6 +3,10 @@
 import React, {useEffect} from 'react';
 import styled, {keyframes} from "styled-components";
 import {PointerCursor} from "../CustomMouse";
+import {text} from "../../../styles/mixins";
+import {motion} from "framer-motion";
+import {transition} from "../../../helpers/variants";
+import { menuItemVariants, menuVariants, containerVariants } from './variants.js'
 
 const marquee = keyframes`
   0% {
@@ -14,7 +18,7 @@ const marquee = keyframes`
   }
 `
 
-const NavMenuContainer = styled.div`
+const NavMenuContainer = styled( motion.div )`
   position: absolute;
   top: 0;
   left: 0;
@@ -69,7 +73,7 @@ const NavMenuContainer = styled.div`
   }
 `
 
-const Menu = styled.nav`
+const Menu = styled( motion.nav )`
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -85,11 +89,11 @@ const Menu = styled.nav`
   --item-font-size: 6.5vw;
 `
 
-const MenuItem = styled.div`
+const MenuItem = styled( motion.div )`
   position: relative;
   padding: 1vh 6vw 0;
 
-  .menu__item-img {
+  img.menu__item-img {
     position: absolute;
     left: 100%;
     top: 50%;
@@ -98,8 +102,9 @@ const MenuItem = styled.div`
     transform: translate3d(calc(-100% - 6vw), -30%, 0) translate3d(0, 20px, 0);
     height: 50vh;
     max-height: 400px;
-
     opacity: 0;
+    
+    z-index: 5;
   }
 
   .menu__item-link,
@@ -132,6 +137,10 @@ const MenuItemLink = styled.a`
     bottom: 60%;
     left: -4%;
     pointer-events: none;
+    text-shadow: 1px 1px 1px  var(--accent400);
+    color: var(--accent400);
+    
+    ${text(1)};
   }
 
   &:hover {
@@ -150,6 +159,13 @@ const MenuItemLink = styled.a`
     opacity: 1;
     transition-duration: 0.4s;
   }
+  
+  &:hover ~ .marquee{
+    border-top: thin solid black;
+    border-bottom: thin solid black;
+    
+    transition: border-top-color 0s linear 1s, border-bottom-color 0s linear 1s;
+  }
 
 `
 
@@ -160,15 +176,14 @@ const Track = styled.div`
   width: var(--marquee-width);
   overflow: hidden;
   pointer-events: none;
+
+  transition: border-top-color 0s linear 1s, border-bottom-color 0s linear 1s;
+
+
   //mix-blend-mode: color-burn;
 
   //border: thin solid green;
 
-  span {
-    text-align: center;
-    font-style: italic;
-    font-family: raisonne-bold,serif;
-  }
 
   .marquee__inner {
     position: relative;
@@ -180,31 +195,27 @@ const Track = styled.div`
     animation-play-state: paused;
     opacity: 0;
     transition: opacity 0.1s;
+    z-index: 10;
+    mix-blend-mode: difference;
+    
+    ${marquee};
 
-    border: thin solid black;
 
-    @keyframes marquee {
-      0% {
-        transform: translate3d(var(--move-initial), 0, 0);
-      }
-
-      100% {
-        transform: translate3d(var(--move-final), 0, 0);
-      }
+    span {
+      text-align: center;
+      font-style: italic;
+      font-family: raisonne-bold, serif;
+      color:  #036c68;
+      mix-blend-mode: difference;
     }
+
+
   }
 `
 
 
 const NavMenu = () => {
 
-    useEffect(() => {
-        const disableScroll = ev => ev.preventDefault()
-
-        window.addEventListener('scroll', disableScroll)
-
-        return () => window.removeEventListener('scroll', disableScroll)
-    })
 
     useEffect(() => {
         const items = document.body.querySelectorAll('.menu__item .menu__item-link')
@@ -224,9 +235,16 @@ const NavMenu = () => {
     
 
     return (
-        <NavMenuContainer>
-            <Menu className="menu">
-                <MenuItem className="menu__item" data-pointer={true} >
+        <NavMenuContainer variants={containerVariants}
+                          transition={transition}
+                          initial='initial'
+                          animate='animate'
+                          exit='exit'
+
+        >
+            <Menu className="menu" variants={menuVariants}>
+
+                <MenuItem className="menu__item" data-pointer={true} variants={menuItemVariants} >
                     <MenuItemLink href='#' className="menu__item-link">Showreel</MenuItemLink>
                     <img className="menu__item-img" src="img/1.jpg" alt="Sasfasdfasd ome "/>
                     <Track className="marquee">
@@ -238,7 +256,7 @@ const NavMenu = () => {
                         </div>
                     </Track>
                 </MenuItem>
-                <MenuItem className="menu__item" data-pointer={true}>
+                <MenuItem className="menu__item" data-pointer={true} variants={menuItemVariants} >
                     <MenuItemLink href='#' className="menu__item-link">Case Studies</MenuItemLink>
                     <img className="menu__item-img" src="img/2.jpg" alt="Soasdf asdfme "/>
                     <Track className="marquee">
@@ -250,7 +268,7 @@ const NavMenu = () => {
                         </div>
                     </Track>
                 </MenuItem>
-                <MenuItem className="menu__item" data-pointer={true}>
+                <MenuItem className="menu__item" data-pointer={true} variants={menuItemVariants} >
                     <MenuItemLink href='#' className="menu__item-link">Experiments</MenuItemLink>
                     <img className="menu__item-img" src="img/3.jpg" alt="Some asdfas df"/>
                     <Track className="marquee">
@@ -262,7 +280,7 @@ const NavMenu = () => {
                         </div>
                     </Track>
                 </MenuItem>
-                <MenuItem className="menu__item" data-pointer={true}>
+                <MenuItem className="menu__item" data-pointer={true} variants={menuItemVariants} >
                     <MenuItemLink href='#' className="menu__item-link">Our Crew</MenuItemLink>
                     <img className="menu__item-img" src="img/4.jpg" alt="Somasdf asdfe "/>
                     <Track className="marquee">
@@ -274,7 +292,7 @@ const NavMenu = () => {
                         </div>
                     </Track>
                 </MenuItem>
-                <MenuItem className="menu__item" data-pointer={true}>
+                <MenuItem className="menu__item" data-pointer={true} variants={menuItemVariants} >
                     <MenuItemLink href='#' className="menu__item-link">Contact</MenuItemLink>
                     <img className="menu__item-img" src="img/5.jpg" alt="Some "/>
                     <Track className="marquee">
@@ -286,6 +304,7 @@ const NavMenu = () => {
                         </div>
                     </Track>
                 </MenuItem>
+
             </Menu>
         </NavMenuContainer>
     );

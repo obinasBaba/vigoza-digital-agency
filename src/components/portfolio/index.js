@@ -32,9 +32,13 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-flow: wrap;
   color: white;
+  
+  border: thin solid teal;
 
   ${heightWidth('gap', 7)};
-  ${ gridColWidth(21, ) };
+  
+  ${ gridColWidth(19, ) };
+  ${spacing('mt', 10)}
 `
 
 const HeadLineStyle = css`

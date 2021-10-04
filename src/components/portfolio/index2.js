@@ -215,7 +215,7 @@ const Portfolio = () => {
         observer.observe(containerRef.current);
 
 
-    }, [])
+    }, [locoRef, scrollDirection])
 
     useEffect(() => {
 
@@ -231,7 +231,7 @@ const Portfolio = () => {
             console.log('cleanup')
             scrollPos.set('#portfolio')
         }
-    }, [])
+    }, [scrollPos, y])
 
     return (
         <PortfolioContainer ref={containerRef} data-scroll-section id='portfolio'>

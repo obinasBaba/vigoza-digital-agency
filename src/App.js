@@ -1,19 +1,17 @@
 // noinspection CssUnknownTarget
 
-import React, {useContext, useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import styled from "styled-components";
-import useLocoScroll from "./hooks/useLocoScroll";
-import {AppStateContext} from "./contexts/AppStateContext";
 import HomePage from "./scenes/HomePage";
-import useFonts from "./hooks/useFonts";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import Project from "./pages/project";
+import CaseStudy from "./pages/case-study";
 import Fixed from "./components/Fixed";
 import {Typography} from "@material-ui/core";
+import Tuts from "./pages/tuts";
 
 
 const AppContainer = styled.main`
-
+    width: 100%;
 `
 
 function App() {
@@ -32,7 +30,11 @@ function App() {
                     </Route>
 
                     <Route path='/project/:id' >
-                        <Project/>
+                        <CaseStudy/>
+                    </Route>
+                    
+                    <Route path='/tuts' >
+                        <Tuts/>
                     </Route>
 
                     <Route >

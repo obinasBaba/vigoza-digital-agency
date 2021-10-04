@@ -110,7 +110,7 @@ const CaseStudyContainer = styled.div`
 `
 
 
-const Project = () => {
+const CaseStudy = () => {
 
     const {id} = useParams()
 
@@ -151,4 +151,4 @@ const Project = () => {
     );
 };
 
-export default Project;
+export default CaseStudy;

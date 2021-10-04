@@ -1,11 +1,10 @@
 import React, {useContext, useEffect, useState} from 'react';
 import styled from "styled-components";
 import {motion} from "framer-motion";
-import Fixed from "../../components/Fixed";
 import Hero from "../../components/hero";
 import About from "../../components/about";
 import Services from "../../components/services";
-import Portfolio from "../../components/portfolio";
+import Portfolio from "../../components/portfolio/index";
 import BLogs from "../../components/blog";
 import Contact from "../../components/contact";
 import Footer from "../../components/Footer";
@@ -15,13 +14,10 @@ import useLocoScroll from "../../hooks/useLocoScroll";
 import {AppStateContext} from "../../contexts/AppStateContext";
 
 const HomePageContainer = styled(motion.main)`
-  max-width: 1600px;
+  //max-width: 1900px;
   margin: 0 auto;
   width: 100%;
-  
-  
   scroll-snap-type: y mandatory;
-  
 `
 
 const containerVariants = {

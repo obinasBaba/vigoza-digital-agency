@@ -94,5 +94,5 @@ export default function useLocoScroll(start, elementId = '[data-scroll-container
     };
   }, [start]);
 
-  return locoScroll;
+  return locoScroll.current;
 }

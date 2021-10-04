@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import styled from "styled-components";
 import {ArrowCursor, PointerCursor} from "./CustomMouse";
 import ScrollProgressCircle from "../ScrollProgressCircle";
@@ -6,6 +6,7 @@ import Pagination from "../nav";
 import AppBar from "./AppBar";
 import NavMenu from "./NavMenu/NavMenu";
 import {AppStateContext} from "../../contexts/AppStateContext";
+import {AnimatePresence} from "framer-motion";
 
 
 const FixedContainer = styled.div`
@@ -22,6 +23,20 @@ const FixedContainer = styled.div`
 const Fixed = () => {
 
     const [openNavMenu, setOpenNavMenu] = useState(false);
+    const { locoRef, } = useContext(AppStateContext);
+
+
+    useEffect(() => {
+
+        if (locoRef.get() === null) return;
+
+        if (openNavMenu)
+            locoRef.get().stop()
+        else
+            locoRef.get().start()
+
+
+    }, [locoRef, openNavMenu])
 
     return (
         <FixedContainer>
@@ -29,9 +44,11 @@ const Fixed = () => {
             <ArrowCursor/>
             <Pagination/>
             <ScrollProgressCircle/>
-            {
-                openNavMenu && <NavMenu/>
-            }
+
+            <AnimatePresence exitBeforeEnter>
+                {openNavMenu && <NavMenu/>}
+            </AnimatePresence>
+
             <AppBar status={openNavMenu} onClick={() => setOpenNavMenu(!openNavMenu)}/>
 
         </FixedContainer>

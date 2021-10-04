@@ -1,16 +1,19 @@
 import React from 'react';
 import styled from "styled-components";
-import {gridify, heightWidth} from "../../styles/mixins";
+import {heightWidth} from "../../styles/mixins";
 import {Typography} from "@material-ui/core";
 import {Link} from "@material-ui/icons";
 
 const ProjectItemsContainer = styled.div`
   display: flex;
+  flex: 1;
   flex-flow: wrap;
+  border: thin solid red;
   gap: 1rem;
   
+  
   img{
-    max-width: 180px;
+    max-width: 200px;
     object-fit: cover;
   }
   
@@ -25,13 +28,13 @@ const ProjectItemsContainer = styled.div`
 `
 
 const MiddleImg = styled.div`
-  //grid-row: 1 / 5;
-   
   display: flex;
   flex-flow: column;
   align-items: center;
   justify-content: center;
   max-width: 200px;
+  
+  border: thin solid blue;
   
   ${heightWidth('gap', 1.5)};
   
@@ -44,7 +47,6 @@ const MiddleImg = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
   }
 `
 

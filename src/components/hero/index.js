@@ -1,12 +1,10 @@
-
-import React, {useContext, useEffect, useRef} from 'react';
+import React, {useContext, useRef} from 'react';
 import {Grid, Typography} from "@material-ui/core";
 import {ScrollDown} from './components'
 import styled, {css} from "styled-components";
 import {largeUp} from "../../styles/mixins";
 import MotionBtn from "../MotionBtn";
 import Social from "./Social";
-import {useIntersection} from "react-use";
 import {AppStateContext} from "../../contexts/AppStateContext";
 
 

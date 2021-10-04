@@ -1,6 +1,6 @@
 import React from 'react';
-import styled, {css} from "styled-components";
-import {gridColWidth, heightWidth, mediumUp, spacing, text} from "../styles/mixins";
+import styled from "styled-components";
+import {gridColWidth, heightWidth, text} from "../styles/mixins";
 import {Typography} from "@material-ui/core";
 
 const HeadLineContainer = styled.div`
@@ -9,9 +9,9 @@ const HeadLineContainer = styled.div`
   justify-self: start;
   z-index: 1;
   //border: thin solid  red;
+  color: white;
   
   ${ gridColWidth(18, ) }
-  ${spacing('mb', 5)}
 
   .title {
     font-size: 2rem;

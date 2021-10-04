@@ -9,8 +9,11 @@ const MenuContainer = styled.div`
   justify-content: center;
   align-items: flex-start;
   
-  p{
+  h5{
     letter-spacing: 1px;
+    font-weight: bold;
+    -webkit-text-stroke: 1px white;
+    color: transparent;
   }
   
   & *{
@@ -38,7 +41,6 @@ const MenuContainer = styled.div`
       width: 15px;
       background: grey;
       border-radius: 50%;
-      
     }
   }
 `
@@ -46,9 +48,9 @@ const MenuContainer = styled.div`
 const Menu = () => {
     return (
         <MenuContainer>
-            <Typography variant='body2' >INDUSTRIAL DESIGN</Typography>
-            <Typography variant='body2' color='textSecondary'>WEB DESIGN</Typography>
-            <Typography variant='body2' color='textSecondary'>PHOTOGRAPHY</Typography>
+            <Typography variant='h5' >INDUSTRIAL DESIGN</Typography>
+            <Typography variant='h5' color='textSecondary'>WEB DESIGN</Typography>
+            <Typography variant='h5' color='textSecondary'>PHOTOGRAPHY</Typography>
 
             <div className="dots">
                 <span/>
