@@ -49,10 +49,30 @@ const HeadLineStyle = css`
 const Portfolio = () => {
 
     const containerRef = useRef(null);
+    const {setDotIndex} = useContext(AppStateContext);
+
+    const intersection = useIntersection(containerRef, {
+        root: null,
+        rootMargin: `0px 0px 0px 0px`,
+        threshold: .6,
+    })
+
+    useEffect(() => {
+        if(intersection && intersection.isIntersecting) {
+            setDotIndex(3)
+        }
+
+    }, [intersection])
 
 
     return (
-        <PortfolioContainer ref={containerRef}  data-scroll-section id='portfolio'>
+        <PortfolioContainer ref={containerRef}
+                            data-scroll-call="portfolio"
+                            data-scroll-id='portfolio'
+                            data-scroll
+                            data-scroll-repeat={true}
+
+                            id='portfolio'>
             <HeadLine text='portfolio' styles={HeadLineStyle}/>
 
             <ContentWrapper>

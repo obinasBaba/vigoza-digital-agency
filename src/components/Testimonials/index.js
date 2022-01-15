@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect} from 'react';
 import {SwiperContainer, TestimonialGrid, TestimonialsContainer} from "./components";
 import 'lazysizes';
 import Swiper from 'swiper';
@@ -46,6 +46,7 @@ const Testimonials = () => {
             centeredSlides: true,
             freeMode: true,
             lazy: false,
+            // rewind: true,
 
             navigation: {
                 nextEl: swiperButtonNext,
@@ -64,43 +65,48 @@ const Testimonials = () => {
         })
 
         swiperButtonPrev.addEventListener('click', () => {
-            swiper.slidePrev()
-        })
-
-        swiperButtonNext.addEventListener('click', () => {
             swiper.slideNext()
         })
 
+        swiperButtonNext.addEventListener('click', () => {
+            swiper.slidePrev()
+        })
+
         swiperButtonPrev.addEventListener("mouseenter", evt => {
-            ArrowCursor.onSwitchSwiperSides()
+            ArrowCursor.onSwitchSwiperSides('right')
         });
         swiperButtonNext.addEventListener("mouseenter", evt => {
-            ArrowCursor.onSwitchSwiperSides()
+            ArrowCursor.onSwitchSwiperSides('left')
         });
 
 
         swiperContainer.addEventListener("mouseenter", e => {
             Cursor.hidePointer()
             ArrowCursor.onSwiperMouseEnter(e)
+
+            console.log('mouseenter swiperCOntainer')
         });
 
         swiperContainer.addEventListener("mouseleave", e => {
             Cursor.showPointer()
             ArrowCursor.onSwiperMouseLeave(e)
-
         });
 
     })
 
     return (
-        <TestimonialsContainer data-scroll data-scroll-section id='testimonials'>
-
+        <TestimonialsContainer data-scroll
+                               data-scroll-call="testimonials"
+                               data-scroll-repeat={true}
+                               id='testimonials'
+        >
 
             <TestimonialGrid className="grid"
                              data-scroll
                              data-scroll-speed='-2'
                              data-scroll-direction='horizontal'
                              data-scroll-target='#testimonials'>
+
                 <SwiperContainer className="swiper-container">
                     <div className="swiper-wrapper">
                         {
@@ -118,8 +124,10 @@ const Testimonials = () => {
 
                     </div>
 
-                    <div className="swiper-button-prev"/>
+                    <div className="swiper-button-prev"  />
+
                     <div className="swiper-button-next"/>
+
                 </SwiperContainer>
             </TestimonialGrid>
         </TestimonialsContainer>

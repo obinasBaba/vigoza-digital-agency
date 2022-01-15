@@ -11,7 +11,7 @@ import Footer from "../../components/Footer";
 import Testimonials from "../../components/Testimonials";
 import useFonts from "../../hooks/useFonts";
 import useLocoScroll from "../../hooks/useLocoScroll";
-import {AppStateContext} from "../../contexts/AppStateContext";
+import {ScrollStateContext} from "../../contexts/ScrollStateContext";
 
 const HomePageContainer = styled(motion.main)`
   //max-width: 1900px;
@@ -38,7 +38,8 @@ const containerVariants = {
 
 const HomePage = () => {
 
-    const { locoRef, moScroll: { scrollPos} } = useContext(AppStateContext);
+
+    const { locoRef, moScroll: { scrollPos} } = useContext(ScrollStateContext);
 
     const [fontLoaded, setFontLoaded] = useState(false);
 
@@ -64,6 +65,7 @@ const HomePage = () => {
                            }}
                            initial="initial"
                            animate='animate'
+                           data-scroll-section={true}
                            exit="exit">
 
             <Hero/>
@@ -73,6 +75,7 @@ const HomePage = () => {
             <Portfolio/>
             <BLogs/>
             <Contact/>
+
             <Footer/>
 
 

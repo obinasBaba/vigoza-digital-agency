@@ -22,6 +22,7 @@ const ServicesContainer = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   margin-bottom: -1px; //hide the smooth scroll pixel stuttering problem
+  
 
   ${gridify()}
   ${spacing('pt', 15)}
@@ -45,7 +46,7 @@ const Services = () => {
     const containerRef = useRef(null);
     const {setDotIndex} = useContext(AppStateContext);
 
-  /*  const intersection = useIntersection(containerRef, {
+    const intersection = useIntersection(containerRef, {
         root: null,
         rootMargin: `0px 0px 0px 0px`,
         threshold: .6,
@@ -56,11 +57,18 @@ const Services = () => {
             setDotIndex(2)
         }
 
-    }, [intersection])*/
+    }, [intersection])
 
     return (
 
-        <ServicesContainer  ref={containerRef}  data-scroll-section
+        <ServicesContainer  ref={containerRef}
+                            // data-scroll-section
+                            data-scroll-call="service"
+                            data-scroll
+                            data-scroll-repeat={true}
+                            data-scroll-id='service'
+
+
                             id='service'
         >
 

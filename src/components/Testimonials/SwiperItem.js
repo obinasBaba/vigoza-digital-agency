@@ -59,6 +59,7 @@ const SwiperItem = ({by, url, text}) => {
             </QuoteIcon>
 
             <img className="swiper-slide__img lazyload" data-src={url} alt=""/>
+
             <Say>
                 <Typography variant='h5' gutterBottom>
                     {text}
@@ -68,6 +69,7 @@ const SwiperItem = ({by, url, text}) => {
                     {by}
                 </Typography>
             </Say>
+
         </SwiperItemContainer>
     );
 };

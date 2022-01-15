@@ -56,7 +56,16 @@ const Title = styled( Typography )`
 `
 
 const Caption = styled.div`
-    max-width: 34ch;
+  max-width: 34ch;
+  & > * {
+    color: whitesmoke ;
+  } 
+  
+  & > .title{
+    color: var(--accent300);
+  }
+  
+  
   & > :last-child{
     ${spacing('ml', 1)}
     ${spacing('mt', 1)}
@@ -72,11 +81,11 @@ const Captions = () => {
         <CaptionsContainer>
             <Caption pos='flex-start'>
                 <Title variant='body2'
-                       color='textSecondary'
+
                        letter='I'
                        className="title">INDUSTRIAL DESIGN</Title>
 
-                <Typography variant='subtitle2' className='txt'  color='textSecondary' >
+                <Typography variant='subtitle2' className='txt'    >
                     Morbi leo risus, porta ac
                     consectetur ac, vestibulum at eros.
                     Aenean eu leo quam. Pellentesque
@@ -86,11 +95,10 @@ const Captions = () => {
 
             <Caption pos='center'>
                 <Title variant='body2'
-                       color='textSecondary'
                        letter='w'
                        className="title">WEB DESIGN</Title>
 
-                <Typography variant='subtitle2' className='txt'  color='textSecondary' >
+                <Typography variant='subtitle2' className='txt'    >
                     Morbi leo risus, porta ac
                     consectetur ac, vestibulum at eros.
                     Aenean eu leo quam. Pellentesque
@@ -104,7 +112,7 @@ const Captions = () => {
                        color='textSecondary'
                        className="title">PHOTOGRPAHY</Title>
 
-                <Typography variant='subtitle2' className='txt'  color='textSecondary' >
+                <Typography variant='subtitle2' className='txt'    >
                     Morbi leo risus, porta ac
                     consectetur ac, vestibulum at eros.
                     Aenean eu leo quam. Pellentesque

@@ -7,7 +7,6 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import CaseStudy from "./pages/case-study";
 import Fixed from "./components/Fixed";
 import {Typography} from "@material-ui/core";
-import Tuts from "./pages/tuts";
 
 
 const AppContainer = styled.main`
@@ -22,6 +21,7 @@ function App() {
         <Router>
 
             <AppContainer ref={mainRef} data-scroll-container id='main-container'>
+
                 <Fixed/>
 
                 <Switch >
@@ -31,10 +31,6 @@ function App() {
 
                     <Route path='/project/:id' >
                         <CaseStudy/>
-                    </Route>
-                    
-                    <Route path='/tuts' >
-                        <Tuts/>
                     </Route>
 
                     <Route >

@@ -63,6 +63,8 @@ class ArrowCursor extends React.Component {
 
     // mouseenter
     static onSwiperMouseEnter(e) {
+        cursorInsideSwiper = true;
+
         const swiperBox = e.target.getBoundingClientRect();
 
         // mouse.x = e.clientX;
@@ -76,7 +78,8 @@ class ArrowCursor extends React.Component {
         }
 
         gsap.set('.arrow-cursor__icon', {
-            rotation: startRotation
+            rotation: startRotation,
+            opacity: 1,
         });
 
         cursorSide = mouse.x.get() > window.innerWidth / 2 ? "right" : "left";
@@ -92,13 +95,15 @@ class ArrowCursor extends React.Component {
 
     // mouseLeave
     static onSwiperMouseLeave(e) {
-        const swiperBox = e.target.getBoundingClientRect();
+        let outRotation = cursorSide === "right" ? 135 : -315;
 
-        let outRotation;
-        if (mouse.y.get() < swiperBox.top + swiperBox.height / 2) {
-            outRotation = cursorSide === "right" ? -135 : -45;
-        } else {
-            outRotation = cursorSide === "right" ? 135 : -315;
+        if (e){
+            const swiperBox = e.target.getBoundingClientRect();
+            if (mouse.y.get() < swiperBox.top + swiperBox.height / 2) {
+                outRotation = cursorSide === "right" ? -135 : -45;
+            } else {
+                outRotation = cursorSide === "right" ? 135 : -315;
+            }
         }
 
         gsap.to('.arrow-cursor__icon', {
@@ -126,7 +131,9 @@ class ArrowCursor extends React.Component {
 
     }
 
-    static onSwitchSwiperSides() {
+    static onSwitchSwiperSides(cursorSide) {
+
+        // console.log( 'side:🤩', cursorSide)
 
         if (cursorInsideSwiper) {
             gsap.to('.arrow-cursor__icon', {
@@ -135,7 +142,7 @@ class ArrowCursor extends React.Component {
                 duration: .3,
             })
 
-            cursorSide = cursorSide === 'left' ? 'right' : 'left'
+            // cursorSide = cursorSide === 'left' ? 'right' : 'left'
         }
 
         if (!cursorInsideSwiper)
@@ -147,6 +154,8 @@ class ArrowCursor extends React.Component {
 
         mouse.x.set(e.touches.currentX);
         mouse.y.set(e.touches.currentY);
+
+        console.log('onTouchMove : ', e)
 
         cursorSide = mouse.x.get() > window.innerWidth / 2 ? 'right' : 'left';
 
@@ -165,7 +174,7 @@ class ArrowCursor extends React.Component {
 
                 <ArrowCursorContainer className="arrow-cursor" style={{x: mouse.x, y: mouse.y,}}>
 
-                        <svg className="arrow-cursor__icon" viewBox="0 0 117.25 86.75">
+                    <svg className="arrow-cursor__icon" viewBox="0 0 117.25 86.75">
                             <path className="arrow-cursor__path"
                                   d="M111.45,42.5,74.65,5.7l-9.9,9.9,20.6,20.6H6.45v14h78.9L64.75,70.8l9.9,9.9,36.8-36.8A1,1,0,0,0,111.45,42.5Z"
                                   fill='none' strokeWidth='3.5' stroke='rgba(255, 69, 0, 0.92)'

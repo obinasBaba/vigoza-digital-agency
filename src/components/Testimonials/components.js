@@ -1,13 +1,16 @@
 import styled from "styled-components";
 import {spacing} from "../../styles/mixins";
+import {motion} from "framer-motion";
 
 
-export const TestimonialsContainer = styled.div`
+export const TestimonialsContainer = styled( motion.section )`
   position: relative;
-  min-height: 110vh;
+  min-height: 70vh;
   //background-color: rgba(255, 69, 0, 0.25);
   
   ${spacing('mb', 15)};
+  ${spacing('mt', 15)};
+  
 `
 
 
@@ -45,7 +48,6 @@ export const SwiperContainer = styled.div`
   width: 100%;
   height: 65vh;
   overflow: hidden;
-
 
   .swiper-button-prev,
   .swiper-button-next {

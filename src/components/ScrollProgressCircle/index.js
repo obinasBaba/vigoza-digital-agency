@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { heightWidth, spacing} from "../../styles/mixins";
 import {AppStateContext} from "../../contexts/AppStateContext";
 import {map} from "../../helpers/utils";
+import {ScrollStateContext} from "../../contexts/ScrollStateContext";
 
 const ProgressContainer = styled(motion.div)`
   position: absolute;
@@ -51,7 +52,7 @@ const ScrollProgressCircle = () => {
 
   const {
     moScroll: {y, limit},
-  } = useContext( AppStateContext )
+  } = useContext( ScrollStateContext )
 
   const rotate = useTransform(y, latest => {
     return map(latest, 0, limit.get(), 0, 360)

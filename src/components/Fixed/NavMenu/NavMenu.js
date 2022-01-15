@@ -28,13 +28,13 @@ const NavMenuContainer = styled( motion.div )`
   pointer-events: initial;
 
   &::before {
-    animation: grain 8s steps(10) infinite;
-    background-image: url(../img/noise.png);
     content: '';
+    position: fixed;
+    animation: grain 8s  infinite;
+    background-image: url(../img/noise.png);
     height: 300%;
     left: -50%;
     opacity: 0.6;
-    position: fixed;
     top: -100%;
     width: 300%;
   }
@@ -191,7 +191,7 @@ const Track = styled.div`
     gap: 2rem;
     width: fit-content;
     transform: translate3d(var(--move-initial), 0, 0);
-    animation: marquee 5s linear infinite;
+    animation: ${marquee} 5s linear infinite;
     animation-play-state: paused;
     opacity: 0;
     transition: opacity 0.1s;

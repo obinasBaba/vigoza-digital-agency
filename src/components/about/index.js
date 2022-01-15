@@ -5,8 +5,8 @@ import ImgSvg from "./AboutSvg";
 import {Grid, Typography} from "@material-ui/core";
 import styled, {css} from "styled-components";
 import {heightWidth, largeUp, mediumUp} from "../../styles/mixins";
-import {useIntersection} from 'react-use'
 import {AppStateContext} from "../../contexts/AppStateContext";
+import {useIntersection} from "react-use";
 
 const AboutContainer = styled(Grid)`
   min-height: 100vh;
@@ -77,18 +77,18 @@ const TypoWrapper = styled('div')`
   align-self: end;
   justify-self: end;
 
- /* ${({theme}) => `
+    /* ${({theme}) => `
       ${theme.breakpoints.up('lg')} {
          justify-self: start;
          grid-column: 6 / 13;
       }
 `}*/
-  
-  ${largeUp( css`
+
+  ${largeUp(css`
     justify-self: start;
     grid-column: 6 / 13;
-  ` )};
-  
+  `)};
+
   & > :nth-child(n) { //creative studio
     font-family: Poppins, sans-serif;
     letter-spacing: clamp(3px, .9vw, 9px);
@@ -179,32 +179,39 @@ const AboutEffect = styled('h1')`
 
 const About = () => {
     const containerRef = useRef(null);
-    const { setDotIndex} = useContext(AppStateContext);
 
     const [inView, setInView] = useState(false);
-
-   /* const intersection = useIntersection(containerRef, {
-        root: null,
-        rootMargin: `0px 0px -400px 0px`,
-        threshold: 0,
-    })
-
-    useEffect(() => {
-        if (intersection && intersection.isIntersecting) {
-            setInView(true)
-            setDotIndex(1)
-        } else {
-
-        }
+    const {setDotIndex} = useContext(AppStateContext);
 
 
-    }, [intersection])
-*/
+    const intersection = useIntersection(containerRef, {
+         root: null,
+         rootMargin: `0px 0px -400px 0px`,
+         threshold: 0,
+     })
+ 
+     useEffect(() => {
+         if (intersection && intersection.isIntersecting) {
+             setInView(true)
+             setDotIndex(1)
+         } else {
+ 
+         }
+ 
+ 
+     }, [intersection])
 
     return (
         <AboutContainer xs item container ref={containerRef}
                         inView={inView}
-                        data-scroll-section
+            // data-scroll-section
+            
+                        data-scroll-class='about-inview'
+                        data-scroll-id='about'
+                        data-scroll-call="about"
+                        data-scroll
+                        data-scroll-repeat={true}
+
                         id='about'
         >
 
@@ -225,17 +232,21 @@ const About = () => {
                         <Typography variant='h2'>studio</Typography>
                     </TypoWrapper>
 
-                    <AboutText gutterBottom variant='body1'>
+                    <AboutText gutterBottom variant='body1'
+                               data-scroll-call='about-call'
+                               data-scroll>
                         VIGOZA™ is a small, multi-skilled team of designers, developers and writers, working in
                         partnership with brands, publishers and audiences. We focus on developing our own inhouse
                         digital publications as well as selling our creative services to a select group of brand
                         partners.
 
                         <Typography component='span'
-                                    style={{marginTop: '2rem',
+                                    style={{
+                                        marginTop: '2rem',
                                         fontWeight: 'lighter',
                                         fontFamily: 'var(--raisonne-b)',
-                                        display: "block"}}>
+                                        display: "block"
+                                    }}>
                             incidunt inventore.
                         </Typography>
 

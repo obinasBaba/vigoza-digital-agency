@@ -3,22 +3,22 @@ import React from 'react';
 import {CssBaseline, StylesProvider} from "@material-ui/core";
 import {ThemeProvider} from "styled-components";
 import {GlobalStyles} from "./GlobalStyles";
-import AppStateProvider from "../contexts/AppStateContext";
+import ContextWrapper from "../contexts/ContextWrapper";
 
 
 const ThemeWrapper = ({children, theme}) => {
     return (
-        <AppStateProvider>
+        <ContextWrapper>
             <ThemeProvider theme={theme}>
-                <StylesProvider injectFirst>
-                    <MuiThemeProvider theme={theme}>
-                        <CssBaseline/>
+                <StylesProvider  injectFirst>
+                    <MuiThemeProvider  theme={theme}>
+                        <CssBaseline />
                         <GlobalStyles />
                         {children}
                     </MuiThemeProvider>
                 </StylesProvider>
             </ThemeProvider>
-        </AppStateProvider>
+        </ContextWrapper>
     );
 };
 

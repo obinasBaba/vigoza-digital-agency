@@ -2,7 +2,7 @@ import React, {useContext, useEffect} from 'react';
 import {Typography} from "@material-ui/core";
 import styled, {css} from 'styled-components'
 import {heightWidth, smallUp, spacing, text} from "../../styles/mixins";
-import {AnimatePresence, motion} from "framer-motion";
+import {AnimatePresence, AnimateSharedLayout, motion} from "framer-motion";
 import {AppStateContext} from "../../contexts/AppStateContext";
 
 const PaginationContainer = styled(motion.div)`
@@ -116,7 +116,7 @@ const ActiveDot = ({index, text}) => {
 
                 <Stick/>
             </StyledActiveDot>
-        </AnimatePresence>
+         </AnimatePresence>
 
     );
 }
@@ -125,22 +125,29 @@ const ActiveDot = ({index, text}) => {
 const Pagination = () => {
 
 
-    const {dotIndex, setDotIndex, locoRef} = useContext(AppStateContext);
+    const {dotIndex, setDotIndex} = useContext(AppStateContext);
     const anchors = ['welcome', 'about', 'service', 'portfolio', 'blog', 'contact'];
 
 
     const handleClick = (idx) => {
-        if (!locoRef.get().current) return;
+        if (!window.locoInstance) return;
 
-        locoRef.get().current.scrollTo(`#${anchors[idx]}`, {
+        window.locoInstance.scrollTo(`#${anchors[idx]}`, {
             easing: [1, 0.1, 0.23, 0.96],
         })
 
         setDotIndex(idx)
     }
 
+    Pagination.ScrollPaginationTo = (sectionId) => {
+        console.log('setDotIndex : ', sectionId)
+        if (anchors.includes(sectionId))
+            setDotIndex( anchors.indexOf(sectionId) )
+
+    }
+
     return (
-        // <AnimateSharedLayout>
+        <AnimateSharedLayout>
         <PaginationContainer>
             {
                 anchors.map((i, index) =>
@@ -153,7 +160,7 @@ const Pagination = () => {
                                key={index}/>)
             }
         </PaginationContainer>
-        // </AnimateSharedLayout>
+        </AnimateSharedLayout>
 
     );
 };

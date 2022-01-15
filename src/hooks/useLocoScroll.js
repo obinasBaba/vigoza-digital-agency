@@ -3,13 +3,16 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import {useContext, useEffect, useLayoutEffect, useRef} from 'react'
 import LocomotiveScroll from "locomotive-scroll";
 import "locomotive-scroll/dist/locomotive-scroll.css";
-import {AppStateContext} from '../contexts/AppStateContext'
+import Cursor from "../components/Fixed/CustomMouse/PointerCursor";
+import {ArrowCursor} from "../components/Fixed/CustomMouse";
+import {ScrollStateContext} from "../contexts/ScrollStateContext";
+import Pagination from "../components/Pagination";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function useLocoScroll(start, elementId = '[data-scroll-container="true"]') {
 
-  const {moScroll} = useContext(AppStateContext)
+  const {moScroll} = useContext( ScrollStateContext )
   const locoScroll = useRef(null)
 
   useLayoutEffect(() => {
@@ -20,7 +23,7 @@ export default function useLocoScroll(start, elementId = '[data-scroll-container
 
     const scrollEl = document.querySelector(elementId);
 
-    locoScroll.current = new LocomotiveScroll({
+    window.locoInstance = locoScroll.current = new LocomotiveScroll({
       el: scrollEl,
       smooth: true,
       multiplier: 1,
@@ -29,6 +32,7 @@ export default function useLocoScroll(start, elementId = '[data-scroll-container
     });
 
     // whenever when we scroll loco update scrollTrigger
+    let activeSection = '';
     locoScroll.current.on("scroll", arg => {
       ScrollTrigger.update();
       moScroll.x.set(arg.scroll.x)
@@ -37,6 +41,39 @@ export default function useLocoScroll(start, elementId = '[data-scroll-container
       moScroll.scrollDirection.set(arg.direction)
       // console.log(arg.scroll)
     });
+
+    let prevViewState;
+    let prevStateMap = new Map();
+    window.locoInstance.on('call', arg => {
+
+      switch (arg) {
+        case 'testimonials':
+
+          if (!prevViewState){
+            prevViewState = 'enter'
+          }else if (prevViewState === 'enter'){
+
+            prevViewState = 'leave'
+            ArrowCursor.onSwiperMouseLeave()
+            Cursor.showPointer()
+
+          }else if(prevViewState === 'leave') {
+            prevViewState = 'enter'
+          }
+
+          break
+        default:
+         /* if (!prevStateMap.get(arg)){
+            prevStateMap.set(arg, 'enter')
+          }else if (prevStateMap.get(arg) === 'enter'){
+            prevStateMap.set(arg, 'leave')
+          }else if (prevStateMap.get(arg) === 'leave'){
+            prevStateMap.set(arg, 'enter')
+            Pagination.ScrollPaginationTo( arg )
+          }*/
+          break
+      }
+    })
 
 
     ScrollTrigger.scrollerProxy(scrollEl, {

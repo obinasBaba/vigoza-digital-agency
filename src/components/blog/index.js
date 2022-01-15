@@ -65,7 +65,7 @@ const BLogs = () => {
     const [inView, setInView] = useState(false);
     const {setDotIndex} = useContext(AppStateContext);
 
-   /* const intersection = useIntersection(containerRef, {
+    const intersection = useIntersection(containerRef, {
         root: null,
         rootMargin: `0px 0px 0px 0px`,
         threshold: .6,
@@ -78,10 +78,17 @@ const BLogs = () => {
         }
 
 
-    }, [intersection])*/
+    }, [intersection])
 
     return (
-        <BlogsContainer ref={containerRef} inView={inView}  data-scroll-section id='blog'>
+        <BlogsContainer ref={containerRef}
+                        inView={inView}
+                        data-scroll-call="blog"
+                        data-scroll-id='blog'
+
+                        data-scroll
+                        data-scroll-repeat={true}
+                        id='blog'>
 
             <HeadLine text='Recent Blogs'/>
             <h1 className="blog__effect blog">Blog</h1>

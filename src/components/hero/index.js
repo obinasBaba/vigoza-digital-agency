@@ -1,4 +1,4 @@
-import React, {useContext, useRef} from 'react';
+import React, {useContext, useEffect, useRef} from 'react';
 import {Grid, Typography} from "@material-ui/core";
 import {ScrollDown} from './components'
 import styled, {css} from "styled-components";
@@ -6,6 +6,7 @@ import {largeUp} from "../../styles/mixins";
 import MotionBtn from "../MotionBtn";
 import Social from "./Social";
 import {AppStateContext} from "../../contexts/AppStateContext";
+import {useIntersection} from "react-use";
 
 
 const GridContainer = styled( Grid )`
@@ -78,30 +79,35 @@ function Hero() {
     const {setDotIndex} = useContext(AppStateContext);
 
 
-    /*const intersection = useIntersection(containerRef, {
+    const intersection = useIntersection(containerRef, {
         root: null,
         rootMargin: `0px 0px 0px 0px`,
         threshold: .6,
     })
 
     useEffect(() => {
-        return;
-
 
         if(intersection && intersection.isIntersecting) {
             setDotIndex(0)
         }
 
-    }, [intersection])*/
+    }, [intersection])
 
 
     return (
-        <GridContainer container ref={containerRef}  data-scroll-section id='welcome' >
+        <GridContainer container ref={containerRef}
+                       id='welcome'
+                       data-scroll-call="welcome"
+                       data-scroll-id='welcome'
+                       data-scroll
+                       data-scroll-repeat={true}
+
+        >
 
             <Grid item xs={ 1 } md={ 2 }/>
 
             <Grid item container xs={ 10 } md={ 7 }
-                  alignItems='center' justify='center' data-scroll data-scroll-speed='-1'>
+                  alignItems='center' justify='center' data-scroll data-scroll-speed='-1.5'>
 
                 <HeroTextWrapper item   >
 
