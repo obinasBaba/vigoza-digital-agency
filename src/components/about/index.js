@@ -58,6 +58,7 @@ const SvgWrapper = styled('div')`
         align-self: end;
       }
   `}
+  
   &::after {
     //content: '';
     position: absolute;

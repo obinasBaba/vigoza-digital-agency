@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$USER_HOME$/Desktop/docker-tuts/gg/thumpus/DiagonalSlideshow/.idea/DiagonalSlideshow.iml" filepath="$USER_HOME$/Desktop/docker-tuts/gg/thumpus/DiagonalSlideshow/.idea/DiagonalSlideshow.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/vigoza-v.4.iml" filepath="$PROJECT_DIR$/.idea/vigoza-v.4.iml" />
     </modules>
   </component>

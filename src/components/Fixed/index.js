@@ -39,7 +39,7 @@ const Fixed = () => {
 
     return (
         <FixedContainer>
-            <PointerCursor/>
+            {/*<PointerCursor/>*/}
             <ArrowCursor/>
             <Pagination/>
 
@@ -47,7 +47,7 @@ const Fixed = () => {
                 {openNavMenu && <NavMenu/>}
             </AnimatePresence>
 
-            <AppBar status={openNavMenu} onClick={() => setOpenNavMenu(!openNavMenu)}/>
+            {/*<AppBar status={openNavMenu} onClick={() => setOpenNavMenu(!openNavMenu)}/>*/}
 
         </FixedContainer>
     );

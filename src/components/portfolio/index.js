@@ -8,6 +8,7 @@ import {gridColWidth, gridify, heightWidth, spacing} from "../../styles/mixins";
 import HeadLine from "../HeadLine";
 import ProjectItems from "./ProjectItems";
 import Menu from "./Menu";
+import Diagonal from "./diagonal";
 
 const PortfolioContainer = styled.div`
   min-height: 100vh;
@@ -16,13 +17,15 @@ const PortfolioContainer = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  align-content: center;
-  justify-content: center;
+  //justify-content: center;
+  //display: grid;
+  //place-content: center;
   
   
-  ${spacing('pv', 12)};
-  ${gridify()};
-  ${spacing('gap', 1)};
+  
+/*  // ${spacing('pv', 12)};
+  // ${gridify()};
+  // ${spacing('gap', 1)};*/
 
 `
 
@@ -67,18 +70,20 @@ const Portfolio = () => {
 
     return (
         <PortfolioContainer ref={containerRef}
-                            data-scroll-call="portfolio"
-                            data-scroll-id='portfolio'
-                            data-scroll
-                            data-scroll-repeat={true}
+                            // data-scroll-call="portfolio"
+                            // data-scroll-id='portfolio'
+                            // data-scroll
+                            // data-scroll-repeat={true}
 
                             id='portfolio'>
-            <HeadLine text='portfolio' styles={HeadLineStyle}/>
+            {/*<HeadLine text='portfolio' styles={HeadLineStyle}/>
 
             <ContentWrapper>
                 <ProjectItems/>
                 <Menu/>
-            </ContentWrapper>
+            </ContentWrapper>*/}
+
+            <Diagonal/>
 
         </PortfolioContainer>
     );

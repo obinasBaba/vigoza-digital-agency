@@ -167,13 +167,14 @@ const arrowTransition = {
 }
 
 
-const MotionBtn = ({slug, txt = 'no-txt'}) => {
+const MotionBtn = ({slug, txt = 'no-txt', onClick}) => {
     return (
 
         <ReadMoreBtn variants={parentVariant}
                      initial='initial'
                      animate='animate'
                      whileHover='hover'
+                     onClick={onClick}
                      data-pointer={true}
 
         >

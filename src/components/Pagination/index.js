@@ -148,7 +148,7 @@ const Pagination = () => {
 
     return (
         <AnimateSharedLayout>
-        <PaginationContainer>
+        <PaginationContainer className='pagination-container'>
             {
                 anchors.map((i, index) =>
                     dotIndex === index ?
@@ -156,7 +156,7 @@ const Pagination = () => {
                                    text={i}
                                    index={index}/>
 
-                        : <Dot onClick={() => handleClick(index)}
+                        : <Dot className={`dot-${index}`} onClick={() => handleClick(index)}
                                key={index}/>)
             }
         </PaginationContainer>

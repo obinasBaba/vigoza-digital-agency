@@ -12,6 +12,7 @@ import Testimonials from "../../components/Testimonials";
 import useFonts from "../../hooks/useFonts";
 import useLocoScroll from "../../hooks/useLocoScroll";
 import {ScrollStateContext} from "../../contexts/ScrollStateContext";
+import LocomotiveScroll from "locomotive-scroll";
 
 const HomePageContainer = styled(motion.main)`
   //max-width: 1900px;
@@ -37,7 +38,6 @@ const containerVariants = {
 }
 
 const HomePage = () => {
-
 
     const { locoRef, moScroll: { scrollPos} } = useContext(ScrollStateContext);
 
@@ -65,7 +65,8 @@ const HomePage = () => {
                            }}
                            initial="initial"
                            animate='animate'
-                           data-scroll-section={true}
+                           // data-scroll-section={true}
+                           className='homepage-container'
                            exit="exit">
 
             <Hero/>

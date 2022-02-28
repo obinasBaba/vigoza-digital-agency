@@ -15,13 +15,14 @@ const ScrollStateProvider = ( {children} ) => {
     const scrollDirection = useMotionValue('down')
     const locoRef = useMotionValue(null)
     const scrollPos = useMotionValue(null)
+    const speed = useMotionValue(null)
 
 
 
     return (
         <ScrollStateContext.Provider value={{
             locoRef,
-            moScroll: {x, y, limit, scrollDirection, scrollPos},
+            moScroll: {x, y, limit, scrollDirection, scrollPos, speed},
         }} >
 
             {children}

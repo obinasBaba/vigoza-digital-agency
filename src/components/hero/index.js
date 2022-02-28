@@ -115,7 +115,10 @@ function Hero() {
                     <Typography className='powered' variant='subtitle2'>
                         Powered By Vigoza Studio
                     </Typography>
-                    <MotionBtn txt={'Read More'} />
+                    <MotionBtn txt={'Read More'} onClick={() => {
+                        document.body
+                            .querySelector('.pagination-container .dot-1')?.click()
+                    }} />
 
                 </HeroTextWrapper>
 
