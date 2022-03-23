@@ -1,16 +1,29 @@
-import React, {useEffect, useRef, useState} from 'react';
-import styled from "styled-components";
-import {motion, useAnimation, useMotionValue} from 'framer-motion'
+import React, {useContext, useLayoutEffect, useRef} from 'react';
+import styled, {css} from "styled-components";
+import {motion, useMotionValue} from 'framer-motion'
+import {Link} from "react-router-dom";
+import {AppStateContext} from "../../../contexts/AppStateContext";
+import {debounce} from "@material-ui/core";
 
-const SlideContainer = styled( motion.div )`
+
+const SlideContainer = styled(motion.div)`
   position: absolute;
   width: 100%;
   display: flex;
   pointer-events: none;
   cursor: pointer;
   height: 100%;
-  grid-area: slide;
+  grid-area: slide; //is gridItem
+
+  //border: thick solid red;
   
+  a{
+    position: absolute;
+    z-index: 100;
+    height: 100%;
+    width: 100%;
+  }
+
 
   .slide__img-wrap {
     position: absolute;
@@ -19,8 +32,14 @@ const SlideContainer = styled( motion.div )`
     height: 80%;
     top: 10%;
 
-    //border: thick solid navajowhite;
+
   }
+  
+  ${ ({prev, next}) => (prev || next) && css`
+    .slide__img-wrap{
+      
+    }
+  ` };
 
   .slide__img {
     width: 100%;
@@ -30,8 +49,9 @@ const SlideContainer = styled( motion.div )`
     background-size: cover;
     background-position: 50% 50%;
     position: absolute;
+    border-radius: 10px;
     //pointer-events: none;
-    transform: scale3d(1.01, 1.01, 1);
+    //transform: scale3d(1.01, 1.01, 1);
   }
 
   .slide__img-wrap,
@@ -53,7 +73,7 @@ const SlideContainer = styled( motion.div )`
 
   }
 
-  h1{
+  h1 {
     font-size: 5rem;
     position: absolute;
     display: block;
@@ -68,6 +88,16 @@ const SlideContainer = styled( motion.div )`
     flex-direction: column;
     justify-content: space-between;
     color: navajowhite;
+
+    .slide__img-wrap {
+      opacity: 0;
+    }
+
+    &.slide--visible {
+      .slide__img-wrap {
+        opacity: 1;
+      }
+    }
 
 
     .slide__title-wrap {
@@ -110,38 +140,45 @@ const SlideContainer = styled( motion.div )`
 // {x: `calc( (100% / 3) - (100vw / 2))`, y: `calc((80% / 3) - (100vh / 2) )`, rotation: 0},
 // {x: `calc( ((100vw / 2) - (100% / 3))`, y: `calc( (100vh / 2) - (80% / 3) )`, rotation: 'calc( (0vh) - (0%) )'},
 
-let winsize;
-const calcWinsize = () => winsize = {width: window.innerWidth, height: window.innerHeight};
-calcWinsize()
 
 // calc( -1 * ( ${winsize.width / 2} + (100% / 3))
 
+
+let winsize;
+let vFactor = 2;
+const calcWinsize = () => winsize = {width: window.innerWidth, height: window.innerHeight};
+calcWinsize()
+console.log('winsize: ', winsize)
+
 const positions = [
-    {x: -1 * (winsize.width / 2 + 359.4), y: -1 * (winsize.height / 2 + 504), rotation: -30},
-    {x: -1 * (winsize.width / 2 - 359.4 / 3), y: -1 * (winsize.height / 2 - 504 / 3), rotation: 0},
-    {x: 0, y: 0, rotation: 0},
-    {x: winsize.width / 2 - 359.4 / 3, y: winsize.height / 2 - 504 / 3, rotation: 0},
-    {x: winsize.width / 2 + 359.4, y: winsize.height / 2 + 504, rotation: 30},
+    (size) => ({x: -1 * (winsize.width / 2 + size.width), y: -1 * (winsize.height / 2 + size.height), rotation: -30}),
+    (size) => ({x: -1 * (winsize.width / 2 - size.width / 3), y: -1 * (winsize.height / 2 - size.height / 3), rotation: 0}),
+    () => ({x: 0, y: 0, rotation: 0}),
+    (size) => ({x: winsize.width / 2 - size.width / 3, y: winsize.height / 2 - size.height / 3, rotation: 0}),
+    (size) => ({x: winsize.width / 2 + size.width, y: winsize.height / 2 + size.height, rotation: 30}),
+    (size) => ({x: -1 * (winsize.width / 2 - size.width / 2), y: 0, rotation: 0}),
 ];
 
 const positions2 = {
-prevOut: {x: -1 * (winsize.width / 2 + 359.4), y: -1 * (winsize.height / 2 + 504), rotation: -30},
-prev: {x: -1 * (winsize.width / 2 - 359.4 / 3), y: -1 * (winsize.height / 2 - 504 / 3), rotation: 0},
-current: {x: 0, y: 0, rotation: 0},
-next: {x: winsize.width / 2 - 359.4 / 3, y: winsize.height / 2 - 504 / 3, rotation: 0},
-nextOut: {x: winsize.width / 2 + 359.4, y: winsize.height / 2 + 504, rotation: 30},
+    prevOut: {x: -1 * (winsize.width / 2 + 359.4), y: -1 * (winsize.height / 2 + 504), rotation: -30},
+    prev: {x: -1 * (winsize.width / 2 - 359.4 / 3), y: -1 * (winsize.height / 2 - 504 / 3), rotation: 0},
+    current: {x: 0, y: 0, rotation: 0},
+    next: {x: winsize.width / 2 - 359.4 / 3, y: winsize.height / 2 - 504 / 3, rotation: 0},
+    nextOut: {x: winsize.width / 2 + 359.4, y: winsize.height / 2 + 504, rotation: 30},
 }
 
-function moveToPosition(settings = {overwrite: {}}) {
+function moveToPosition(settings = {overwrite: {}}, size = {width: 0, height: 0}) {
+    const {y, x, rotation} = positions[settings.position](size)
 
     return {
-        x: positions[settings.position].x,
-        y: positions[settings.position].y,
+        x: x,
+        y: y,
         opacity: 1,
         pointerEvents: 'auto',
-        rotationX: 0,
-        rotationY: 0,
-        rotationZ: positions[settings.position].rotation,
+        scale: 1,
+        // rotationX: 0,
+        // rotationY: 0,
+        rotation: rotation,
         transition: {
             duration: settings.duration !== undefined ? settings.duration : .8,
             delay: settings.delay !== undefined ? settings.delay : 0,
@@ -169,9 +206,11 @@ function hide() {
 let exitSlide = null;
 let upcomingPos = null;
 let dir = null;
+const sizeBackup = {height: 0, width: 0};
+
 
 const variants = {
-    getKeyframe(f,l) {
+    getKeyframe(f, l) {
         return {
             x: [null, f.x, l.x],
             y: [null, f.y, l.y],
@@ -188,88 +227,192 @@ const variants = {
         }
     },
 
-    initial: {  },
+    initial(arg){
+        if (!arg.isCurrent)
+            return {
+                opacity: 0,
+            }
+    },
 
-    animate(arg){
+    initial2(arg) {
+
+        if (!arg.isCurrent)
+            return { opacity: 0 }
+
+        return {
+            originX: 0,
+            originY: .5,
+            scale: ( ((winsize.width / sizeBackup.width) * .45 ) / (winsize.height / (sizeBackup.height * 1.2))),
+            x:  -1*(winsize.width/2 - sizeBackup.width / 2 ),
+        }
+    },
+
+    animate(arg) {
+
+        const size = arg.size.get();
+
         let f, l;
-        if ((arg.isNext || arg.isPrev)){
-             f =  moveToPosition({
+        if ((arg.isNext || arg.isPrev)) {
+            f = moveToPosition({
                 position: arg.isNext ? 4 : 0,
                 delay: 0,
                 duration: 0,
                 overwrite: {
                     opacity: 0,
                 }
-            })
+            }, size )
 
             l = moveToPosition({
-                position : arg.isNext ? 3 : 1,
+                position: arg.isNext ? 3 : 1,
                 delay: 0
-            })
+            }, size)
         }
 
-        if (arg.isNext){ //
+        if (arg.isNext) { //
 
-            if (arg.idx === upcomingPos){
-                return variants.getKeyframe( f, l )
+            if (arg.idx === upcomingPos || upcomingPos === null) {
+                return variants.getKeyframe(f, l)
             }
 
             return l;
 
-        }else if(arg.isPrev){  // the previous prev
+        } else if (arg.isPrev) {  // the previous prev
 
-            if (arg.idx === upcomingPos){
+            if (arg.idx === upcomingPos || upcomingPos === null) {
 
-                return variants.getKeyframe( f, l )
+                return variants.getKeyframe(f, l)
 
             }
 
             return l;
 
-        }else if ( arg.isCurrent ){  // the previous next
+        } else if (arg.isCurrent) {  // the previous next
             return moveToPosition({
                 position: 2,
-                delay: 0.07
-            })
-        }else if(arg.idx === exitSlide){
+                delay: 0.07,
+            }, size)
+        } else if (arg.idx === exitSlide) {
             return moveToPosition({
-                position:  dir === 'next' ? 0 : 4,
+                position: dir === 'next' ? 0 : 4,
                 delay: 0,
+                // duration: 0,
                 overwrite: {
                     transitionEnd: {
                         ...hide()
                     }
                 }
-            })
+            }, size)
         }
 
         return hide()
     },
 
+    exit(arg) {
+
+        if (arg.isPrev) {
+            const size = arg.size?.get();
+
+            return moveToPosition({
+                position: 0,
+                delay: 0
+            }, size)
+        } else if (arg.isNext) {
+            const size = arg.size?.get();
+
+            return moveToPosition({
+                position: 4,
+                delay: 0
+            }, size)
+        } else if (arg.isCurrent) {
+
+            const {width, height} = arg.size?.get();
+
+            Window.nodeSize = arg.size?.get();
+
+            return {
+                originX: 0,
+                originY: .5,
+                scale: ( ((winsize.width / width) * .45 ) / (winsize.height / (height * 1.2))),
+                x:  -1*(winsize.width/2 - width / 2 ),
+                transition: {
+                    duration:  .8,
+                    ease: [0.83, 0, 0.17, 1],
+                    delay: .01,
+                }
+            }
+        }
+
+    }
+
 }
 
 const textVariants = {
-    initial: {},
+    initial: {
+        opacity: 0,
+    },
 
-    animate(arg){
-        if (arg.isCurrent){
+    initial2: {
+        opacity: 0,
+    },
+
+    animate(arg) {
+        if (arg.isCurrent) {
             return {
                 opacity: 1,
+                transition: {
+                    duration:  .4,
+                    ease: [0.83, 0, 0.17, 1],
+                    delay: .25,
+                }
             }
         }
         return {
             opacity: 0
         }
     },
+
+    exit() {
+        return {
+            opacity: 0
+        }
+    }
+}
+
+const transition = {
+    duration:  .8,
+    ease: [0.83, 0, 0.17, 1],
 }
 
 
 const SlideItem = ({imgSrc, isCurrent, isPrev, isNext, slideInfo, idx, setSlideInfo, onSlideClick, text = {}}) => {
+
+    const { transDetail } = useContext(AppStateContext);
     const imgWrapRef = useRef(null)
     const upComingData = useMotionValue(null)
+    const size = useMotionValue({width: 0, height: 0})
 
-    function navigate() {
-        if (isCurrent) return;
+
+    useLayoutEffect(() => {
+        function onResize() {
+            const slideWrapper = document.body.querySelector(`.slide .slide-img-wrap-${idx}`);
+            size.set({width: slideWrapper.offsetWidth, height: slideWrapper.offsetHeight});
+            ([sizeBackup.width, sizeBackup.height]  = [slideWrapper.offsetWidth, slideWrapper.offsetHeight]);
+
+        }
+
+        onResize();
+
+        const onResizeDebounced = debounce(onResize, 1)
+
+        window.addEventListener('resize', onResizeDebounced)
+        return () => window.removeEventListener('resize', onResizeDebounced)
+
+    }, [])
+
+    function moveTo() {
+        if (isCurrent){
+            return;
+        }
 
         const current = slideInfo.current;
         const slidesTotal = slideInfo.slidesTotal;
@@ -282,7 +425,7 @@ const SlideItem = ({imgSrc, isCurrent, isPrev, isNext, slideInfo, idx, setSlideI
             (current < slidesTotal - 2 ? current + 2 : Math.abs(slidesTotal - 2 - current)) :
             (current >= 2 ? current - 2 : Math.abs(slidesTotal - 2 + current));
 
-         let newCurrent = isNext ?
+        let newCurrent = isNext ?
             (current < slidesTotal - 1 ? current + 1 : 0) :
             (current > 0 ? current - 1 : slidesTotal - 1);
 
@@ -294,22 +437,35 @@ const SlideItem = ({imgSrc, isCurrent, isPrev, isNext, slideInfo, idx, setSlideI
         onSlideClick(newSlideInfo)
     }
 
+    function navigate(){
+        exitSlide = null;
+        upcomingPos = null;
+        transDetail.set({
+            ...transDetail.get(),
+            activeIdx: idx,
+        })
+    }
+
     return (
         <SlideContainer className={`slide slide-${idx} ${isCurrent ? 'slide--current' : ''} 
                         ${(isPrev || isNext || isCurrent) ? 'slide--visible' : ''}`}
                         variants={{}}
+                        prev={isPrev}
+                        next={isNext}
 
         >
+            {isCurrent  && <Link onClick={navigate}  to={`/project/${idx}`}/>}
 
             <motion.div className={`slide__img-wrap slide-img-wrap-${idx}`} ref={imgWrapRef}
-                        onTap={_ => navigate( idx )}
+                        onTap={_ => moveTo(idx) }
                         variants={variants}
+                        transition={transition}
                         custom={{
                             isPrev, isNext, isCurrent, idx,
-                            isUpcoming: upComingData,
+                            isUpcoming: upComingData, size,
                         }}
             >
-                <h1>{idx}</h1>
+
                 <div className="slide__img" style={{backgroundImage: `url(${imgSrc})`,}}/>
             </motion.div>
 
@@ -330,7 +486,7 @@ const SlideItem = ({imgSrc, isCurrent, isPrev, isNext, slideInfo, idx, setSlideI
                             isUpcoming: upComingData,
                         }}
             >
-                <span className="slide__number">{ idx }</span>
+                <span className="slide__number">{idx}</span>
                 <h3 className="slide__title">{text.title}</h3>
                 <h4 className="slide__subtitle">{text.subtitle}</h4>
             </motion.div>

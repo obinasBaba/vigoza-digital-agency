@@ -1,12 +1,14 @@
 // noinspection CssUnknownTarget
 
-import React, {useRef} from 'react';
+import React, {useContext, useRef} from 'react';
 import styled from "styled-components";
 import HomePage from "./scenes/HomePage";
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import { Route, Routes,Switch, useLocation} from 'react-router-dom'
 import CaseStudy from "./pages/case-study";
 import Fixed from "./components/Fixed";
 import {Typography} from "@material-ui/core";
+import {AnimatePresence} from "framer-motion";
+import {AppStateContext} from "./contexts/AppStateContext";
 
 
 const AppContainer = styled.main`
@@ -16,33 +18,27 @@ const AppContainer = styled.main`
 function App() {
 
     const mainRef = useRef(null);
+    const location = useLocation();
+
+
 
     return (
-        <Router>
 
             <AppContainer ref={mainRef} data-scroll-container id='main-container'>
 
                 <Fixed/>
 
-                <Switch >
-                    <Route exact path='/'>
-                        <HomePage/>
-                    </Route>
-
-                    <Route path='/project/:id' >
-                        <CaseStudy/>
-                    </Route>
-
-                    <Route >
-                        <div>
+                <AnimatePresence exitBeforeEnter={true} >
+                    <Routes location={location} key={location.key}>
+                        <Route exact path='/' element={<HomePage/>}/>
+                        <Route path='/project/:id' element={<CaseStudy/>} />
+                        <Route element={<div>
                             <Typography variant='h1'>PAGE NOT FOUND</Typography>
-                        </div>
-                    </Route>
+                        </div>}/>
 
-
-                </Switch>
+                    </Routes>
+                </AnimatePresence>
             </AppContainer>
-        </Router>
 
     );
 }

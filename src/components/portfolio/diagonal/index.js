@@ -1,8 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import styled from "styled-components";
+import React, {useContext, useEffect, useLayoutEffect, useState} from 'react';
+import styled, {css} from "styled-components";
 import SlideItem from "./Slide";
 import {motion, useAnimation, useMotionValue} from "framer-motion";
 import useDiagonalShowData from "./useDiagonalShowData";
+import {AppStateContext} from "../../../contexts/AppStateContext";
+import {debounce} from "@material-ui/core";
+import {largeUp, mediumDown, mediumUp, smallUp, xLargeUp} from "../../../styles/mixins";
 
 const DiagonalShowContainer = styled(motion.div)`
   position: relative;
@@ -12,10 +15,38 @@ const DiagonalShowContainer = styled(motion.div)`
   height: calc(100vh);
 
   display: grid;
+  //grid-template-columns: 20% 58% 20%;
   grid-template-columns: 33% 33% 33%;
+
   grid-column-gap: 0.5%;
   grid-template-rows: 100%;
   grid-template-areas: ' . slide . ';
+  
+  ${smallUp( css`
+    //display: none;
+    grid-template-columns: 33% 33% 33%;
+
+  ` )};
+  
+  ${xLargeUp( css`
+
+    height: 100vh;
+    grid-template-columns: 27% 27% 27%;
+    grid-column-gap: 9.5%;
+    
+  ` )};
+  
+
+  @media screen and (min-width: 53em) {
+
+  }
+
+  img{
+    position: absolute;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
 
   .slideshow--previewopen .slide {
     cursor: default;
@@ -32,8 +63,10 @@ const DiagonalShowContainer = styled(motion.div)`
     height: 80%;
     align-self: center;
     position: relative;
-    margin: -40px 0 0 0;
-    right: -20px;
+    border-radius: 10px;
+    //margin: -40px 0 0 0;
+    //right: -20px;
+    
   }
 
   .nav {
@@ -85,13 +118,7 @@ const DiagonalShowContainer = styled(motion.div)`
     pointer-events: none;
   }
 
-  @media screen and (min-width: 53em) {
 
-    height: 100vh;
-    grid-template-columns: 27% 27% 27%;
-    grid-column-gap: 9.5%;
-
-  }
 
 
 `
@@ -100,6 +127,10 @@ let winsize;
 const calcWinsize = () => winsize = {width: window.innerWidth, height: window.innerHeight};
 calcWinsize()
 
+const size = {
+    width: 0,
+    height: 0
+};
 
 const slideContainerVariants = {
     initial: {},
@@ -111,22 +142,59 @@ const slideContainerVariants = {
 }
 
 const decoVariants = {
-    animate(arg){
+    initial: {},
+    initial2(arg) {
+        return {
+            scaleX: winsize.width / size.width,
+            // scaleY: `calc((100vh / 80%)*1)`,
+            scaleY: winsize.height / size.height,
+            x: 0,
+            y: 0,
+            // left: 0,
+            // right: 0,
+            // x:  'calc((-100vw / 2) - 50%)',
+            // x: 0,
+            // y: 0,
+        }
+    },
 
+    animate(arg){
         let xy = arg.dir === 'next' ? -40 : arg.dir === 'prev' ? 40 : 0;
         return {
-            x: [null, xy, 0],
-            y: [null, xy, 0],
+            x: [null, xy, 20],
+            y: [null, xy, -20],
+            scaleX: 1,
+            scaleY: 1,
             transition: {
                 duration: 1,
                 times: [0, .4, 1],
-                delay: .07 + .07 * 0.2,
-                ease: [0.83, 0, 0.17, 1],
+                // delay:  arg.transDetail?.get().fromCaseStudy ? .01 : .07 + .07 * 0.2,
+                // ease: [0.83, 0, 0.17, 1],
+
             }
         }
     },
 
+    exit(){
+        return {
+            scaleX: winsize.width / size.width,
+            scaleY: winsize.height / size.height,
+            x: 0,
+            y: 0,
+            transition: {
+                duration:  .8,
+                ease: [0.83, 0, 0.17, 1],
+            }
+        }
+    }
+
 }
+
+const transition = {
+    duration:  .8,
+    delay:  0,
+    ease: [0.83, 0, 0.17, 1],
+};
 
 
 
@@ -135,6 +203,8 @@ let isAnimating = false;
 const Diagonal = () => {
 
     calcWinsize()
+    const { transDetail, nodeLength } = useContext(AppStateContext);
+
 
     const data = useDiagonalShowData()
 
@@ -144,7 +214,7 @@ const Diagonal = () => {
     const [slideInfo, setSlideInfo] = useState({
         slidesTotal: data.length,
         dir: '',
-        current: 0,
+        current: transDetail.get().activeIdx,
         upcomingPos: null,
         nextSlide() {
             return (this.current + 1 <= data.length - 1 ? this.current + 1 : 0);
@@ -155,18 +225,34 @@ const Diagonal = () => {
 
     })
 
+    useLayoutEffect(() => {
+
+        const onResize = () => {
+            const deco = document.body.querySelector(`.slideshow .slideshow__deco`);
+            ([size.width, size.height]  = [deco.offsetWidth, deco.offsetHeight]);
+            pController.start('animate')
+
+        }
+        if (size.width === 0)
+            onResize()
+
+        const onResizeDebounced = debounce(onResize, 1)
+
+        window.addEventListener('resize', onResizeDebounced)
+        return () => window.removeEventListener('resize', onResizeDebounced)
+
+    }, [])
+
     useEffect(() => {
         isAnimating = false;
         pController.start('animate')
 
     }, [slideInfo])
 
-
     useEffect(() => {
         pController.start('animate')
 
     }, [slideInfo])
-
 
     function sClicked({current, dir}) {
         if (isAnimating) return
@@ -180,19 +266,22 @@ const Diagonal = () => {
 
     }
 
-
     return (
         <DiagonalShowContainer className='slideshow'
+                               id='slideshow'
                                variants={slideContainerVariants}
-                               initial='initial'
+                               initial={ transDetail.get().fromCaseStudy ? 'initial2' : 'initial' }
                                animate={pController}
                                exit='exit'
         >
+            <motion.img src={'img/portfolio_bg.jpg'}/>
 
             <motion.div className="slideshow__deco"
                         variants={decoVariants}
-                        custom={{dir: slideInfo.dir}}
+                        custom={{dir: slideInfo.dir, transDetail}}
+                        transition={transition}
             />
+
             {
                 data.map(({img, text}, idx) => {
                     const {prevSlide, nextSlide, current} = slideInfo;

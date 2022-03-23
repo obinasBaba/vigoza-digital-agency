@@ -1,6 +1,6 @@
 export const projectData = [
     {
-        title: 'IO Donna',
+        title: 'Automation',
         intro: 'Fashion artisans at work',
         content: `
                Now, when anything attracted his attention he always asked what it meant; and his mother, or
@@ -15,7 +15,7 @@ export const projectData = [
         imgSrc: '1.jpg',
     },
     {
-        title: 'InStyle',
+        title: 'Machines',
         intro: 'Contemporary makeup art',
         content: `Thus blindness proved no drawback to systematic physical development, while its influence
                             over the moral nature of the child was reduced to its minimum. He was tall for his age and
@@ -28,7 +28,7 @@ export const projectData = [
         imgSrc: '2.jpg',
     },
     {
-        title: 'Glamour',
+        title: 'Coexistence',
         intro: 'Adventures in Moscow',
         content: `The impressions received through the channels of sound outweighed all others in their
                             influence over the life of the blind boy; his ideas shaped themselves according to sounds,
@@ -40,7 +40,7 @@ export const projectData = [
         imgSrc: '3.jpg',
     },
     {
-        title: 'Vogue Paris',
+        title: 'Bellamio',
         intro: 'Gucci festival feature',
         content: `Thus the boy’s day was filled; he could not complain of the lack of new impressions. 
                         He seemed to be living as full a life as any child could possibly live; in fact he really
@@ -50,5 +50,28 @@ export const projectData = [
                             for this omission.`
 ,
         imgSrc: '4.jpg',
+    },{
+        title: 'Pastures',
+        intro: 'Gucci festival feature',
+        content: `Thus the boy’s day was filled; he could not complain of the lack of new impressions. 
+                        He seemed to be living as full a life as any child could possibly live; in fact he really
+                            seemed unconscious of his blindness.
+                        Nevertheless, a certain premature sadness was still perceptible in his character, which Maxim
+                            ascribed to the fact that he had never mingled with other children, and endeavored to atone
+                            for this omission.`
+,
+        imgSrc: '5.jpg',
+    },{
+        title: 'Focus',
+        intro: 'Gucci festival feature',
+        content: `Thus the boy’s day was filled; he could not complain of the lack of new impressions. 
+                        He seemed to be living as full a life as any child could possibly live; in fact he really
+                            seemed unconscious of his blindness.
+                        Nevertheless, a certain premature sadness was still perceptible in his character, which Maxim
+                            ascribed to the fact that he had never mingled with other children, and endeavored to atone
+                            for this omission.`
+,
+        imgSrc: '6.jpg',
     },
 ];
+

@@ -13,7 +13,7 @@ import Diagonal from "./diagonal";
 const PortfolioContainer = styled.div`
   min-height: 100vh;
   //max-width: 100vw;
-  background-image: url("img/portfolio_bg.jpg");
+  //background-image: url("img/portfolio_bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

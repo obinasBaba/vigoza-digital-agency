@@ -12,7 +12,7 @@ import Testimonials from "../../components/Testimonials";
 import useFonts from "../../hooks/useFonts";
 import useLocoScroll from "../../hooks/useLocoScroll";
 import {ScrollStateContext} from "../../contexts/ScrollStateContext";
-import LocomotiveScroll from "locomotive-scroll";
+import {AppStateContext} from "../../contexts/AppStateContext";
 
 const HomePageContainer = styled(motion.main)`
   //max-width: 1900px;
@@ -23,23 +23,25 @@ const HomePageContainer = styled(motion.main)`
 
 const containerVariants = {
     initial: {
-        opacity: 0,
+        // opacity: 0,
     },
 
     animate: {
-        opacity: 1,
-        y: 0,
+        // opacity: 1,
+        // y: 0,
     },
 
     exit: {
-        opacity: 0,
-        y: -40
+        // opacity: 0,
+        // y: -40
     }
 }
 
 const HomePage = () => {
 
     const { locoRef, moScroll: { scrollPos} } = useContext(ScrollStateContext);
+    const { transDetail } = useContext(AppStateContext);
+
 
     const [fontLoaded, setFontLoaded] = useState(false);
 
@@ -48,6 +50,7 @@ const HomePage = () => {
     locoRef.set(useLocoScroll(fontLoaded));
 
     useEffect(() => {
+        return;
         if (scrollPos.get() && locoRef.get().current ){
             locoRef.get().current.scrollTo(scrollPos.get(), {
                 duration : 0,

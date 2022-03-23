@@ -2,7 +2,7 @@ import React, {useContext, useEffect} from 'react';
 import {Typography} from "@material-ui/core";
 import styled, {css} from 'styled-components'
 import {heightWidth, smallUp, spacing, text} from "../../styles/mixins";
-import {AnimatePresence, AnimateSharedLayout, motion} from "framer-motion";
+import {AnimatePresence, motion} from "framer-motion";
 import {AppStateContext} from "../../contexts/AppStateContext";
 
 const PaginationContainer = styled(motion.div)`
@@ -147,7 +147,7 @@ const Pagination = () => {
     }
 
     return (
-        <AnimateSharedLayout>
+        <>
         <PaginationContainer className='pagination-container'>
             {
                 anchors.map((i, index) =>
@@ -160,7 +160,7 @@ const Pagination = () => {
                                key={index}/>)
             }
         </PaginationContainer>
-        </AnimateSharedLayout>
+        </>
 
     );
 };
