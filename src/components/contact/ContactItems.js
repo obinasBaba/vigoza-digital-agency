@@ -37,7 +37,7 @@ const ContactItem = ({Icon, title, subTitle}) => {
             <div className="txt">
                 <Typography variant='body1'>{title}</Typography>
                 <Typography variant='subtitle2' color='textSecondary'> {
-                    subTitle.split(',').map(t => <>{t} <br/></>)
+                    subTitle.split(',').map(t => <React.Fragment key={t}>{t} <br/></React.Fragment>)
                 }</Typography>
             </div>
 

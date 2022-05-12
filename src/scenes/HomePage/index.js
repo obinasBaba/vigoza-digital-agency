@@ -18,7 +18,15 @@ const HomePageContainer = styled(motion.main)`
   //max-width: 1900px;
   margin: 0 auto;
   width: 100%;
-  scroll-snap-type: y mandatory;
+  //max-height: 100vh;
+  //overflow-y: scroll;
+  //scroll-snap-type: y mandatory;
+
+
+  & > *{
+    scroll-snap-align: start;
+
+  }
 `
 
 const containerVariants = {
@@ -43,11 +51,11 @@ const HomePage = () => {
     const { transDetail } = useContext(AppStateContext);
 
 
-    const [fontLoaded, setFontLoaded] = useState(false);
-
-    useFonts(setFontLoaded);
-
-    locoRef.set(useLocoScroll(fontLoaded));
+    // const [fontLoaded, setFontLoaded] = useState(false);
+    //
+    // useFonts(setFontLoaded);
+    //
+    // locoRef.set(useLocoScroll(fontLoaded));
 
     useEffect(() => {
         return;

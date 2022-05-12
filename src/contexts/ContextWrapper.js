@@ -1,15 +1,19 @@
 import React from 'react';
 import AppStateProvider from "./AppStateContext";
 import ScrollStateProvider from "./ScrollStateContext";
+import { UIProviderContext } from "./UIStateContext";
 
-const ContextWrapper = ({children}) => {
-
+const ContextWrapper = ( { children } ) => {
 
 
     return (
         <AppStateProvider>
             <ScrollStateProvider>
-                {children}
+
+                <UIProviderContext>
+                    {children}
+                </UIProviderContext>
+
             </ScrollStateProvider>
         </AppStateProvider>
     );

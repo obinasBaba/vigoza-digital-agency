@@ -1,18 +1,19 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from "styled-components";
-import {ArrowCursor, PointerCursor} from "./CustomMouse";
+import { ArrowCursor, PointerCursor } from "./CustomMouse";
 import Pagination from "../Pagination";
 import AppBar from "./AppBar";
 import NavMenu from "./NavMenu/NavMenu";
-import {ScrollStateContext} from "../../contexts/ScrollStateContext";
-import {AnimatePresence} from "framer-motion";
+import { ScrollStateContext } from "../../contexts/ScrollStateContext";
+import { AnimatePresence } from "framer-motion";
+import CaseStudyModal from "./CaseStudyModal";
 
 
 const FixedContainer = styled.div`
   position: fixed;
   inset: 0;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   z-index: 10;
   
   pointer-events: none;
@@ -39,7 +40,8 @@ const Fixed = () => {
 
     return (
         <FixedContainer>
-            {/*<PointerCursor/>*/}
+            <CaseStudyModal/>
+            <PointerCursor/>
             <ArrowCursor/>
             <Pagination/>
 
@@ -47,7 +49,7 @@ const Fixed = () => {
                 {openNavMenu && <NavMenu/>}
             </AnimatePresence>
 
-            {/*<AppBar status={openNavMenu} onClick={() => setOpenNavMenu(!openNavMenu)}/>*/}
+            <AppBar status={openNavMenu} onClick={() => setOpenNavMenu(!openNavMenu)}/>
 
         </FixedContainer>
     );

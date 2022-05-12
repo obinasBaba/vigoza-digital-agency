@@ -1,13 +1,12 @@
 import React, {useContext, useEffect, useLayoutEffect, useState} from 'react';
-import {useParams} from "react-router-dom";
-import {projectData} from '../data'
+import {projectData} from '../../data'
 import styled from "styled-components";
-import BackArrow from "../components/BackArrow";
+import BackArrow from "../../components/BackArrow";
 import {motion} from "framer-motion";
-import {AppStateContext} from "../contexts/AppStateContext";
-import useDiagonalShowData from "../components/portfolio/diagonal/useDiagonalShowData";
-import {debounce} from "@material-ui/core";
-import { useUI } from "../contexts/UIStateContext";
+import {AppStateContext} from "../../contexts/AppStateContext";
+import useDiagonalShowData from "../../components/portfolio/diagonal/useDiagonalShowData";
+import { debounce, Typography } from "@material-ui/core";
+import { useUI } from "../../contexts/UIStateContext";
 
 
 let winsize;
@@ -45,46 +44,46 @@ const CaseStudyContainer = styled( motion.div )`
     padding: 2rem;
     height: calc(100vh - 300px);
     overflow: auto;
+
+    .item__content-title {
+      font-size: 2.5rem;
+      margin: 0;
+      line-height: 1.2;
+      pointer-events: none;
+    }
+
+    .item__content-title span {
+      display: inline-block;
+      white-space: pre;
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    .item__content-subtitle {
+      font-weight: normal;
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .item__content-text {
+      margin: 10vh 0 4rem 0;
+      position: relative;
+      line-height: 1.5;
+      
+      &::after{
+        content: '';
+        width: 2rem;
+        height: 2px;
+        position: absolute;
+        background: currentColor;
+        top: calc(100% + 3rem);
+      }
+    }
+
   }
 
-  .item__content-title {
-    font-size: 2.5rem;
-    margin: 0;
-    line-height: 1.2;
-    pointer-events: none;
-  }
-
-  .item__content-title span {
-    display: inline-block;
-    white-space: pre;
-    pointer-events: none;
-    will-change: transform;
-  }
-
-  .item__content-subtitle {
-    font-weight: normal;
-    margin: 0;
-    font-size: 1.5rem;
-  }
-
-  .item__content-text {
-    margin: 10vh 0 4rem 0;
-    position: relative;
-    line-height: 1.5;
-  }
-
-  .item__content-text::after {
-    content: '';
-    width: 2rem;
-    height: 2px;
-    position: absolute;
-    background: currentColor;
-    top: calc(100% + 3rem);
-  }
-
+  
   @media screen and (min-width: 53em) {
-    
-    
     
     .item {
       position: relative;
@@ -97,11 +96,11 @@ const CaseStudyContainer = styled( motion.div )`
     .deco{
       position: absolute;
       background: var(--accent400);
-      //top: 10%;
-      height: 100%;
-      width: 100%;
-      //margin: -40px 0 0 0;
-      //right: -20px;
+      top: 10%;
+      height: 80%;
+      width: 27%;
+      margin: -20px -40px 0 0;
+      border-radius: 10px;
     }
 
     .item_img_wrapper {
@@ -109,6 +108,8 @@ const CaseStudyContainer = styled( motion.div )`
       top: 10%;
       height: 80%;
       width: 27%;
+      border-radius: 10px;
+
       //height: 100%;
       //width: 45%;
       //left: 0;
@@ -121,6 +122,8 @@ const CaseStudyContainer = styled( motion.div )`
         width: 100%;
         background-size: cover;
         background-position: 50% 50%;
+        border-radius: 10px;
+
         //transform: translateX(calc( -1 * (100vw / 2 - 50%) ));
       }
     }
@@ -134,21 +137,26 @@ const CaseStudyContainer = styled( motion.div )`
       flex-direction: column;
       align-items: flex-start;
       overflow: visible;
-    }
+      z-index: 999;
 
-    .item__content-title {
-      font-size: 5vw;
-    }
 
-    .item__content-subtitle {
-      font-size: 2vw;
-    }
+      .back-arrow{
+        z-index: 999;
+      }
 
-    .item__content-text {
-      margin-bottom: 0;
+      .item__content-title {
+        font-size: 5vw;
+      }
+
+      .item__content-subtitle {
+        font-size: 2vw;
+      }
+
+      .item__content-text {
+        margin-bottom: 0;
+      }
     }
   }
-
 
   & *{
     pointer-events: auto;
@@ -158,9 +166,9 @@ const CaseStudyContainer = styled( motion.div )`
 
 
 const transition = {
-    duration:  0,
     // delay:  0,
-    // ease: [0.83, 0, 0.17, 1],
+    duration: .8,
+    ease: [0.83, 0, 0.17, 1],
 }
 
 const containerVariant = {
@@ -169,9 +177,8 @@ const containerVariant = {
 
 const imgContainerVariant = {
     animate(){
+        // return;
         if (size.width === 0) return;
-        console.log('size: animate ', size)
-
         const {width, height} = size;
 
         return {
@@ -180,8 +187,6 @@ const imgContainerVariant = {
             scale: ( ((winsize.width / width) * .45 ) / (winsize.height / (height * 1.2))),
             x:  -1*(winsize.width/2 - width / 2 ),
         }
-
-
     },
 
     initial() {
@@ -195,28 +200,29 @@ const imgContainerVariant = {
     },
 
     exit: {
-        // scale: 1,
-        // x: 0,
+        originX: 0,
+        originY: .5,
+        scale: 1,
+        x: 0,
     }
 }
 
 const decoVariants = {
     initial: {
-        // x: 20,
-        // y: -20,
-        // x: 0,
-        // y: 0,
-        // scaleX: winsize.width / 518.391,
-        // scaleY: winsize.height / 756.797,
+
     },
     animate: {
-        // x: 0,
-        // y: 0,
-        // scaleX: winsize.width / 518.391,
-        // scaleY: winsize.height / 756.797,
+        height: '100%',
+        top: 0,
+        width: '100%',
+        margin: 0,
 
     },
     exit: {
+        height: '80%',
+        top: '10%',
+        width: '27%',
+        margin: '-20px -40px 0 0',
         // x: 20,
         // y: -20,
         // scaleX: 1,
@@ -230,7 +236,11 @@ const textVariants = {
     },
 
     animate: {
-        opacity: 1
+        opacity: 1,
+        transition: {
+            ...transition,
+            delay: .5
+        }
     },
     exit: {
         opacity: 0
@@ -251,8 +261,6 @@ const CaseStudy = () => {
 
     useLayoutEffect(() => {
 
-        // window.locoInstance?.update()
-
         /*document.body.querySelector('main#main-container')
             .style.transform = 'initial';*/
 
@@ -272,10 +280,14 @@ const CaseStudy = () => {
 
 
     useEffect(() => {
-/*
-        document.body.querySelector('main#main-container')
-            .style.transform = 'initial';*/
+        /*
+                document.body.querySelector('main#main-container')
+                    .style.transform = 'initial';*/
 
+        transDetail.set({
+            ...transDetail.get(),
+            fromCaseStudy: true
+        })
 
         if (projectData.length < activeIdx) return;
         setProject({...projectData[activeIdx], imgSrc: data[Number(activeIdx)].img  })
@@ -297,22 +309,21 @@ const CaseStudy = () => {
                 <motion.div className='deco'
                             variants={decoVariants}
                             transition={transition}
-                            // layoutId={'deco'}
+                    // layoutId={'deco'}
 
                 />
 
 
                 <motion.div className="item_img_wrapper"
-                            // layoutId={'img'}
                             variants={imgContainerVariant}
-                            // initial={false}
+                    // initial={false}
                             transition={transition}
 
                 >
                     <motion.div className="item_img"
                                 style={{backgroundImage: `url(/${project.imgSrc})`}}
-                                // variants={imgContainerVariant}
-                                // transition={transition}
+                        // variants={imgContainerVariant}
+                        // transition={transition}
 
                     >
 
@@ -331,10 +342,11 @@ const CaseStudy = () => {
 
                 >
 
-                    <div onClick={evt => {
-                        console.log('tooglelksjdf;: ', state, toggleIt)
+                    <div onClick={() => {
+
                         toggleIt()
-                    }}>
+
+                    }} className='back-arrow'>
                         <BackArrow/>
 
                     </div>

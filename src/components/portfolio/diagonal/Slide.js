@@ -1,12 +1,13 @@
-import React, {useContext, useLayoutEffect, useRef} from 'react';
-import styled, {css} from "styled-components";
-import {motion, useMotionValue} from 'framer-motion'
-import {Link} from "react-router-dom";
-import {AppStateContext} from "../../../contexts/AppStateContext";
-import {debounce} from "@material-ui/core";
+import React, { useContext, useEffect, useLayoutEffect, useRef } from 'react';
+import styled, { css } from "styled-components";
+import { motion, useMotionValue } from 'framer-motion'
+import { Link } from "react-router-dom";
+import { AppStateContext } from "../../../contexts/AppStateContext";
+import { debounce } from "@material-ui/core";
+import { useUI } from "../../../contexts/UIStateContext";
 
 
-const SlideContainer = styled(motion.div)`
+const SlideContainer = styled( motion.div )`
   position: absolute;
   width: 100%;
   display: flex;
@@ -16,8 +17,8 @@ const SlideContainer = styled(motion.div)`
   grid-area: slide; //is gridItem
 
   //border: thick solid red;
-  
-  a{
+
+  div.link {
     position: absolute;
     z-index: 100;
     height: 100%;
@@ -34,12 +35,6 @@ const SlideContainer = styled(motion.div)`
 
 
   }
-  
-  ${ ({prev, next}) => (prev || next) && css`
-    .slide__img-wrap{
-      
-    }
-  ` };
 
   .slide__img {
     width: 100%;
@@ -52,25 +47,6 @@ const SlideContainer = styled(motion.div)`
     border-radius: 10px;
     //pointer-events: none;
     //transform: scale3d(1.01, 1.01, 1);
-  }
-
-  .slide__img-wrap,
-  .slide__title-wrap,
-  .slide__side {
-    //opacity: 0;
-    //pointer-events: auto;
-  }
-
-  &.slide--visible .slide__img-wrap {
-    //pointer-events: auto;
-  }
-
-  &.slide--current .slide__img-wrap {
-    //opacity: 1;
-    //pointer-events: auto;
-
-    //border: thick solid red;
-
   }
 
   h1 {
@@ -146,30 +122,22 @@ const SlideContainer = styled(motion.div)`
 
 let winsize;
 let vFactor = 2;
-const calcWinsize = () => winsize = {width: window.innerWidth, height: window.innerHeight};
+const calcWinsize = () => winsize = { width: window.innerWidth, height: window.innerHeight };
 calcWinsize()
-console.log('winsize: ', winsize)
+console.log( 'winsize: ', winsize )
 
 const positions = [
-    (size) => ({x: -1 * (winsize.width / 2 + size.width), y: -1 * (winsize.height / 2 + size.height), rotation: -30}),
-    (size) => ({x: -1 * (winsize.width / 2 - size.width / 3), y: -1 * (winsize.height / 2 - size.height / 3), rotation: 0}),
-    () => ({x: 0, y: 0, rotation: 0}),
-    (size) => ({x: winsize.width / 2 - size.width / 3, y: winsize.height / 2 - size.height / 3, rotation: 0}),
-    (size) => ({x: winsize.width / 2 + size.width, y: winsize.height / 2 + size.height, rotation: 30}),
-    (size) => ({x: -1 * (winsize.width / 2 - size.width / 2), y: 0, rotation: 0}),
+    ( size ) => ({ x: -1 * (winsize.width / 2 + size.width), y: -1 * (winsize.height / 2 + size.height), rotation: -30 }),
+    ( size ) => ({ x: -1 * (winsize.width / 2 - size.width / 3), y: -1 * (winsize.height / 2 - size.height / 3), rotation: 0 }),
+    () => ({ x: 0, y: 0, rotation: 0 }),
+    ( size ) => ({ x: winsize.width / 2 - size.width / 3, y: winsize.height / 2 - size.height / 3, rotation: 0 }),
+    ( size ) => ({ x: winsize.width / 2 + size.width, y: winsize.height / 2 + size.height, rotation: 30 }),
+    ( size ) => ({ x: -1 * (winsize.width / 2 - size.width / 2), y: 0, rotation: 0 }),
 ];
 
-const positions2 = {
-    prevOut: {x: -1 * (winsize.width / 2 + 359.4), y: -1 * (winsize.height / 2 + 504), rotation: -30},
-    prev: {x: -1 * (winsize.width / 2 - 359.4 / 3), y: -1 * (winsize.height / 2 - 504 / 3), rotation: 0},
-    current: {x: 0, y: 0, rotation: 0},
-    next: {x: winsize.width / 2 - 359.4 / 3, y: winsize.height / 2 - 504 / 3, rotation: 0},
-    nextOut: {x: winsize.width / 2 + 359.4, y: winsize.height / 2 + 504, rotation: 30},
-}
 
-function moveToPosition(settings = {overwrite: {}}, size = {width: 0, height: 0}) {
-    const {y, x, rotation} = positions[settings.position](size)
-
+function moveToPosition( settings = { overwrite: {} }, size = { width: 0, height: 0 } ){
+    const { y, x, rotation } = positions[settings.position]( size )
     return {
         x: x,
         y: y,
@@ -188,7 +156,7 @@ function moveToPosition(settings = {overwrite: {}}, size = {width: 0, height: 0}
     }
 }
 
-function hide() {
+function hide(){
     return {
         x: 0,
         y: 0,
@@ -206,11 +174,11 @@ function hide() {
 let exitSlide = null;
 let upcomingPos = null;
 let dir = null;
-const sizeBackup = {height: 0, width: 0};
+const sizeBackup = { height: 0, width: 0 };
 
 
 const variants = {
-    getKeyframe(f, l) {
+    getKeyframe( f, l ){
         return {
             x: [null, f.x, l.x],
             y: [null, f.y, l.y],
@@ -227,33 +195,33 @@ const variants = {
         }
     },
 
-    initial(arg){
-        if (!arg.isCurrent)
+    initial( arg ){
+        if ( !arg.isCurrent )
             return {
                 opacity: 0,
             }
     },
 
-    initial2(arg) {
+    initial2( arg ){
 
-        if (!arg.isCurrent)
+        if ( !arg.isCurrent )
             return { opacity: 0 }
 
         return {
             originX: 0,
             originY: .5,
-            scale: ( ((winsize.width / sizeBackup.width) * .45 ) / (winsize.height / (sizeBackup.height * 1.2))),
-            x:  -1*(winsize.width/2 - sizeBackup.width / 2 ),
+            scale: (((winsize.width / sizeBackup.width) * .45) / (winsize.height / (sizeBackup.height * 1.2))),
+            x: -1 * (winsize.width / 2 - sizeBackup.width / 2),
         }
     },
 
-    animate(arg) {
+    animate( arg ){
 
         const size = arg.size.get();
 
         let f, l;
-        if ((arg.isNext || arg.isPrev)) {
-            f = moveToPosition({
+        if ( (arg.isNext || arg.isPrev) ) {
+            f = moveToPosition( {
                 position: arg.isNext ? 4 : 0,
                 delay: 0,
                 duration: 0,
@@ -262,37 +230,37 @@ const variants = {
                 }
             }, size )
 
-            l = moveToPosition({
+            l = moveToPosition( {
                 position: arg.isNext ? 3 : 1,
                 delay: 0
-            }, size)
+            }, size )
         }
 
-        if (arg.isNext) { //
+        if ( arg.isNext ) { //
 
-            if (arg.idx === upcomingPos || upcomingPos === null) {
-                return variants.getKeyframe(f, l)
+            if ( arg.idx === upcomingPos || upcomingPos === null ) {
+                return variants.getKeyframe( f, l )
             }
 
             return l;
 
-        } else if (arg.isPrev) {  // the previous prev
+        } else if ( arg.isPrev ) {  // the previous prev
 
-            if (arg.idx === upcomingPos || upcomingPos === null) {
+            if ( arg.idx === upcomingPos || upcomingPos === null ) {
 
-                return variants.getKeyframe(f, l)
+                return variants.getKeyframe( f, l )
 
             }
 
             return l;
 
-        } else if (arg.isCurrent) {  // the previous next
-            return moveToPosition({
+        } else if ( arg.isCurrent ) {  // the previous next
+            return moveToPosition( {
                 position: 2,
                 delay: 0.07,
-            }, size)
-        } else if (arg.idx === exitSlide) {
-            return moveToPosition({
+            }, size )
+        } else if ( arg.idx === exitSlide ) {
+            return moveToPosition( {
                 position: dir === 'next' ? 0 : 4,
                 delay: 0,
                 // duration: 0,
@@ -301,45 +269,46 @@ const variants = {
                         ...hide()
                     }
                 }
-            }, size)
+            }, size )
         }
 
         return hide()
     },
 
-    exit(arg) {
+    exit( arg ){
 
-        if (arg.isPrev) {
+        if ( arg.isPrev ) {
             const size = arg.size?.get();
 
-            return moveToPosition({
+            return moveToPosition( {
                 position: 0,
                 delay: 0
-            }, size)
-        } else if (arg.isNext) {
+            }, size )
+        } else if ( arg.isNext ) {
             const size = arg.size?.get();
 
-            return moveToPosition({
+            return moveToPosition( {
                 position: 4,
                 delay: 0
-            }, size)
-        } else if (arg.isCurrent) {
+            }, size )
+        } else if ( arg.isCurrent ) {
+            return;
 
-            const {width, height} = arg.size?.get();
+          /*  const { width, height } = arg.size?.get();
 
             Window.nodeSize = arg.size?.get();
 
             return {
                 originX: 0,
                 originY: .5,
-                scale: ( ((winsize.width / width) * .45 ) / (winsize.height / (height * 1.2))),
-                x:  -1*(winsize.width/2 - width / 2 ),
+                scale: (((winsize.width / width) * .45) / (winsize.height / (height * 1.2))),
+                x: -1 * (winsize.width / 2 - width / 2),
                 transition: {
-                    duration:  .8,
+                    duration: .8,
                     ease: [0.83, 0, 0.17, 1],
                     delay: .01,
                 }
-            }
+            }*/
         }
 
     }
@@ -355,14 +324,14 @@ const textVariants = {
         opacity: 0,
     },
 
-    animate(arg) {
-        if (arg.isCurrent) {
+    animate( arg ){
+        if ( arg.isCurrent ) {
             return {
                 opacity: 1,
                 transition: {
-                    duration:  .4,
-                    ease: [0.83, 0, 0.17, 1],
-                    delay: .25,
+                    ...transition,
+                    duration: .4,
+                    delay: .75,
                 }
             }
         }
@@ -371,46 +340,50 @@ const textVariants = {
         }
     },
 
-    exit() {
+    exit(){
         return {
-            opacity: 0
+            opacity: 0,
+            transition: {
+                duration: .2,
+            }
         }
     }
 }
 
 const transition = {
-    duration:  .8,
+    duration: .8,
     ease: [0.83, 0, 0.17, 1],
 }
 
 
-const SlideItem = ({imgSrc, isCurrent, isPrev, isNext, slideInfo, idx, setSlideInfo, onSlideClick, text = {}}) => {
+const SlideItem = ( { imgSrc, isCurrent, isPrev, isNext, slideInfo, idx, setSlideInfo, onSlideClick, text = {} } ) => {
 
-    const { transDetail } = useContext(AppStateContext);
-    const imgWrapRef = useRef(null)
-    const upComingData = useMotionValue(null)
-    const size = useMotionValue({width: 0, height: 0})
+    const { transDetail } = useContext( AppStateContext );
+    const imgWrapRef = useRef( null )
+    const upComingData = useMotionValue( null )
+    const size = useMotionValue( { width: 0, height: 0 } )
 
+    const {  toggleIt } = useUI();
 
-    useLayoutEffect(() => {
-        function onResize() {
-            const slideWrapper = document.body.querySelector(`.slide .slide-img-wrap-${idx}`);
-            size.set({width: slideWrapper.offsetWidth, height: slideWrapper.offsetHeight});
-            ([sizeBackup.width, sizeBackup.height]  = [slideWrapper.offsetWidth, slideWrapper.offsetHeight]);
+    useLayoutEffect( () => {
+        function onResize(){
+            const slideWrapper = document.body.querySelector( `.slide .slide-img-wrap-${idx}` );
+            size.set( { width: slideWrapper.offsetWidth, height: slideWrapper.offsetHeight } );
+            ([sizeBackup.width, sizeBackup.height] = [slideWrapper.offsetWidth, slideWrapper.offsetHeight]);
 
         }
 
         onResize();
 
-        const onResizeDebounced = debounce(onResize, 1)
+        const onResizeDebounced = debounce( onResize, 1 )
 
-        window.addEventListener('resize', onResizeDebounced)
-        return () => window.removeEventListener('resize', onResizeDebounced)
+        window.addEventListener( 'resize', onResizeDebounced )
+        return () => window.removeEventListener( 'resize', onResizeDebounced )
 
-    }, [])
+    }, [] )
 
-    function moveTo() {
-        if (isCurrent){
+    function moveTo(){
+        if ( isCurrent ) {
             return;
         }
 
@@ -422,8 +395,8 @@ const SlideItem = ({imgSrc, isCurrent, isPrev, isNext, slideInfo, idx, setSlideI
 
 
         upcomingPos = isNext ?
-            (current < slidesTotal - 2 ? current + 2 : Math.abs(slidesTotal - 2 - current)) :
-            (current >= 2 ? current - 2 : Math.abs(slidesTotal - 2 + current));
+            (current < slidesTotal - 2 ? current + 2 : Math.abs( slidesTotal - 2 - current )) :
+            (current >= 2 ? current - 2 : Math.abs( slidesTotal - 2 + current ));
 
         let newCurrent = isNext ?
             (current < slidesTotal - 1 ? current + 1 : 0) :
@@ -434,16 +407,28 @@ const SlideItem = ({imgSrc, isCurrent, isPrev, isNext, slideInfo, idx, setSlideI
             dir
         }
 
-        onSlideClick(newSlideInfo)
+        onSlideClick( newSlideInfo )
     }
 
-    function navigate(){
+    function navigate( evt ){
+        evt.preventDefault();
+
+        window.locoInstance.scrollTo( '#slideshow', {
+            callback: function(){
+
+            }
+        } )
+
+        toggleIt()
+
         exitSlide = null;
         upcomingPos = null;
-        transDetail.set({
+        transDetail.set( {
             ...transDetail.get(),
             activeIdx: idx,
-        })
+            fromCaseStudy: false,
+        } )
+
     }
 
     return (
@@ -454,10 +439,10 @@ const SlideItem = ({imgSrc, isCurrent, isPrev, isNext, slideInfo, idx, setSlideI
                         next={isNext}
 
         >
-            {isCurrent  && <Link onClick={navigate}  to={`/project/${idx}`}/>}
+            {isCurrent && <div className='link' onClick={navigate}/>}
 
             <motion.div className={`slide__img-wrap slide-img-wrap-${idx}`} ref={imgWrapRef}
-                        onTap={_ => moveTo(idx) }
+                        onTap={_ => moveTo( idx )}
                         variants={variants}
                         transition={transition}
                         custom={{
@@ -466,7 +451,7 @@ const SlideItem = ({imgSrc, isCurrent, isPrev, isNext, slideInfo, idx, setSlideI
                         }}
             >
 
-                <div className="slide__img" style={{backgroundImage: `url(${imgSrc})`,}}/>
+                <div className="slide__img" style={{ backgroundImage: `url(${imgSrc})`, }}/>
             </motion.div>
 
             <motion.div className="slide__side"

@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import styled from "styled-components";
 import {spacing} from "../../styles/mixins";
+import { useUI } from "../../contexts/UIStateContext";
 
 const BackArrowContainer = styled.div`
   position: relative;
@@ -30,6 +31,8 @@ const BackArrowContainer = styled.div`
 
 
 const BackArrow = () => {
+
+
     return (
         <BackArrowContainer className="item__content-back"
                    data-pointer
@@ -42,7 +45,6 @@ const BackArrow = () => {
 
                 />
             </svg>
-            <Link to='/'/>
         </BackArrowContainer>
     );
 };

@@ -5,6 +5,11 @@ import {lerp} from "../../../helpers/utils";
 import gsap from "gsap";
 
 
+const Container = styled.div`
+    //position: absolute;
+`
+
+
 const commonMouse = css`
   pointer-events: none;
   position: absolute;
@@ -128,7 +133,7 @@ class PointerCursor extends React.Component {
 
     render() {
         return (
-            <motion.div>
+            <Container>
                 <MouseContainer ref={this.pointerRef} className='pointer'>
                     <motion.div style={{x: this.lastX, y: this.lastY}}>
                         <Outer className='outer-pointer' />
@@ -139,7 +144,7 @@ class PointerCursor extends React.Component {
                     </motion.div>
                 </MouseContainer>
 
-            </motion.div>
+            </Container>
         );
     }
 }

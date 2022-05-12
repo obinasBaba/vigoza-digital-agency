@@ -1,14 +1,12 @@
 // noinspection CssUnknownTarget
 
-import React, {useContext, useEffect, useRef, useState} from 'react';
-import styled, {css} from "styled-components";
-import {AppStateContext} from "../../contexts/AppStateContext";
-import {useIntersection} from "react-use";
-import {gridColWidth, gridify, heightWidth, spacing} from "../../styles/mixins";
-import HeadLine from "../HeadLine";
-import ProjectItems from "./ProjectItems";
-import Menu from "./Menu";
+import React, { useContext, useEffect, useRef } from 'react';
+import styled, { css } from "styled-components";
+import { AppStateContext } from "../../contexts/AppStateContext";
+import { useIntersection } from "react-use";
+import { gridColWidth, heightWidth, spacing } from "../../styles/mixins";
 import Diagonal from "./diagonal";
+import { motion} from "framer-motion";
 
 const PortfolioContainer = styled.div`
   min-height: 100vh;
@@ -17,15 +15,7 @@ const PortfolioContainer = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  //justify-content: center;
-  //display: grid;
-  //place-content: center;
-  
-  
-  
-/*  // ${spacing('pv', 12)};
-  // ${gridify()};
-  // ${spacing('gap', 1)};*/
+ 
 
 `
 
@@ -76,12 +66,10 @@ const Portfolio = () => {
                             // data-scroll-repeat={true}
 
                             id='portfolio'>
-            {/*<HeadLine text='portfolio' styles={HeadLineStyle}/>
 
-            <ContentWrapper>
-                <ProjectItems/>
-                <Menu/>
-            </ContentWrapper>*/}
+
+
+
 
             <Diagonal/>
 
