@@ -7,7 +7,7 @@ import { Route, Routes, Switch, useLocation } from 'react-router-dom'
 import CaseStudy from "./pages/case-study";
 import Fixed from "./components/Fixed";
 import { Typography } from "@material-ui/core";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { AppStateContext } from "./contexts/AppStateContext";
 import useFonts from "./hooks/useFonts";
 import useLocoScroll from "./hooks/useLocoScroll";
@@ -23,7 +23,7 @@ const AppContainer = styled.main`
 
 `
 
-const MainContainer = styled.main`
+const MainContainer = styled( motion.main )`
   width: 100%;
 `
 
@@ -42,10 +42,11 @@ function App(){
 
         <AppContainer>
 
-            <AnimatePresence exitBeforeEnter={true}>
+            <Fixed key='fixed-'/>
 
-                <Fixed/>
-                <MainContainer ref={mainRef} data-scroll-container id='main-container'>
+            <AnimatePresence exitBeforeEnter>
+
+                <MainContainer ref={mainRef} data-scroll-container id='main-container' key='main-container'>
                     <Routes location={location} key={location.key}>
                         <Route exact path='/' element={<HomePage/>}/>
                         <Route path='/project/:id' element={<CaseStudy/>}/>

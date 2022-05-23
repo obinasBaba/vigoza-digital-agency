@@ -1,10 +1,11 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useCallback, useLayoutEffect, useMemo } from 'react';
 import { useMotionValue } from "framer-motion";
 
 
 const initialState = {
     displayCaseStudyEvent: null,
-    displayCaseStudy: false
+    displayCaseStudy: false,
+    displayLoadingPage: true,
 }
 
 
@@ -14,31 +15,43 @@ UIContext.displayName = 'UIContext'
 function uiReducer( state, action ){
     switch ( action.type ) {
         case 'TOGGLE_CASE_STUDY': {
-            const updatedState =  {
+            const updatedState = {
                 ...state,
                 displayCaseStudy: !state.displayCaseStudy
             };
-            updatedState.displayCaseStudyEvent?.set(updatedState.displayCaseStudy)
+            updatedState.displayCaseStudyEvent?.set( updatedState.displayCaseStudy )
             return updatedState;
         }
+        case 'HIDE_LOADING_PAGE': {
+            return {
+                ...state,
+                displayLoadingPage: false,
+            }
+        }
         default:
-            return {}
+            return state
     }
 }
 
 export function UIProvider( props ){
 
-    initialState.displayCaseStudyEvent = useMotionValue(false);
+    initialState.displayCaseStudyEvent = useMotionValue( false );
     const [state, dispatch] = React.useReducer( uiReducer, initialState );
 
-    const toggleIt = () => { //👉🏾 test it with 'useCallback'
+    const toggleIt = () => { // 👉🏾 test it with 'useCallback'
         dispatch( { type: 'TOGGLE_CASE_STUDY' } )
     }
 
+    const hideLoadingPage = useCallback(() => {  // 👉🏾 test it with 'useCallback'
+        dispatch( { type: 'HIDE_LOADING_PAGE' } )
+    }, [])
+
     const value = {  //👉🏾 test it with 'useMemo'
         state,
-        toggleIt
+        toggleIt,
+        hideLoadingPage,
     }
+
 
     return <UIContext.Provider value={value} {...props}/>
 }

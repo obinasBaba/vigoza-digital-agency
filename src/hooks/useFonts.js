@@ -1,7 +1,10 @@
 import {useLayoutEffect} from 'react'
 import FontLoaded from 'fontfaceobserver'
+import { useUI } from "../contexts/UIStateContext";
 
 const useLoadingFonts = ( setFontFinish, deps) => {
+
+    const { hideLoadingPage } = useUI();
 
 
     useLayoutEffect(() => {
@@ -19,9 +22,10 @@ const useLoadingFonts = ( setFontFinish, deps) => {
                 setTimeout(() => {
 
                     setFontFinish(true)
+                    hideLoadingPage();
 
 
-                }, 0)
+                }, 1500)
             })
             .catch(console.error)
 

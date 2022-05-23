@@ -21,7 +21,7 @@ const AboutContainer = styled(Grid)`
     color: var(--p-color);
   }
 
-  ${({inView}) => inView && css`
+  ${({inview}) => inview && css`
     --p-color: #000000;
     --s-color: #000000;
   `};
@@ -190,23 +190,23 @@ const About = () => {
          rootMargin: `0px 0px -400px 0px`,
          threshold: 0,
      })
- 
+
      useEffect(() => {
          if (intersection && intersection.isIntersecting) {
              setInView(true)
              setDotIndex(1)
          } else {
- 
+
          }
- 
- 
+
+
      }, [intersection])
 
     return (
         <AboutContainer xs item container ref={containerRef}
-                        inView={inView}
+                        inview={inView.toString()}
             // data-scroll-section
-            
+
                         data-scroll-class='about-inview'
                         data-scroll-id='about'
                         data-scroll-call="about"

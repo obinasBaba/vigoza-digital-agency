@@ -415,11 +415,10 @@ const SlideItem = ( { imgSrc, isCurrent, isPrev, isNext, slideInfo, idx, setSlid
 
         window.locoInstance.scrollTo( '#slideshow', {
             callback: function(){
-
             }
         } )
 
-        toggleIt()
+
 
         exitSlide = null;
         upcomingPos = null;
@@ -428,6 +427,7 @@ const SlideItem = ( { imgSrc, isCurrent, isPrev, isNext, slideInfo, idx, setSlid
             activeIdx: idx,
             fromCaseStudy: false,
         } )
+        toggleIt()
 
     }
 

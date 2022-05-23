@@ -178,7 +178,7 @@ const MotionBtn = ({slug, txt = 'no-txt', onClick}) => {
                      data-pointer={true}
 
         >
-            <Link to={slug}/>
+            {/*<Link to={slug}/>*/}
 
             <Background variants={bgVariant} transition={transition}/>
 

@@ -52,7 +52,7 @@ const Logo = styled( motion.div )`
   
   path{
     // fill: ${props =>  props.theme.palette.primary.light};
-    fill: ${({menuIsOpen}) => menuIsOpen ? ' var(--accent400)' : 'gray'};
+    fill: ${({menuisopen}) => menuisopen ? ' var(--accent400)' : 'gray'};
     opacity: .8;
   }
 `
@@ -85,7 +85,7 @@ const MenuButton = styled.div`
         }
         
         .menuIcon, .menuIcon::before, .menuIcon::after {
-          background-color: ${({menuIsOpen}) => menuIsOpen ? ' var(--accent700)' : ' var(--accent400)'};
+          background-color: ${({menuisopen}) => menuisopen ? ' var(--accent700)' : ' var(--accent400)'};
         }
       }
       
@@ -102,7 +102,7 @@ const MenuButton = styled.div`
       width: 37%;
       height: 0.15rem;
       margin: auto;
-      background-color: ${({menuIsOpen}) => menuIsOpen ? ' var(--accent400)' : 'gray'};
+      background-color: ${({menuisopen}) => menuisopen ? ' var(--accent400)' : 'gray'};
       //background-color:  var(--accent400);
       transition: all 0.3s;
 
@@ -117,7 +117,7 @@ const MenuButton = styled.div`
         height: 0.15rem;
         width: 70%;
         //background-color: gray;
-        background-color: ${({menuIsOpen}) => menuIsOpen ? ' var(--accent400)' : 'gray'};
+        background-color: ${({menuisopen}) => menuisopen ? ' var(--accent400)' : 'gray'};
 
         //background-color:  var(--accent400);
 
@@ -164,7 +164,7 @@ const AppBar = ({ onClick, status, ...props}) => {
     return (
         <HideOnScroll >
             <AppBarContainer>
-                <Logo menuIsOpen={status} >
+                <Logo menuisopen={status.toString()} >
                     <svg xmlns="http://www.w3.org/2000/svg"
                          width="100%" height="100%" viewBox="0 0 536.905 274.632">
                         <path id="Subtraction_16" data-name="Subtraction 16" d="M2308.212-605.949h-253.43v-58.936l41.73-42.533,3.177-3.278,88.857,1.353-1.9,1.925-42.453,42.533h164.022v58.936Zm-354.517,0H1891.6L1771.307-879.67H1849.4l86.128,172.251,71.911-173.163h294.339v55.673l-35.956,37.383-14.117,14.282-91.125-.3,13.549-13.983,37.256-37.383H2065.465L1953.7-605.95Z" transform="translate(-1771.307 880.582)" fill="#fff"/>
@@ -172,7 +172,7 @@ const AppBar = ({ onClick, status, ...props}) => {
                 </Logo>
 
 
-                <MenuButton menuIsOpen={status}>
+                <MenuButton menuisopen={status.toString()}>
                     <button
                         type="button"
                         className={'menuButton'}

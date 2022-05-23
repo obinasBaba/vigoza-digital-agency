@@ -7,6 +7,8 @@ import NavMenu from "./NavMenu/NavMenu";
 import { ScrollStateContext } from "../../contexts/ScrollStateContext";
 import { AnimatePresence } from "framer-motion";
 import CaseStudyModal from "./CaseStudyModal";
+import LoadingPage from "../LoadingPage";
+import { useUI } from "../../contexts/UIStateContext";
 
 
 const FixedContainer = styled.div`
@@ -24,6 +26,8 @@ const Fixed = () => {
 
     const [openNavMenu, setOpenNavMenu] = useState(false);
     const { locoRef, } = useContext(ScrollStateContext);
+    const { state: { displayLoadingPage } } = useUI();
+
 
 
     useEffect(() => {
@@ -39,7 +43,8 @@ const Fixed = () => {
     }, [locoRef, openNavMenu])
 
     return (
-        <FixedContainer>
+        <FixedContainer key='fixed'>
+
             <CaseStudyModal/>
             <PointerCursor/>
             <ArrowCursor/>
@@ -51,6 +56,9 @@ const Fixed = () => {
 
             <AppBar status={openNavMenu} onClick={() => setOpenNavMenu(!openNavMenu)}/>
 
+            {
+                displayLoadingPage && <LoadingPage/>
+            }
         </FixedContainer>
     );
 };
