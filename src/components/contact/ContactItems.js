@@ -25,8 +25,14 @@ const ContactItemContainer = styled.div`
     flex-flow: column;
     align-items: flex-start;
     //align-self: flex-start;
+
+    span{
+      color: gray;
+    }
+
     & > :first-child{
       color: lightgray;
+      font-weight: bolder;
     }
   }
 `
@@ -37,7 +43,7 @@ const ContactItem = ({Icon, title, subTitle}) => {
             <div className="txt">
                 <Typography variant='body1'>{title}</Typography>
                 <Typography variant='subtitle2' color='textSecondary'> {
-                    subTitle.split(',').map(t => <React.Fragment key={t}>{t} <br/></React.Fragment>)
+                    subTitle.split(',').map(t => <span key={t}>{t} <br/></span>)
                 }</Typography>
             </div>
 

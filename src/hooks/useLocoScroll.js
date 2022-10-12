@@ -11,18 +11,17 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function useLocoScroll(start, elementId = '[data-scroll-container="true"]') {
 
-  const {moScroll} = useContext( ScrollStateContext )
-  const locoScroll = useRef(null)
+  const {moScroll, locoInstance} = useContext( ScrollStateContext )
 
   useLayoutEffect(() => {
-    console.log( 'InLocoInvoked ---- --- --', start)
+    // console.log( 'InLocoInvoked ---- --- --', start)
 
     if (!start) return;
 
 
     const scrollEl = document.querySelector(elementId);
 
-    window.locoInstance = locoScroll.current = new LocomotiveScroll({
+    window.locoInstance = locoInstance.current = new LocomotiveScroll({
       el: scrollEl,
       smooth: true,
       multiplier: 1,
@@ -32,7 +31,7 @@ export default function useLocoScroll(start, elementId = '[data-scroll-container
 
     // whenever when we scroll loco update scrollTrigger
     let activeSection = '';
-    locoScroll.current.on("scroll", arg => {
+    locoInstance.current.on("scroll", arg => {
       ScrollTrigger.update();
       moScroll.x.set(arg.scroll.x)
       moScroll.y.set(arg.scroll.y)
@@ -85,27 +84,27 @@ export default function useLocoScroll(start, elementId = '[data-scroll-container
       // pinType: document.querySelector('').style.transform ? 'transform': 'fixed',
 
       scrollTop(value) {
-        if (locoScroll.current) {
+        if (locoInstance.current) {
           return arguments.length
-            ? locoScroll.current.scrollTo(value, 0, 0)
-            : locoScroll.current.scroll.instance.scroll.y;
+            ? locoInstance.current.scrollTo(value, 0, 0)
+            : locoInstance.current.scroll.instance.scroll.y;
         }
         return null;
       },
 
       scrollLeft(value) {
-        if (locoScroll.current) {
+        if (locoInstance.current) {
           return arguments.length
-            ? locoScroll.current.scrollTo(value, 0, 0)
-            : locoScroll.current.scroll.instance.scroll.x;
+            ? locoInstance.current.scrollTo(value, 0, 0)
+            : locoInstance.current.scroll.instance.scroll.x;
         }
         return null;
       },
     });
 
     const lsUpdate = () => {
-      if (locoScroll.current) {
-        locoScroll.current.update();
+      if (locoInstance.current) {
+        locoInstance.current.update();
       }
     };
 
@@ -114,21 +113,21 @@ export default function useLocoScroll(start, elementId = '[data-scroll-container
     ScrollTrigger.refresh();
 
     setTimeout(() => {
-      if (locoScroll.current)
-        locoScroll.current.update()
+      if (locoInstance.current)
+        locoInstance.current.update()
 
     }, 0)
 
     return () => {
-      if (locoScroll.current) {
+      if (locoInstance.current) {
         window.removeEventListener('resize', lsUpdate)
         ScrollTrigger.removeEventListener("refresh", lsUpdate);
-        locoScroll.current.destroy();
-        locoScroll.current = null;
-        console.log("Kill", locoScroll.current);
+        locoInstance.current.destroy();
+        locoInstance.current = null;
+        console.log("Kill", locoInstance.current);
       }
     };
   }, [start]);
 
-  return locoScroll.current;
+  return locoInstance.current;
 }

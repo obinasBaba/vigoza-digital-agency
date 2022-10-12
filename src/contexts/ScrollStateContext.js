@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import {useMotionValue} from "framer-motion";
 
 export const ScrollStateContext = React.createContext(false)
@@ -16,6 +16,7 @@ const ScrollStateProvider = ( {children} ) => {
     const locoRef = useMotionValue(null)
     const scrollPos = useMotionValue(null)
     const speed = useMotionValue(null)
+    const locoInstance = useRef(null);
 
 
 
@@ -23,6 +24,7 @@ const ScrollStateProvider = ( {children} ) => {
         <ScrollStateContext.Provider value={{
             locoRef,
             moScroll: {x, y, limit, scrollDirection, scrollPos, speed},
+            locoInstance
         }} >
 
             {children}

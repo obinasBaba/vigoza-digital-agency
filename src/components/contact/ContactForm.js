@@ -15,23 +15,24 @@ const FormContainer = styled.div`
 const Form = styled.div`
   display: flex;
   flex-flow: column;
-  background: rgba(234, 232, 232, 0.6);
+  background: rgba(182, 179, 179, 0.6);
   backdrop-filter: blur(3px);
   width: max-content;
   margin-top: auto;
+  margin-bottom: auto;
   border-radius: 20px;
   color: black !important;
-  
+
   & > :first-child {
     & > :last-child {
       margin-left: 2rem;
     }
   }
 
-  ${spacing('p', 5)};
-  ${spacing('ml', 2)};
-  ${spacing('mb', 2)};
-  ${heightWidth('gap', 3)};
+  ${spacing( 'p', 5 )};
+  ${spacing( 'ml', 2 )};
+  ${spacing( 'mb', 2 )};
+  ${heightWidth( 'gap', 3 )};
 `
 
 const ContactForm = () => {

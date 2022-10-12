@@ -82,7 +82,7 @@ const HomePage = () => {
 
             <Hero/>
             <About/>
-            <Testimonials/>
+            {/*<Testimonials/>*/}
             <Services/>
             <Portfolio/>
             <BLogs/>

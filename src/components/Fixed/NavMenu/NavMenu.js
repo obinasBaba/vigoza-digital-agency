@@ -1,12 +1,13 @@
 // noinspection HtmlUnknownTarget,CssUnknownTarget
 
-import React, {useEffect} from 'react';
-import styled, {keyframes} from "styled-components";
-import {PointerCursor} from "../CustomMouse";
-import {text} from "../../../styles/mixins";
-import {motion} from "framer-motion";
-import {transition} from "../../../helpers/variants";
+import React, { useContext, useEffect } from 'react';
+import styled, { keyframes } from "styled-components";
+import { PointerCursor } from "../CustomMouse";
+import { text } from "../../../styles/mixins";
+import { motion } from "framer-motion";
+import { transition } from "../../../helpers/variants";
 import { menuItemVariants, menuVariants, containerVariants } from './variants.js'
+import { ScrollStateContext } from "../../../contexts/ScrollStateContext";
 
 const marquee = keyframes`
   0% {
@@ -30,7 +31,7 @@ const NavMenuContainer = styled( motion.div )`
   &::before {
     content: '';
     position: fixed;
-    animation: grain 8s  infinite;
+    //animation: grain 8s  infinite;
     background-image: url(../img/noise.png);
     height: 300%;
     left: -50%;
@@ -39,7 +40,7 @@ const NavMenuContainer = styled( motion.div )`
     width: 300%;
   }
 
-  @keyframes grain {
+  @keyframes grain1 {
     0%, 100% {
       transform: translate(0, 0);
     }
@@ -103,7 +104,7 @@ const MenuItem = styled( motion.div )`
     height: 50vh;
     max-height: 400px;
     opacity: 0;
-    
+
     z-index: 5;
   }
 
@@ -137,10 +138,10 @@ const MenuItemLink = styled.a`
     bottom: 60%;
     left: -4%;
     pointer-events: none;
-    text-shadow: 1px 1px 1px  var(--accent400);
+    text-shadow: 1px 1px 1px var(--accent400);
     color: var(--accent400);
-    
-    ${text(1)};
+
+    ${text( 1 )};
   }
 
   &:hover {
@@ -159,11 +160,11 @@ const MenuItemLink = styled.a`
     opacity: 1;
     transition-duration: 0.4s;
   }
-  
-  &:hover ~ .marquee{
+
+  &:hover ~ .marquee {
     border-top: thin solid black;
     border-bottom: thin solid black;
-    
+
     transition: border-top-color 0s linear 1s, border-bottom-color 0s linear 1s;
   }
 
@@ -197,7 +198,7 @@ const Track = styled.div`
     transition: opacity 0.1s;
     z-index: 10;
     mix-blend-mode: difference;
-    
+
     ${marquee};
 
 
@@ -205,7 +206,7 @@ const Track = styled.div`
       text-align: center;
       font-style: italic;
       font-family: raisonne-bold, serif;
-      color:  #036c68;
+      color: #036c68;
       mix-blend-mode: difference;
     }
 
@@ -213,101 +214,148 @@ const Track = styled.div`
   }
 `
 
+const menuData = [{ name: 'welcome', img: 'img/2.png' }, {
+    name: 'about',
+    img: 'img/hero2.jpg'
+}, // { name: '#service', img: 'img/3.jpg' },
+    { name: 'portfolio', img: 'img/4.jpg' },
+    { name: 'blog', img: 'img/5.jpg' },
+    { name: 'contact', img: 'img/5.jpg' }];
 
-const NavMenu = () => {
+const NavMenu = ( { state: { openNavMenu, setOpenNavMenu } } ) => {
 
-
-    useEffect(() => {
-        const items = document.body.querySelectorAll('.menu__item .menu__item-link')
-            items.forEach(item => {
-                item.addEventListener('mouseenter', () => {
-                    PointerCursor.pointed(true)
-                })
-
-                item.addEventListener('mouseleave', () => {
-                    PointerCursor.pointed(false)
-                })
-            })
+    const { locoInstance } = useContext( ScrollStateContext )
 
 
-        return () => {};
-    }, []);
-    
+    useEffect( () => {
+        const items = document.body.querySelectorAll( '.menu__item .menu__item-link' )
+        items.forEach( item => {
+            item.addEventListener( 'mouseenter', () => {
+                PointerCursor.pointed( true )
+            } )
 
-    return (
-        <NavMenuContainer variants={containerVariants}
-                          transition={transition}
-                          initial='initial'
-                          animate='animate'
-                          exit='exit'
+            item.addEventListener( 'mouseleave', () => {
+                PointerCursor.pointed( false )
+            } )
+        } )
 
-        >
-            <Menu className="menu" variants={menuVariants}>
 
-                <MenuItem className="menu__item" data-pointer={true} variants={menuItemVariants} >
-                    <MenuItemLink href='#' className="menu__item-link">Showreel</MenuItemLink>
-                    <img className="menu__item-img" src="img/1.jpg" alt="Sasfasdfasd ome "/>
-                    <Track className="marquee">
-                        <div className="marquee__inner" aria-hidden="true">
-                            <span>Showreel</span>
-                            <span>Showreel</span>
-                            <span>Showreel</span>
-                            <span>Showreel</span>
-                        </div>
-                    </Track>
-                </MenuItem>
-                <MenuItem className="menu__item" data-pointer={true} variants={menuItemVariants} >
-                    <MenuItemLink href='#' className="menu__item-link">Case Studies</MenuItemLink>
-                    <img className="menu__item-img" src="img/2.jpg" alt="Soasdf asdfme "/>
-                    <Track className="marquee">
-                        <div className="marquee__inner" aria-hidden="true">
-                            <span>Case Studies</span>
-                            <span>Case Studies</span>
-                            <span>Case Studies</span>
-                            <span>Case Studies</span>
-                        </div>
-                    </Track>
-                </MenuItem>
-                <MenuItem className="menu__item" data-pointer={true} variants={menuItemVariants} >
-                    <MenuItemLink href='#' className="menu__item-link">Experiments</MenuItemLink>
-                    <img className="menu__item-img" src="img/3.jpg" alt="Some asdfas df"/>
-                    <Track className="marquee">
-                        <div className="marquee__inner" aria-hidden="true">
-                            <span>Experiments</span>
-                            <span>Experiments</span>
-                            <span>Experiments</span>
-                            <span>Experiments</span>
-                        </div>
-                    </Track>
-                </MenuItem>
-                <MenuItem className="menu__item" data-pointer={true} variants={menuItemVariants} >
-                    <MenuItemLink href='#' className="menu__item-link">Our Crew</MenuItemLink>
-                    <img className="menu__item-img" src="img/4.jpg" alt="Somasdf asdfe "/>
-                    <Track className="marquee">
-                        <div className="marquee__inner" aria-hidden="true">
-                            <span>The Crew</span>
-                            <span>The Crew</span>
-                            <span>The Crew</span>
-                            <span>The Crew</span>
-                        </div>
-                    </Track>
-                </MenuItem>
-                <MenuItem className="menu__item" data-pointer={true} variants={menuItemVariants} >
-                    <MenuItemLink href='#' className="menu__item-link">Contact</MenuItemLink>
-                    <img className="menu__item-img" src="img/5.jpg" alt="Some "/>
-                    <Track className="marquee">
-                        <div className="marquee__inner" aria-hidden="true">
-                            <span>Contact</span>
-                            <span>Contact</span>
-                            <span>Contact</span>
-                            <span>Contact</span>
-                        </div>
-                    </Track>
-                </MenuItem>
+        return () => {
+        };
+    }, [] );
 
-            </Menu>
-        </NavMenuContainer>
-    );
+    const onMenuClick = ( id ) => {
+        setTimeout( () => {
+            locoInstance.current?.scrollTo( id, {
+                easing: [1, 0.1, 0.23, 0.96], duration: 1000
+            } )
+        }, 1000 )
+    }
+
+
+    return (<NavMenuContainer variants={containerVariants}
+                              transition={transition}
+                              initial='initial'
+                              animate='animate'
+                              exit='exit'
+
+    >
+        <Menu className="menu" variants={menuVariants}>
+
+            {
+
+                menuData.map( ( { name, img } ) => (
+                    <MenuItem className="menu__item" data-pointer={true} variants={menuItemVariants}
+                              key={name}
+                              onClick={() => {
+                                  onMenuClick( `#${name}` )
+                                  setOpenNavMenu( false )
+                              }}
+                    >
+                        <MenuItemLink href='#' className="menu__item-link">{name}</MenuItemLink>
+                        <img className="menu__item-img" src={img} alt="nav menu image"/>
+                        <Track className="marquee">
+                            <div className="marquee__inner" aria-hidden="true">
+                                <span>{name}</span>
+                                <span>{name}</span>
+                                <span>{name}</span>
+                                <span>{name}</span>
+                            </div>
+                        </Track>
+                    </MenuItem>) )}
+
+
+            {/* <MenuItem className="menu__item" data-pointer={true} variants={menuItemVariants}
+                      onClick={() => {
+                          onMenuClick( '#welcome' )
+                          setOpenNavMenu( false )
+                      }}
+            >
+                <MenuItemLink href='#' className="menu__item-link">Welcome</MenuItemLink>
+                <img className="menu__item-img" src="img/1.jpg" alt="Sasfasdfasd ome "/>
+                <Track className="marquee">
+                    <div className="marquee__inner" aria-hidden="true">
+                        <span>Welcome</span>
+                        <span>Welcome</span>
+                        <span>Welcome</span>
+                        <span>Welcome</span>
+                    </div>
+                </Track>
+            </MenuItem>
+
+
+            <MenuItem className="menu__item" data-pointer={true} variants={menuItemVariants}>
+                <MenuItemLink href='#' className="menu__item-link">Case Studies</MenuItemLink>
+                <img className="menu__item-img" src="img/2.jpg" alt="Soasdf asdfme "/>
+                <Track className="marquee">
+                    <div className="marquee__inner" aria-hidden="true">
+                        <span>Case Studies</span>
+                        <span>Case Studies</span>
+                        <span>Case Studies</span>
+                        <span>Case Studies</span>
+                    </div>
+                </Track>
+            </MenuItem>
+
+            <MenuItem className="menu__item" data-pointer={true} variants={menuItemVariants}>
+                <MenuItemLink href='#' className="menu__item-link">Experiments</MenuItemLink>
+                <img className="menu__item-img" src="img/3.jpg" alt="Some asdfas df"/>
+                <Track className="marquee">
+                    <div className="marquee__inner" aria-hidden="true">
+                        <span>Experiments</span>
+                        <span>Experiments</span>
+                        <span>Experiments</span>
+                        <span>Experiments</span>
+                    </div>
+                </Track>
+            </MenuItem>
+            <MenuItem className="menu__item" data-pointer={true} variants={menuItemVariants}>
+                <MenuItemLink href='#' className="menu__item-link">Our Crew</MenuItemLink>
+                <img className="menu__item-img" src="img/4.jpg" alt="Somasdf asdfe "/>
+                <Track className="marquee">
+                    <div className="marquee__inner" aria-hidden="true">
+                        <span>The Crew</span>
+                        <span>The Crew</span>
+                        <span>The Crew</span>
+                        <span>The Crew</span>
+                    </div>
+                </Track>
+            </MenuItem>
+            <MenuItem className="menu__item" data-pointer={true} variants={menuItemVariants}>
+                <MenuItemLink href='#' className="menu__item-link">Contact</MenuItemLink>
+                <img className="menu__item-img" src="img/5.jpg" alt="Some "/>
+                <Track className="marquee">
+                    <div className="marquee__inner" aria-hidden="true">
+                        <span>Contact</span>
+                        <span>Contact</span>
+                        <span>Contact</span>
+                        <span>Contact</span>
+                    </div>
+                </Track>
+            </MenuItem>*/}
+
+        </Menu>
+    </NavMenuContainer>);
 };
 
 export default NavMenu;

@@ -51,14 +51,12 @@ const Fixed = () => {
             <Pagination/>
 
             <AnimatePresence exitBeforeEnter>
-                {openNavMenu && <NavMenu/>}
+                {openNavMenu && <NavMenu state={{openNavMenu, setOpenNavMenu}} />}
             </AnimatePresence>
 
             <AppBar status={openNavMenu} onClick={() => setOpenNavMenu(!openNavMenu)}/>
 
-            {
-                displayLoadingPage && <LoadingPage/>
-            }
+
         </FixedContainer>
     );
 };

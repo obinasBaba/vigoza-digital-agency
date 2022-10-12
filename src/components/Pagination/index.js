@@ -140,7 +140,7 @@ const Pagination = () => {
     }
 
     Pagination.ScrollPaginationTo = (sectionId) => {
-        console.log('setDotIndex : ', sectionId)
+        // console.log('setDotIndex : ', sectionId)
         if (anchors.includes(sectionId))
             setDotIndex( anchors.indexOf(sectionId) )
 
